@@ -3,7 +3,6 @@ backend:
   repo: LukeDamian12/chofir
   branch: main
   base_url: https://sofirmolo-cms-auth.lucasblenckmann.workers.dev
-  auth_endpoint: auth
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
