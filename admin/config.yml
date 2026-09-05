@@ -1,0 +1,87 @@
+backend:
+  name: github
+  repo: LukeDamian12/chofir
+  branch: main
+  base_url: https://sofirmolo-cms-auth.lucasblenckmann.workers.dev
+  auth_endpoint: auth
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "videos"
+    label: "Videos"
+    folder: "content/videos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "YouTube", name: "youtube", widget: "string", required: false}
+      - {label: "BitChute", name: "bitchute", widget: "string", required: false}
+      - {label: "Odysee", name: "odysee", widget: "string", required: false}
+      - {label: "Link de descarga", name: "download", widget: "string", required: false}
+      - {label: "Notas adicionales", name: "body", widget: "markdown", required: false}
+
+  - name: "directos"
+    label: "Directos"
+    folder: "content/directos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "YouTube", name: "youtube", widget: "string", required: false}
+      - {label: "BitChute", name: "bitchute", widget: "string", required: false}
+      - {label: "Odysee", name: "odysee", widget: "string", required: false}
+      - {label: "Link de descarga", name: "download", widget: "string", required: false}
+      - {label: "Notas adicionales", name: "body", widget: "markdown", required: false}
+
+  - name: "articulos"
+    label: "Artículos"
+    folder: "content/articulos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción / introducción", name: "description", widget: "text"}
+      - {label: "Autor", name: "author", widget: "string", required: false}
+      - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Texto del artículo", name: "body", widget: "markdown"}
+
+  - name: "recursos"
+    label: "Recursos"
+    folder: "content/recursos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Categoría", name: "categoria", widget: "string", required: false}
+      - {label: "Link de descarga (PDF)", name: "archivo", widget: "string", required: false}
+      - {label: "Link para leer online", name: "enlace", widget: "string", required: false}
+      - {label: "Notas adicionales", name: "body", widget: "markdown", required: false}
+
+  - name: "bitacora"
+    label: "Bitácora"
+    files:
+      - name: "bitacora"
+        label: "Lo más reciente"
+        file: "_data/bitacora.json"
+        fields:
+          - label: "Entradas"
+            name: "entradas"
+            widget: "list"
+            fields:
+              - {label: "Fecha", name: "fecha", widget: "date", format: "YYYY-MM-DD"}
+              - {label: "Texto", name: "texto", widget: "string"}
+
+      - name: "systemlog"
+        label: "Log de sistema (frases)"
+        file: "_data/systemlog.json"
+        fields:
+          - label: "Frases"
+            name: "frases"
+            widget: "list"

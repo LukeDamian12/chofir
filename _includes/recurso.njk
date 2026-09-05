@@ -1,0 +1,24 @@
+---
+layout: base.njk
+modo_lectura: true
+---
+          <section class="section reveal from-right" id="recurso-detail">
+            <div class="section-head">
+              <h2 class="section-title" data-text="{{ title }}">{{ title }}</h2>
+            </div>
+
+            <div class="resource-card">
+              <div class="resource-preview">{{ categoria | default("RECURSO") }}<br>{{ title }}</div>
+              <div class="resource-body">
+                <div class="meta">BIBLIOTECA ABIERTA{% if categoria %} · {{ categoria }}{% endif %}</div>
+                <h3>{{ title }}</h3>
+                <p>{{ description }}</p>
+                {% if archivo %}<p><a href="{{ archivo }}" class="ctr-link" target="_blank" rel="noopener">DESCARGAR RECURSO →</a></p>{% endif %}
+                {% if enlace %}<p><a href="{{ enlace }}" class="ctr-link" target="_blank" rel="noopener">LEER ONLINE →</a></p>{% endif %}
+              </div>
+            </div>
+
+            {{ content | safe }}
+
+            <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+          </section>

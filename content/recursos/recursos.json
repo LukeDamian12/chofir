@@ -1,0 +1,5 @@
+{
+  "layout": "recurso.njk",
+  "permalink": "/recursos/{{ page.fileSlug }}/",
+  "tags": "recursos"
+}

@@ -1,0 +1,24 @@
+---
+layout: base.njk
+modo_lectura: true
+---
+          <section class="section reveal from-left" id="articulo-detail">
+            <div class="section-head">
+              <h2 class="section-title" data-text="{{ title }}">{{ title }}</h2>
+            </div>
+
+            <div class="article-layout">
+              <div class="article-cover">{{ title }}</div>
+              <div class="article-body">
+                <div class="meta">PUBLICACION ESCRITA{% if date %} · {{ date }}{% endif %}{% if author %} · {{ author }}{% endif %}</div>
+                <h3>{{ title }}</h3>
+                <p>{{ description }}</p>
+              </div>
+            </div>
+
+            <div class="article-body" style="margin-top:24px;">
+              {{ content | safe }}
+            </div>
+
+            <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+          </section>
