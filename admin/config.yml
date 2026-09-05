@@ -2,7 +2,7 @@ backend:
   name: github
   repo: LukeDamian12/chofir
   branch: main
-  base_url: sveltia-cms-auth.lucasblenckmann.workers.dev
+  base_url: https://sveltia-cms-auth.lucasblenckmann.workers.dev
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
