@@ -1,8 +1,6 @@
 backend:
-  name: github
-  repo: LukeDamian12/chofir
+  name: git-gateway
   branch: main
-  base_url: https://sofirmolo-cms-auth.lucasblenckmann.workers.dev
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
