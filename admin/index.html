@@ -4,13 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sofirmolo // Panel de administración</title>
-  <!-- Widget de autenticación de Netlify Identity -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Aquí agregamos la URL de tu Netlify para que el widget no se pierda -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" data-url="https://srml.netlify.app"></script>
 </head>
 <body>
-  <!-- Script principal de Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <!-- Script para conectar el widget con el inicio de sesión -->
   <script>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
