@@ -2,121 +2,75 @@
 layout: base.njk
 ---
 
-          <section class="section reveal from-up" id="videos">
-            <div class="section-head">
-              <h2 class="section-title" data-text="VIDEOS & RECIENTES">VIDEOS & RECIENTES</h2>
-            </div>
+{% set videos = collections.videos %}
+{% set destacadoVideo = videos[0] %}
+{% set restoVideos = videos.slice(1) %}
+{% set platformThumbs = platformThumbnails | default({}) %}
+<section class="section reveal from-up" id="videos">
+  <div class="section-head"><h2 class="section-title" data-text="VIDEOS & RECIENTES">VIDEOS & RECIENTES</h2></div>
+  {% if destacadoVideo %}
+  <div class="feature-grid">
+    <div class="feature-media">
+      {% if destacadoVideo.data.youtube %}<div class="video-embed-wrap"><iframe src="{{ destacadoVideo.data.youtube | youtubeEmbed }}" title="{{ destacadoVideo.data.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      {% elif destacadoVideo.data.bitchute %}<div class="video-embed-wrap"><iframe src="{{ destacadoVideo.data.bitchute | bitchuteEmbed }}" title="{{ destacadoVideo.data.title }}" loading="lazy" allowfullscreen></iframe></div>
+      {% elif destacadoVideo.data.odysee %}<div class="video-embed-wrap"><iframe src="{{ destacadoVideo.data.odysee | odyseeEmbed }}" title="{{ destacadoVideo.data.title }}" loading="lazy" allowfullscreen></iframe></div>
+      {% else %}<a class="media-placeholder" href="{{ destacadoVideo.url }}"><img src="{% if destacadoVideo.data.thumbnail %}{{ destacadoVideo.data.thumbnail }}{% elif destacadoVideo.data.youtube %}{{ destacadoVideo.data.youtube | youtubeThumbnail }}{% elif destacadoVideo.data.bitchute %}{{ platformThumbs[destacadoVideo.data.bitchute] | default('/assets/thumbs/bitchute.svg') }}{% elif destacadoVideo.data.odysee %}{{ platformThumbs[destacadoVideo.data.odysee] | default('/assets/thumbs/odysee.svg') }}{% else %}/assets/thumbs/video.svg{% endif %}" alt="{{ destacadoVideo.data.title }}"><span class="media-overlay-title">{{ destacadoVideo.data.title }}</span><span class="ctr-play-btn"></span></a>{% endif %}
+    </div>
+    <div class="feature-copy"><div class="meta">VIDEO MAS RECIENTE · {{ destacadoVideo.data.date }}</div><h3>{{ destacadoVideo.data.title }}</h3><p>{{ destacadoVideo.data.description | default('Archivo audiovisual de SoFirMoLo.') }}</p><a href="{{ destacadoVideo.url }}" class="ctr-link">VER VIDEO COMPLETO →</a></div>
+  </div>
+  {% endif %}
+  <div class="carousel-wrap"><div class="carousel-track" id="videos-track">
+    {% for item in restoVideos %}{% if item.data.thumbnail %}{% set thumb = item.data.thumbnail %}{% elif item.data.youtube %}{% set thumb = item.data.youtube | youtubeThumbnail %}{% elif item.data.bitchute %}{% set thumb = platformThumbs[item.data.bitchute] | default('/assets/thumbs/bitchute.svg') %}{% elif item.data.odysee %}{% set thumb = platformThumbs[item.data.odysee] | default('/assets/thumbs/odysee.svg') %}{% else %}{% set thumb = '/assets/thumbs/video.svg' %}{% endif %}
+    <a class="card" href="{{ item.url }}"><div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"{% if item.data.odysee %} data-platform-thumb="{{ item.data.odysee }}"{% elif item.data.bitchute %} data-platform-thumb="{{ item.data.bitchute }}"{% endif %}><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · {{ item.data.date }}</div><h4>{{ item.data.title }}</h4><p>{{ item.data.description | default('Ver publicación completa.') }}</p></a>
+    {% endfor %}
+  </div></div>
+</section>
 
-            <div class="feature-grid">
-              <div class="feature-media">
-                <div class="ctr-play-btn"></div>
-                <div class="media-placeholder">PUBLICACION PRINCIPAL<br><small>REPRODUCTOR AUDIOVISUAL</small></div>
-              </div>
-              <div class="feature-copy">
-                <div class="meta">CONTENIDO DESTACADO</div>
-                <h3>Última Producción</h3>
-                <p>El contenido audiovisual más reciente ocupa el centro de la pantalla. Acceso directo al video completo y análisis complementario.</p>
-                <a href="#" class="ctr-link">VER VIDEO COMPLETO →</a>
-              </div>
-            </div>
+{% set directos = collections.directos %}
+{% set destacadoDirecto = directos[0] %}
+{% set restoDirectos = directos.slice(1) %}
+<section class="section reveal from-right" id="livestreams">
+  <div class="section-head"><h2 class="section-title" data-text="TRANSMISIONES EN VIVO">TRANSMISIONES EN VIVO</h2></div>
+  {% if destacadoDirecto %}
+  <div class="feature-grid">
+    <div class="feature-media">
+      {% if destacadoDirecto.data.youtube %}<div class="video-embed-wrap"><iframe src="{{ destacadoDirecto.data.youtube | youtubeEmbed }}" title="{{ destacadoDirecto.data.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      {% elif destacadoDirecto.data.bitchute %}<div class="video-embed-wrap"><iframe src="{{ destacadoDirecto.data.bitchute | bitchuteEmbed }}" title="{{ destacadoDirecto.data.title }}" loading="lazy" allowfullscreen></iframe></div>
+      {% elif destacadoDirecto.data.odysee %}<div class="video-embed-wrap"><iframe src="{{ destacadoDirecto.data.odysee | odyseeEmbed }}" title="{{ destacadoDirecto.data.title }}" loading="lazy" allowfullscreen></iframe></div>
+      {% else %}{% if destacadoDirecto.data.thumbnail %}{% set thumb = destacadoDirecto.data.thumbnail %}{% elif destacadoDirecto.data.youtube %}{% set thumb = destacadoDirecto.data.youtube | youtubeThumbnail %}{% elif destacadoDirecto.data.bitchute %}{% set thumb = destacadoDirecto.data.bitchute | platformThumbnail('directo') %}{% elif destacadoDirecto.data.odysee %}{% set thumb = destacadoDirecto.data.odysee | platformThumbnail('directo') %}{% else %}{% set thumb = '/assets/thumbs/directo.svg' %}{% endif %}<a class="media-placeholder" href="{{ destacadoDirecto.url }}"><img src="{{ thumb }}" alt="{{ destacadoDirecto.data.title }}"{% if destacadoDirecto.data.odysee %} data-platform-thumb="{{ destacadoDirecto.data.odysee }}"{% elif destacadoDirecto.data.bitchute %} data-platform-thumb="{{ destacadoDirecto.data.bitchute }}"{% endif %}><span class="media-overlay-title">{{ destacadoDirecto.data.title }}</span><span class="ctr-play-btn"></span></a>{% endif %}
+    </div>
+    <div class="feature-copy"><div class="meta">TRANSMISION RECIENTE · {{ destacadoDirecto.data.date }}</div><h3>{{ destacadoDirecto.data.title }}</h3><p>{{ destacadoDirecto.data.description | default('Grabación integral de una transmisión de SoFirMoLo.') }}</p><a href="{{ destacadoDirecto.url }}" class="ctr-link">ACCEDER AL DIRECTO →</a></div>
+  </div>
+  {% endif %}
+  <div class="carousel-wrap"><div class="carousel-track" id="live-track">
+    {% for item in restoDirectos %}{% if item.data.thumbnail %}{% set thumb = item.data.thumbnail %}{% elif item.data.youtube %}{% set thumb = item.data.youtube | youtubeThumbnail %}{% elif item.data.bitchute %}{% set thumb = platformThumbs[item.data.bitchute] | default('/assets/thumbs/bitchute.svg') %}{% elif item.data.odysee %}{% set thumb = platformThumbs[item.data.odysee] | default('/assets/thumbs/odysee.svg') %}{% else %}{% set thumb = '/assets/thumbs/directo.svg' %}{% endif %}
+    <a class="card" href="{{ item.url }}"><div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"{% if item.data.odysee %} data-platform-thumb="{{ item.data.odysee }}"{% elif item.data.bitchute %} data-platform-thumb="{{ item.data.bitchute }}"{% endif %}><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">HISTORIAL DE LIVES · {{ item.data.date }}</div><h4>{{ item.data.title }}</h4><p>{{ item.data.description | default('Ver transmisión completa.') }}</p></a>
+    {% endfor %}
+  </div></div>
+</section>
 
-            <div class="carousel-wrap">
-              <div class="carousel-track" id="videos-track">
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO I</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Episodio Anterior</h4><p>Resumen y notas de la publicación.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO II</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Episodio Anterior</h4><p>Resumen y notas de la publicación.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO III</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Episodio Anterior</h4><p>Resumen y notas de la publicación.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO IV</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Episodio Anterior</h4><p>Resumen y notas de la publicación.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO V</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Archivo Experimental</h4><p>Material de prueba para navegación horizontal.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO VI</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Conversación Abierta</h4><p>Registro ficticio para comprobar el auto-scroll.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO VII</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Ensayo Visual</h4><p>Contenido de prueba dentro del carril horizontal.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>VIDEO VIII</div><div class="meta">ARCHIVO AUDIOVISUAL</div><h4>Registro Nocturno</h4><p>Elemento adicional para verificar el recorrido.</p></article>
-              </div>
-            </div>
-          </section>
+{% set articulos = collections.articulos %}
+{% set destacadoArt = articulos[0] %}
+{% set restoArt = articulos.slice(1) %}
+<section class="section reveal from-left" id="articles">
+  <div class="section-head"><h2 class="section-title" data-text="ARTICULOS & ENSAYOS">ARTICULOS & ENSAYOS</h2></div>
+  {% if destacadoArt %}{% set thumb = destacadoArt.data.thumbnail or '/assets/thumbs/article.svg' %}
+  <div class="article-layout"><a class="article-cover" href="{{ destacadoArt.url }}"><img src="{{ thumb }}" alt="Miniatura: {{ destacadoArt.data.title }}"><span class="thumb-shade"></span><span class="article-cover-label">ARTÍCULO DESTACADO</span></a><div class="article-body"><div class="meta">PUBLICACION ESCRITA · {{ destacadoArt.data.date }}{% if destacadoArt.data.author %} · {{ destacadoArt.data.author }}{% endif %}</div><h3>{{ destacadoArt.data.title }}</h3><p>{{ destacadoArt.data.description | default('Ensayo y publicación escrita de SoFirMoLo.') }}</p><a href="{{ destacadoArt.url }}" class="ctr-link">LEER ARTICULO →</a></div></div>
+  {% endif %}
+  <div class="carousel-wrap"><div class="carousel-track" id="articles-track">
+    {% for item in restoArt %}{% set thumb = item.data.thumbnail or '/assets/thumbs/article.svg' %}<a class="card article-card" href="{{ item.url }}"><div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"{% if item.data.odysee %} data-platform-thumb="{{ item.data.odysee }}"{% elif item.data.bitchute %} data-platform-thumb="{{ item.data.bitchute }}"{% endif %}><span class="thumb-shade"></span><span class="article-cover-label">ARTÍCULO</span></div><div class="meta">PUBLICACION ESCRITA · {{ item.data.date }}</div><h4>{{ item.data.title }}</h4><p>{{ item.data.description | default('Leer publicación completa.') }}</p></a>{% endfor %}
+  </div></div>
+</section>
 
-          <section class="section reveal from-right" id="livestreams">
-            <div class="section-head">
-              <h2 class="section-title" data-text="TRANSMISIONES EN VIVO">TRANSMISIONES EN VIVO</h2>
-            </div>
-
-            <div class="feature-grid">
-              <div class="feature-media">
-                <div class="ctr-play-btn"></div>
-                <div class="media-placeholder">ULTIMO DIRECTO<br><small>GRABACION INTEGRAL</small></div>
-              </div>
-              <div class="feature-copy">
-                <div class="meta">TRANSMISION RECIENTE</div>
-                <h3>Directo en Grabación</h3>
-                <p>La transmisión en vivo más reciente almacenada en alta definición con debate interactivo.</p>
-                <a href="#" class="ctr-link">ACCEDER AL DIRECTO →</a>
-              </div>
-            </div>
-
-            <div class="carousel-wrap">
-              <div class="carousel-track" id="live-track">
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>DIRECTO I</div><div class="meta">HISTORIAL DE LIVES</div><h4>Emisión Pasada</h4><p>Detalles del debate y minutos clave.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>DIRECTO II</div><div class="meta">HISTORIAL DE LIVES</div><h4>Emisión Pasada</h4><p>Detalles del debate y minutos clave.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>DIRECTO III</div><div class="meta">HISTORIAL DE LIVES</div><h4>Emisión Pasada</h4><p>Detalles del debate y minutos clave.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>DIRECTO IV</div><div class="meta">HISTORIAL DE LIVES</div><h4>Mesa Abierta</h4><p>Debate ficticio para probar el desplazamiento.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>DIRECTO V</div><div class="meta">HISTORIAL DE LIVES</div><h4>Sesión Especial</h4><p>Registro de prueba del carrusel automático.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>DIRECTO VI</div><div class="meta">HISTORIAL DE LIVES</div><h4>Archivo Debate</h4><p>Contenido simulado para comprobar el scroll.</p></article>
-                <article class="card"><div class="card-cover"><div class="ctr-play-btn ctr-play-btn-sm"></div>DIRECTO VII</div><div class="meta">HISTORIAL DE LIVES</div><h4>Última Mesa</h4><p>Elemento adicional de navegación horizontal.</p></article>
-              </div>
-            </div>
-          </section>
-
-          <section class="section reveal from-left" id="articles">
-            <div class="section-head">
-              <h2 class="section-title" data-text="ARTICULOS & ENSAYOS">ARTICULOS & ENSAYOS</h2>
-            </div>
-
-            <div class="article-layout">
-              <div class="article-cover">LECTURA PRINCIPAL</div>
-              <div class="article-body">
-                <div class="meta">PUBLICACION ESCRITA</div>
-                <h3>Ensayo Destacado</h3>
-                <p>Análisis en profundidad y textos de investigación crítica estructurados para libre lectura.</p>
-                <a href="#" class="ctr-link">LEER ARTICULO →</a>
-              </div>
-            </div>
-
-            <div class="carousel-wrap">
-              <div class="carousel-track" id="articles-track">
-                <article class="card article-card"><div class="card-cover">LECTURA I</div><div class="meta">ENSAYO HISTORICO</div><h4>Texto / Análisis</h4><p>Extracto introductorio del escrito.</p></article>
-                <article class="card article-card"><div class="card-cover">LECTURA II</div><div class="meta">CRITICA CULTURAL</div><h4>Texto / Análisis</h4><p>Extracto introductorio del escrito.</p></article>
-                <article class="card article-card"><div class="card-cover">LECTURA III</div><div class="meta">INVESTIGACION</div><h4>Texto / Análisis</h4><p>Extracto introductorio del escrito.</p></article>
-                <article class="card article-card"><div class="card-cover">LECTURA IV</div><div class="meta">FILOSOFIA</div><h4>Notas sobre el tiempo</h4><p>Contenido ficticio para verificar el desplazamiento automático.</p></article>
-                <article class="card article-card"><div class="card-cover">LECTURA V</div><div class="meta">ESTETICA</div><h4>La imagen y el archivo</h4><p>Ensayo de prueba dentro de la cinta horizontal.</p></article>
-                <article class="card article-card"><div class="card-cover">LECTURA VI</div><div class="meta">POLITICA</div><h4>Debate y espacio público</h4><p>Texto simulado para comprobar el auto-scroll.</p></article>
-                <article class="card article-card"><div class="card-cover">LECTURA VII</div><div class="meta">CULTURA</div><h4>Fragmentos urbanos</h4><p>Elemento adicional de prueba visual y funcional.</p></article>
-                <article class="card article-card"><div class="card-cover">LECTURA VIII</div><div class="meta">ARCHIVO</div><h4>Documento perdido</h4><p>Último elemento ficticio para cerrar el recorrido.</p></article>
-              </div>
-            </div>
-          </section>
-
-          <section class="section reveal from-right" id="resources">
-            <div class="section-head">
-              <h2 class="section-title" data-text="RECURSOS & ARCHIVO">RECURSOS & ARCHIVO</h2>
-            </div>
-
-            <div class="resource-card">
-              <div class="resource-preview">DOCUMENTACION<br>PDF / FUENTES</div>
-              <div class="resource-body">
-                <div class="meta">BIBLIOTECA ABIERTA</div>
-                <h3>Recurso Destacado</h3>
-                <p>Documentos PDF, investigaciones de archivo y referencias externas listas para su consulta.</p>
-                <a href="#" class="ctr-link">DESCARGAR RECURSO →</a>
-              </div>
-            </div>
-
-            <div class="carousel-wrap">
-              <div class="carousel-track resource-track" id="resources-track">
-                <article class="card"><div class="card-cover">ARCHIVO I</div><div class="meta">PDF / FUENTES</div><h4>Documento de Prueba</h4><p>Recurso ficticio para comprobar el scroll horizontal.</p></article>
-                <article class="card"><div class="card-cover">ARCHIVO II</div><div class="meta">BIBLIOTECA</div><h4>Bibliografía Expandida</h4><p>Material simulado para probar el auto-scroll cada 10 segundos.</p></article>
-                <article class="card"><div class="card-cover">ARCHIVO III</div><div class="meta">INVESTIGACION</div><h4>Fuente Complementaria</h4><p>Referencia de prueba dentro del carril de recursos.</p></article>
-                <article class="card"><div class="card-cover">ARCHIVO IV</div><div class="meta">HEMEROTECA</div><h4>Recorte Digital</h4><p>Elemento ficticio para verificar el desplazamiento.</p></article>
-                <article class="card"><div class="card-cover">ARCHIVO V</div><div class="meta">DOCUMENTACION</div><h4>Cuaderno de Campo</h4><p>Registro simulado para testear la navegación libre.</p></article>
-                <article class="card"><div class="card-cover">ARCHIVO VI</div><div class="meta">REFERENCIAS</div><h4>Índice General</h4><p>Último recurso ficticio del recorrido horizontal.</p></article>
-              </div>
-            </div>
-          </section>
+{% set recursos = collections.recursos %}
+{% set destacadoRec = recursos[0] %}
+{% set restoRec = recursos.slice(1) %}
+<section class="section reveal from-right" id="resources">
+  <div class="section-head"><h2 class="section-title" data-text="RECURSOS & ARCHIVO">RECURSOS & ARCHIVO</h2></div>
+  {% if destacadoRec %}{% set thumb = destacadoRec.data.thumbnail or '/assets/thumbs/recurso.svg' %}
+  <div class="resource-card"><a class="resource-preview" href="{{ destacadoRec.url }}"><img src="{{ thumb }}" alt="Miniatura: {{ destacadoRec.data.title }}"><span class="thumb-shade"></span><span class="article-cover-label">RECURSO DESTACADO</span></a><div class="resource-body"><div class="meta">BIBLIOTECA ABIERTA · {{ destacadoRec.data.date }}</div><h3>{{ destacadoRec.data.title }}</h3><p>{{ destacadoRec.data.description | default('Documento y material de consulta.') }}</p><a href="{{ destacadoRec.url }}" class="ctr-link">VER RECURSO →</a></div></div>
+  {% endif %}
+  <div class="carousel-wrap"><div class="carousel-track resource-track" id="resources-track">
+    {% for item in restoRec %}{% set thumb = item.data.thumbnail or '/assets/thumbs/recurso.svg' %}<a class="card" href="{{ item.url }}"><div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"{% if item.data.odysee %} data-platform-thumb="{{ item.data.odysee }}"{% elif item.data.bitchute %} data-platform-thumb="{{ item.data.bitchute }}"{% endif %}><span class="thumb-shade"></span><span class="article-cover-label">{{ item.data.categoria | default('ARCHIVO') }}</span></div><div class="meta">RECURSO · {{ item.data.date }}</div><h4>{{ item.data.title }}</h4><p>{{ item.data.description | default('Abrir recurso.') }}</p></a>{% endfor %}
+  </div></div>
+</section>

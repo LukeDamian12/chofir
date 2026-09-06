@@ -2,23 +2,10 @@
 layout: base.njk
 modo_lectura: true
 ---
-          <section class="section reveal from-left" id="articulo-detail">
-            <div class="section-head">
-              <h2 class="section-title" data-text="{{ title }}">{{ title }}</h2>
-            </div>
-
-            <div class="article-layout">
-              <div class="article-cover">{{ title }}</div>
-              <div class="article-body">
-                <div class="meta">PUBLICACION ESCRITA{% if date %} · {{ date }}{% endif %}{% if author %} · {{ author }}{% endif %}</div>
-                <h3>{{ title }}</h3>
-                <p>{{ description }}</p>
-              </div>
-            </div>
-
-            <div class="article-body" style="margin-top:24px;">
-              {{ content | safe }}
-            </div>
-
-            <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
-          </section>
+<section class="section reveal from-left" id="articulo-detail">
+  <div class="section-head"><h2 class="section-title" data-text="{{ title }}">{{ title }}</h2></div>
+  {% set thumb = thumbnail or '/assets/thumbs/article.svg' %}
+  <div class="article-layout"><a class="article-cover" href="{{ thumb }}" target="_blank" rel="noopener"><img src="{{ thumb }}" alt="{{ title }}"><span class="thumb-shade"></span><span class="article-cover-label">ARTÍCULO</span></a><div class="article-body"><div class="meta">PUBLICACION ESCRITA{% if date %} · {{ date }}{% endif %}{% if author %} · {{ author }}{% endif %}</div><h3>{{ title }}</h3><p>{{ description | default('Publicación escrita de SoFirMoLo.') }}</p></div></div>
+  <div class="article-body" style="margin-top:24px;">{{ content | safe }}</div>
+  <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+</section>

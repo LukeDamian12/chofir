@@ -17,6 +17,7 @@ collections:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descripción", name: "description", widget: "text"}
       - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - {label: "YouTube", name: "youtube", widget: "string", required: false}
       - {label: "BitChute", name: "bitchute", widget: "string", required: false}
       - {label: "Odysee", name: "odysee", widget: "string", required: false}
@@ -32,6 +33,7 @@ collections:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descripción", name: "description", widget: "text"}
       - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - {label: "YouTube", name: "youtube", widget: "string", required: false}
       - {label: "BitChute", name: "bitchute", widget: "string", required: false}
       - {label: "Odysee", name: "odysee", widget: "string", required: false}
@@ -48,6 +50,7 @@ collections:
       - {label: "Descripción / introducción", name: "description", widget: "text"}
       - {label: "Autor", name: "author", widget: "string", required: false}
       - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - {label: "Texto del artículo", name: "body", widget: "markdown"}
 
   - name: "recursos"
@@ -58,6 +61,7 @@ collections:
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - {label: "Categoría", name: "categoria", widget: "string", required: false}
       - {label: "Link de descarga (PDF)", name: "archivo", widget: "string", required: false}
       - {label: "Link para leer online", name: "enlace", widget: "string", required: false}

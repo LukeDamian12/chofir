@@ -1271,6 +1271,75 @@ footer p + p { margin-top: 6px; }
   height: 100%;
   border: 0;
 }
+
+/* =========================================================
+   THUMBNAILS UNIVERSALES
+   ========================================================= */
+.card-cover img,
+.article-cover img,
+.resource-preview img,
+.media-placeholder img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 0;
+  transition: transform .35s ease, filter .35s ease;
+}
+.card-cover .thumb-shade,
+.article-cover .thumb-shade,
+.resource-preview .thumb-shade,
+.media-placeholder .thumb-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.78));
+  pointer-events: none;
+}
+.card:hover .card-cover img,
+.article-cover:hover img,
+.resource-preview:hover img,
+.media-placeholder:hover img {
+  transform: scale(1.055);
+  filter: contrast(1.08) saturate(1.08);
+}
+.media-placeholder {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #fff;
+  background: #000;
+}
+.media-placeholder .ctr-play-btn { z-index: 3; }
+.media-overlay-title,
+.article-cover-label {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  z-index: 3;
+  color: #fff;
+  font: bold 12px/1.35 "Courier New", monospace;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px #000;
+}
+.article-cover-label { color: var(--red-glow); text-transform: uppercase; }
+
+
+/* Carruseles: el JS controla el avance; CSS evita saltos y peleas con touch. */
+.carousel-track { scroll-snap-type: x proximity; }
+.carousel-track > .card { scroll-snap-align: start; }
+.carousel-track.is-user-interacting { scroll-behavior: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .carousel-track { scroll-behavior: auto; }
+}
+
 </style>
 </head>
 <body>
@@ -1280,7 +1349,7 @@ footer p + p { margin-top: 6px; }
 
     <div class="boot" id="boot" aria-hidden="true">
       <div class="boot-inner">
-        <div class="boot-logo">Bienvenido</div>
+        <div class="boot-logo" id="bootMessage">Bienvenido</div>
         <div class="boot-sub">
           <div class="boot-progress" aria-label="Carga del sitio">
             <div class="boot-progress-fill" id="bootProgressFill"></div>
@@ -1293,8 +1362,6 @@ footer p + p { margin-top: 6px; }
         </div>
       </div>
     </div>
-
-
 
     <nav class="side-nav side-nav-left" aria-label="Navegación principal">
       <aside class="side-welcome" aria-label="Espacio personal">
@@ -1326,30 +1393,17 @@ footer p + p { margin-top: 6px; }
         <div class="section-divider"></div>
 
         <main class="core-content">
-          <section class="section reveal from-left" id="articulo-detail">
-            <div class="section-head">
-              <h2 class="section-title" data-text="Mi primer artículo de prueba">Mi primer artículo de prueba</h2>
-            </div>
-
-            <div class="article-layout">
-              <div class="article-cover">Mi primer artículo de prueba</div>
-              <div class="article-body">
-                <div class="meta">PUBLICACION ESCRITA · 2026-09-04 · SoFirMoLo</div>
-                <h3>Mi primer artículo de prueba</h3>
-                <p>Introducción breve del artículo, para probar que la plantilla funciona.</p>
-              </div>
-            </div>
-
-            <div class="article-body" style="margin-top:24px;">
-              <p>Acá va el texto completo del artículo. Podés escribir varios párrafos,
+<section class="section reveal from-left" id="articulo-detail">
+  <div class="section-head"><h2 class="section-title" data-text="Mi primer artículo de prueba">Mi primer artículo de prueba</h2></div>
+  
+  <div class="article-layout"><a class="article-cover" href="/assets/thumbs/article.svg" target="_blank" rel="noopener"><img src="/assets/thumbs/article.svg" alt="Mi primer artículo de prueba"><span class="thumb-shade"></span><span class="article-cover-label">ARTÍCULO</span></a><div class="article-body"><div class="meta">PUBLICACION ESCRITA · 2026-09-04 · SoFirMoLo</div><h3>Mi primer artículo de prueba</h3><p>Introducción breve del artículo, para probar que la plantilla funciona.</p></div></div>
+  <div class="article-body" style="margin-top:24px;"><p>Acá va el texto completo del artículo. Podés escribir varios párrafos,
 usar <strong>negrita</strong>, <em>cursiva</em>, listas, etc. — esto es Markdown, un formato
 de texto simple. Más adelante, el panel de administración (Decap CMS) te
 va a dar un editor visual para escribir esto sin tener que tipear estos símbolos a mano.</p>
-
-            </div>
-
-            <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
-          </section>
+</div>
+  <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+</section>
 
         </main>
 
@@ -1372,12 +1426,39 @@ va a dar un editor visual para escribir esto sin tener que tipear estos símbolo
 
 <script>
 (() => {
+  // Reveal de elementos: imprescindible para que la portada no quede invisible.
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('is-visible'));
+  }
+
   // Boot screen
   const boot = document.getElementById('boot');
   const bootFill = document.getElementById('bootProgressFill');
   const bootPercent = document.getElementById('bootPercent');
   let bootLoaded = false;
   let bootProgress = 0;
+
+  // La pantalla de bienvenida aparece una sola vez por navegador.
+  // En las siguientes páginas internas se muestra "Cargando".
+  const bootMessage = document.getElementById('bootMessage');
+  let firstVisit = false;
+  try {
+    firstVisit = localStorage.getItem('sofirmolo_has_visited') !== '1';
+  } catch (e) {
+    firstVisit = true;
+  }
+  if (bootMessage) bootMessage.textContent = firstVisit ? 'Bienvenido' : 'Cargando';
 
   const updateBootProgress = (value) => {
     bootProgress = Math.max(0, Math.min(100, value));
@@ -1393,7 +1474,10 @@ va a dar un editor visual para escribir esto sin tener que tipear estos símbolo
     if (bootLoaded) {
       updateBootProgress(100);
       clearInterval(bootTimer);
-      setTimeout(() => boot && boot.classList.add('hidden'), 280);
+      setTimeout(() => {
+        if (boot) boot.classList.add('hidden');
+        try { localStorage.setItem('sofirmolo_has_visited', '1'); } catch (e) {}
+      }, 280);
       return;
     }
 
@@ -1482,54 +1566,144 @@ va a dar un editor visual para escribir esto sin tener que tipear estos símbolo
     ciclo();
   })();
 
-  // Seguimiento de posición del mouse (lo usa el efecto de partículas)
-  let mx = -100, my = -100;
-  addEventListener('pointermove', e => {
-    mx = e.clientX; my = e.clientY;
-  }, {passive: true});
+  /* =========================================================
+     MINIATURAS REALES DE PLATAFORMAS
+     Odysee: Lighthouse -> thumbnail_url -> Odysee CDN
+     BitChute: API beta -> thumbnail_url
+     ========================================================= */
+  (() => {
+    const imgs = [...document.querySelectorAll('img[data-platform-thumb]')];
+    if (!imgs.length) return;
 
-  // Reveal Animations
-  const revealItems = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, {threshold: 0.1});
-    revealItems.forEach(el => io.observe(el));
-  } else {
-    revealItems.forEach(el => el.classList.add('is-visible'));
-  }
+    const cacheKey = 'sofirmolo-platform-thumbs-v2';
+    let cache = {};
+    try { cache = JSON.parse(localStorage.getItem(cacheKey) || '{}'); } catch (_) {}
 
-  // Scroll buttons
-  document.querySelectorAll('[data-scroll]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const el = document.getElementById(btn.dataset.scroll);
-      if (el) el.scrollBy({left: Number(btn.dataset.dir) * 300, behavior: 'smooth'});
+    const remember = (source, thumb, img) => {
+      if (!thumb) return;
+      cache[source] = thumb;
+      try { localStorage.setItem(cacheKey, JSON.stringify(cache)); } catch (_) {}
+      img.src = thumb;
+      img.classList.add('platform-thumb-loaded');
+    };
+
+    const odyseeRequest = (source) => {
+      try {
+        const u = new URL(source);
+        const path = decodeURIComponent(u.pathname.replace(/^\/+|\/+$/g, ''));
+        const colon = path.lastIndexOf(':');
+        if (colon < 1) return Promise.resolve(null);
+        const name = path.slice(0, colon);
+        const claimId = path.slice(colon + 1);
+        const endpoint = 'https://lighthouse.odysee.tv/search?s=' + encodeURIComponent(name) +
+          '&size=20&from=0&include=channel,thumbnail_url,title,description,duration,release_time&mediaType=video';
+        return fetch(endpoint, { credentials: 'omit' })
+          .then(r => r.ok ? r.json() : null)
+          .then(rows => {
+            if (!Array.isArray(rows)) return null;
+            const item = rows.find(x => String(x.claimId || '') === claimId) || rows[0];
+            const raw = item && item.thumbnail_url;
+            if (!raw) return null;
+            return 'https://thumbnails.odycdn.com/optimize/s:640:360/quality:85/plain/' + raw;
+          });
+      } catch (_) { return Promise.resolve(null); }
+    };
+
+    const bitchuteRequest = (source) => {
+      try {
+        const m = String(source).match(/bitchute\.com\/(?:video|embed)\/([^/?#]+)/i);
+        if (!m) return Promise.resolve(null);
+        const id = m[1];
+        return fetch('https://api.bitchute.com/api/beta/search/videos', {
+          method: 'POST',
+          headers: {'content-type': 'application/json'},
+          body: JSON.stringify({
+            offset: 0,
+            limit: 20,
+            query: id,
+            sensitivity_id: 'normal',
+            sort: 'new'
+          }),
+          credentials: 'omit'
+        })
+          .then(r => r.ok ? r.json() : null)
+          .then(data => {
+            const videos = data && Array.isArray(data.videos) ? data.videos : [];
+            const item = videos.find(x => String(x.video_id || '') === id) || videos[0];
+            return item && item.thumbnail_url ? item.thumbnail_url : null;
+          });
+      } catch (_) { return Promise.resolve(null); }
+    };
+
+    imgs.forEach(img => {
+      const source = img.dataset.platformThumb;
+      if (!source) return;
+      if (cache[source]) {
+        img.src = cache[source];
+        img.classList.add('platform-thumb-loaded');
+        return;
+      }
+
+      let request = null;
+      try {
+        const host = new URL(source).hostname.toLowerCase();
+        if (host === 'odysee.com' || host.endsWith('.odysee.com')) request = odyseeRequest(source);
+        else if (host === 'bitchute.com' || host.endsWith('.bitchute.com')) request = bitchuteRequest(source);
+      } catch (_) {}
+
+      if (!request) return;
+      request.then(thumb => {
+        if (thumb) remember(source, thumb, img);
+      }).catch(() => {});
     });
-  });
+  })();
 
   /* =========================================================
-     AUTO-SCROLL CADA 10 SEGUNDOS — TODOS LOS CARRILES HORIZONTALES
+     AUTO-SCROLL ROBUSTO
      ========================================================= */
+  // Posición del cursor para la red de partículas.
+  let mx = -100, my = -100;
+  addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, {passive:true});
+
   const tracks = [...document.querySelectorAll('.carousel-track')];
+  const interactionTimers = new WeakMap();
+
+  const pauseTrack = (track, delay = 9000) => {
+    track.dataset.paused = '1';
+    track.classList.add('is-user-interacting');
+    const old = interactionTimers.get(track);
+    if (old) clearTimeout(old);
+    interactionTimers.set(track, setTimeout(() => {
+      track.dataset.paused = '0';
+      track.classList.remove('is-user-interacting');
+    }, delay));
+  };
+
+  tracks.forEach(track => {
+    track.dataset.paused = '0';
+    track.addEventListener('mouseenter', () => pauseTrack(track, 12000), {passive:true});
+    track.addEventListener('touchstart', () => pauseTrack(track, 12000), {passive:true});
+    track.addEventListener('wheel', () => pauseTrack(track, 9000), {passive:true});
+    track.addEventListener('pointerdown', () => pauseTrack(track, 12000), {passive:true});
+    track.addEventListener('focusin', () => pauseTrack(track, 12000));
+  });
+
   const autoScroll = () => {
     if (document.hidden) return;
     tracks.forEach(track => {
+      if (track.dataset.paused === '1') return;
       const maxScroll = track.scrollWidth - track.clientWidth;
-      if (maxScroll <= 2) return;
-      const step = Math.max(260, Math.floor(track.clientWidth * 0.72));
-      if (track.scrollLeft >= maxScroll - 12) {
-        track.scrollTo({left: 0, behavior: 'smooth'});
-      } else {
-        track.scrollBy({left: Math.min(step, maxScroll - track.scrollLeft), behavior: 'smooth'});
-      }
+      if (maxScroll <= 4) return;
+      const firstCard = track.querySelector('.card');
+      const gap = parseFloat(getComputedStyle(track).gap) || 14;
+      const step = firstCard ? firstCard.getBoundingClientRect().width + gap : Math.max(280, track.clientWidth * .72);
+      const atEnd = track.scrollLeft >= maxScroll - 8;
+      track.scrollTo({ left: atEnd ? 0 : Math.min(track.scrollLeft + step, maxScroll), behavior: 'smooth' });
     });
   };
-  setInterval(autoScroll, 5000);
+
+  // Diez segundos: suficientemente visible para leer una tarjeta y sin resultar invasivo.
+  setInterval(autoScroll, 10000);
 
   /* =========================================================
      GLITCH LOOP PARA ENCABEZADOS Y TÍTULOS DE SECCIÓN

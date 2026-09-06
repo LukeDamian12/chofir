@@ -1,0 +1,22 @@
+<h1>SoFirMoLo — versión corregida v5</h1>
+<p>Incluye:</p>
+<ul>
+<li>cursor normal del navegador;</li>
+<li>pantalla inicial &quot;Bienvenido&quot; solo en la primera visita y &quot;Cargando&quot; en navegaciones posteriores;</li>
+<li>miniaturas reales de YouTube;</li>
+<li>obtención automática de miniaturas reales de Odysee mediante Lighthouse + CDN de Odysee;</li>
+<li>obtención automática de miniaturas reales de BitChute mediante su API;</li>
+<li>respaldo visual local si una plataforma no responde;</li>
+<li>carruseles/autoscroll y orden por fecha corregidos.</li>
+</ul>
+<h2>Build</h2>
+<pre><code class="language-bash">npm install
+npm run build
+</code></pre>
+<p>El build intenta actualizar <code>_data/platform-thumbnails.json</code>. Si una plataforma no responde, el deploy no se interrumpe.</p>
+<h2>Deploy</h2>
+<p>Reemplazar los archivos del repositorio y ejecutar:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;Miniaturas reales Odysee y BitChute&quot;
+git push origin main
+</code></pre>
