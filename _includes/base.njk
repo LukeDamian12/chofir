@@ -285,11 +285,7 @@ a:hover {
 
 /* LOG DE SISTEMA AMBIENTAL (esquina derecha, cerca del LOFI) */
 .system-log {
-  position: fixed;
-  left: 14px;
-  top: calc(50% + 280px);
-  z-index: 22;
-  width: 250px;
+  width: 220px;
   font-family: "Courier New", monospace;
   font-size: 13px;
   color: var(--blue-light);
@@ -1130,6 +1126,7 @@ footer p + p { margin-top: 6px; }
 .reveal.from-right { transform: translate3d(65px, 15px, 0); }
 .reveal.from-up { transform: translate3d(0, -45px, 0); }
 .reveal.is-visible { opacity: 1; transform: none; }
+body.reveal-instant .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
 
 /* BOOT SCREEN */
 .boot {
@@ -1419,11 +1416,9 @@ footer p + p { margin-top: 6px; }
         </label>
         <audio id="lofiAudio" preload="metadata"></audio>
       </aside>
-    </div>
-    {% endif %}
 
-    {% if not modo_lectura %}
-    <div class="system-log" id="systemLog" aria-hidden="true"></div>
+      <div class="system-log" id="systemLog" aria-hidden="true"></div>
+    </div>
     <script type="application/json" id="system-log-data">{{ systemlog.frases | toJson | safe }}</script>
     {% endif %}
 
@@ -1446,14 +1441,6 @@ footer p + p { margin-top: 6px; }
 
         <div class="section-divider"></div>
 
-        <div class="construction-zone reveal from-up">
-            <div class="pixel-alert">!</div>
-            <div>
-                <strong>UNDER CONSTRUCTION</strong><br>
-                System version: Next-Gen Web3 Cyber Crimson Edition
-            </div>
-        </div>
-
         <footer>
             <p>SoFirMoLo // investigación libre e independiente</p>
             <p>© SoFirMoLo | archivo audiovisual, escritos y recursos</p>
@@ -1466,18 +1453,25 @@ footer p + p { margin-top: 6px; }
   // Reveal de elementos: imprescindible para que la portada no quede invisible.
   const reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => revealObserver.observe(el));
   } else {
     reveals.forEach(el => el.classList.add('is-visible'));
   }
+
+  // Evita que saltar a una seccion del menu deje elementos a mitad de la animacion
+  function saltoInstantaneo() {
+    document.body.classList.add('reveal-instant');
+    setTimeout(() => document.body.classList.remove('reveal-instant'), 500);
+  }
+  if (location.hash) saltoInstantaneo();
+  document.addEventListener('click', e => {
+    if (e.target.closest('a[href*="#"]')) saltoInstantaneo();
+  });
 
   // Boot screen
   const boot = document.getElementById('boot');
@@ -1558,7 +1552,10 @@ footer p + p { margin-top: 6px; }
     if (dataEl) {
       try {
         const parsed = JSON.parse(dataEl.textContent);
-        if (Array.isArray(parsed) && parsed.length) frases = parsed;
+        if (Array.isArray(parsed) && parsed.length) {
+          // Cada frase puede venir como texto plano o como { texto: "..." } segun el panel
+          frases = parsed.map(f => (typeof f === 'string' ? f : (f && f.texto) || '')).filter(Boolean);
+        }
       } catch (e) {}
     }
 

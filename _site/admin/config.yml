@@ -88,3 +88,4 @@ collections:
           - label: "Frases"
             name: "frases"
             widget: "list"
+            field: {label: "Frase", name: "texto", widget: "text"}
