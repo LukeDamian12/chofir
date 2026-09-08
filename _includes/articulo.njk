@@ -1,11 +1,17 @@
 ---
 layout: base.njk
 modo_lectura: true
+schemaType: "Article"
 ---
 <section class="section reveal from-left" id="articulo-detail">
   <div class="section-head"><h2 class="section-title" data-text="{{ title }}">{{ title }}</h2></div>
   {% set thumb = thumbnail or '/assets/thumbs/article.svg' %}
   <div class="article-layout"><a class="article-cover" href="{{ thumb }}" target="_blank" rel="noopener"><img src="{{ thumb }}" alt="{{ title }}"><span class="thumb-shade"></span><span class="article-cover-label">ARTÍCULO</span></a><div class="article-body"><div class="meta">PUBLICACION ESCRITA{% if date %} · {{ date }}{% endif %}{% if author %} · {{ author }}{% endif %}</div><h3>{{ title }}</h3><p>{{ description | default('Publicación escrita de SoFirMoLo.') }}</p></div></div>
   <div class="article-body" style="margin-top:24px;">{{ content | safe }}</div>
+  {% if tags %}
+  <p style="margin-top:16px;">
+    {% for t in tags %}{% if t not in ["videos","directos","articulos","recursos"] %}<a href="/tags/{{ t | slug }}/" class="ctr-link" style="margin-right:12px;">#{{ t }}</a>{% endif %}{% endfor %}
+  </p>
+  {% endif %}
   <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
 </section>

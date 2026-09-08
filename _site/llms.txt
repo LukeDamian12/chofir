@@ -1,0 +1,12 @@
+# SoFirMoLo
+
+> Investigación hispanista libre e independiente: videos, directos, artículos y recursos sin censura sobre historia, geopolítica y actualidad argentina.
+
+## Contenido
+- Videos: análisis en video sobre masonería, geopolítica, hispanismo e historia argentina.
+- Directos: transmisiones en vivo y debates grabados.
+- Artículos: ensayos escritos.
+- Recursos: documentos y material de consulta.
+
+## Mapa del sitio
+https://chofir.pages.dev/sitemap.xml

@@ -15,5 +15,10 @@ layout: base.njk
     <div class="feature-copy"><div class="meta">ARCHIVO AUDIOVISUAL{% if date %} · {{ date }}{% endif %}</div><h3>{{ title }}</h3><p>{{ description | default('Archivo audiovisual de SoFirMoLo.') }}</p>{% if youtube %}<p><a href="{{ youtube }}" class="ctr-link" target="_blank" rel="noopener">ABRIR EN YOUTUBE →</a></p>{% endif %}{% if bitchute %}<p><a href="{{ bitchute }}" class="ctr-link" target="_blank" rel="noopener">ABRIR EN BITCHUTE →</a></p>{% endif %}{% if odysee %}<p><a href="{{ odysee }}" class="ctr-link" target="_blank" rel="noopener">ABRIR EN ODYSEE →</a></p>{% endif %}{% if download %}<p><a href="{{ download }}" class="ctr-link" target="_blank" rel="noopener">DESCARGAR →</a></p>{% endif %}</div>
   </div>
   {{ content | safe }}
+  {% if tags %}
+  <p style="margin-top:16px;">
+    {% for t in tags %}{% if t not in ["videos","directos","articulos","recursos"] %}<a href="/tags/{{ t | slug }}/" class="ctr-link" style="margin-right:12px;">#{{ t }}</a>{% endif %}{% endfor %}
+  </p>
+  {% endif %}
   <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
 </section>

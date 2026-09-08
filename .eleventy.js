@@ -1,6 +1,7 @@
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("admin");
+eleventyConfig.addPassthroughCopy("_headers");
 
   eleventyConfig.addFilter("toJson", function(obj) {
     return JSON.stringify(obj);
@@ -60,6 +61,27 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addCollection("directos", api => sortedByDateDesc(api, "content/directos/*.md"));
   eleventyConfig.addCollection("articulos", api => sortedByDateDesc(api, "content/articulos/*.md"));
   eleventyConfig.addCollection("recursos", api => sortedByDateDesc(api, "content/recursos/*.md"));
+
+  // Fecha en formato ISO simple (para el sitemap.xml)
+  eleventyConfig.addFilter("toIsoDate", function(date) {
+    if (!date) return "";
+    return new Date(date).toISOString().split("T")[0];
+  });
+
+  // Lista de todos los tags "de tema" usados en cualquier video/directo/articulo/recurso
+  // (se excluyen los tags internos que ya usa Eleventy para armar cada seccion)
+  eleventyConfig.addCollection("tagList", function(api) {
+    const excluidos = new Set(["videos", "directos", "articulos", "recursos", "all", "nav"]);
+    const tags = new Set();
+    api.getAll().forEach(item => {
+      if (Array.isArray(item.data.tags)) {
+        item.data.tags.forEach(t => {
+          if (t && !excluidos.has(t)) tags.add(t);
+        });
+      }
+    });
+    return [...tags].sort();
+  });
 
   return {
     dir: {

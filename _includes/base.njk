@@ -3,7 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoFirMoLo 12</title>
+{%- set paginaTitulo = title if title else "SoFirMoLo 12" %}
+{%- set paginaDescripcion = description if description else site.descripcion %}
+{%- set paginaUrl = site.url + page.url %}
+    <title>{{ paginaTitulo }}{% if title %} · SoFirMoLo{% endif %}</title>
+    <meta name="description" content="{{ paginaDescripcion }}">
+    <link rel="canonical" href="{{ paginaUrl }}">
+
+    <meta property="og:type" content="{{ 'video.other' if (youtube or bitchute or odysee) else 'article' }}">
+    <meta property="og:title" content="{{ paginaTitulo }}">
+    <meta property="og:description" content="{{ paginaDescripcion }}">
+    <meta property="og:url" content="{{ paginaUrl }}">
+    <meta property="og:site_name" content="{{ site.nombre }}">
+    <meta property="og:locale" content="es_AR">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ paginaTitulo }}">
+    <meta name="twitter:description" content="{{ paginaDescripcion }}">
+
+    {% if youtube or bitchute or odysee %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": {{ title | toJson | safe }},
+      "description": {{ paginaDescripcion | toJson | safe }},
+      "uploadDate": {{ date | toJson | safe }},
+      "url": {{ paginaUrl | toJson | safe }}
+      {%- if youtube %},"embedUrl": {{ (youtube | youtubeEmbed) | toJson | safe }}{% endif %}
+    }
+    </script>
+    {% endif %}
+
+    {% if schemaType == "Article" %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": {{ title | toJson | safe }},
+      "description": {{ paginaDescripcion | toJson | safe }},
+      "datePublished": {{ date | toJson | safe }},
+      "author": {"@type": "Person", "name": {{ (author if author else site.autor) | toJson | safe }}},
+      "url": {{ paginaUrl | toJson | safe }}
+    }
+    </script>
+    {% endif %}
     <style>
 
 /* =========================================================
@@ -1364,7 +1408,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     <nav class="side-nav side-nav-left" aria-label="Navegación principal">
       <aside class="side-welcome" aria-label="Espacio personal">
         <div class="banner-title">MI ESPACIO</div>
-        <p>Bienvenidos a mi espacio, libre de censura anglo-sionista-masonica. Aca esta todo mi contenido            concentrado, para que quien quiera pueda usarlo como fuente de consulta libre e independiente.</p>
+        <p>Bienvenidos a mi espacio, libre de censura. Todo mi contenido concentrado como fuente de consulta libre e independiente.</p>
       </aside>
       <div class="side-label">INDICE</div>
       <a href="/#videos">VIDEOS</a>
@@ -1430,7 +1474,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         </header>
 
         <div class="marquee" aria-label="Investigación libre e independiente">
-            <span>Contenido libre y sin censura // Investigacion independiente</span>
+            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO AUTONECTADO Y SIN CENSURA</span>
         </div>
 
         <div class="section-divider"></div>
