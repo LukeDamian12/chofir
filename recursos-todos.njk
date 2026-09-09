@@ -1,0 +1,27 @@
+---
+permalink: "/recursos/"
+layout: base.njk
+title: "RECURSOS"
+description: "Todo el contenido de RECURSOS en SoFirMoLo, ordenado del más reciente al más antiguo."
+---
+          <section class="section reveal from-up" id="seccion-completa">
+            <div class="section-head">
+              <h2 class="section-title" data-text="RECURSOS">RECURSOS</h2>
+            </div>
+
+            <div class="carousel-wrap">
+              <div class="carousel-track" style="flex-wrap: wrap; overflow: visible;">
+                {% for item in collections.recursos | reverse %}
+                {% set thumb = item.data | resolveThumb %}
+                <a class="card" href="{{ item.url }}">
+                  <div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div>
+                  <div class="meta">RECURSO{% if item.date %} · {{ item.date | fechaCorta }}{% endif %}</div>
+                  <h4>{{ item.data.title }}</h4>
+                  <p>{{ item.data.description }}</p>
+                </a>
+                {% endfor %}
+              </div>
+            </div>
+
+            <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+          </section>

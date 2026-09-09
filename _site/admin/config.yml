@@ -16,7 +16,7 @@ collections:
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descripción", name: "description", widget: "text"}
-      - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - {label: "YouTube", name: "youtube", widget: "string", required: false}
       - {label: "BitChute", name: "bitchute", widget: "string", required: false}
@@ -33,7 +33,7 @@ collections:
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descripción", name: "description", widget: "text"}
-      - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - {label: "YouTube", name: "youtube", widget: "string", required: false}
       - {label: "BitChute", name: "bitchute", widget: "string", required: false}
@@ -51,7 +51,7 @@ collections:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descripción / introducción", name: "description", widget: "text"}
       - {label: "Autor", name: "author", widget: "string", required: false}
-      - {label: "Fecha", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false, hint: "Palabras clave para agrupar contenido relacionado entre secciones (ej: masoneria, milei, hispanidad)"}
       - {label: "Texto del artículo", name: "body", widget: "markdown"}
@@ -82,7 +82,7 @@ collections:
             name: "entradas"
             widget: "list"
             fields:
-              - {label: "Fecha", name: "fecha", widget: "date", format: "YYYY-MM-DD"}
+              - {label: "Fecha", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
               - {label: "Texto", name: "texto", widget: "string"}
 
       - name: "systemlog"
