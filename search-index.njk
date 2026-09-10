@@ -1,0 +1,10 @@
+---
+permalink: /search-index.json
+eleventyExcludeFromCollections: true
+---
+{%- set todo = collections.videos.concat(collections.directos).concat(collections.articulos).concat(collections.recursos) %}
+[
+{%- for item in todo %}
+{"title": {{ item.data.title | toJson | safe }}, "description": {{ (item.data.description or "") | toJson | safe }}, "url": {{ item.url | toJson | safe }}, "tags": {{ (item.data.tags or []) | toJson | safe }}}{% if not loop.last %},{% endif %}
+{%- endfor %}
+]

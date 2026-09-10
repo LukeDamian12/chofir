@@ -1,0 +1,18 @@
+---
+permalink: /tags/
+layout: base.njk
+title: "Tags"
+description: "Todos los temas y palabras clave usadas en SoFirMoLo."
+---
+          <section class="section reveal from-up" id="tags-index">
+            <div class="section-head">
+              <h2 class="section-title" data-text="TAGS">TAGS</h2>
+            </div>
+            <p style="margin-bottom:18px;">Elegí un tema para ver todo el contenido relacionado, sin importar la sección.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+              {% for t in collections.tagList %}
+              <a href="/tags/{{ t | slug }}/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#{{ t }}</a>
+              {% endfor %}
+            </div>
+            <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+          </section>

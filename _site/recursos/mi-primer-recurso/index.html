@@ -424,11 +424,18 @@ a:hover {
 /* =========================================================
    PANELES LATERALES
    ========================================================= */
-.side-nav {
+.left-rail {
   position: fixed;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.side-nav {
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -438,8 +445,114 @@ a:hover {
   backdrop-filter: blur(6px);
 }
 
-.side-nav-left { left: 14px; }
-.side-nav-right { right: 14px; width: 220px; }
+.quick-tools {
+  display: flex;
+  gap: 8px;
+}
+
+.quick-tools-btn {
+  flex: 1;
+  text-align: center;
+  padding: 8px 6px;
+  border: 1px solid var(--blue-main);
+  background: var(--panel-bg);
+  color: var(--blue-light);
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+.quick-tools-btn:hover {
+  border-color: var(--red-main);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 18, 43, 0.35);
+}
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.search-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-box {
+  width: min(560px, 92vw);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--blue-main);
+  background: var(--panel-bg);
+  box-shadow: 0 0 40px rgba(18, 102, 255, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.search-box-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--blue-dark);
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 11px;
+  color: #fff;
+  background: var(--blue-dark);
+}
+
+.search-box-head button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#searchInput {
+  margin: 14px;
+  padding: 10px 12px;
+  background: #000;
+  border: 1px solid var(--blue-main);
+  color: var(--blue-light);
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+}
+
+.search-results {
+  overflow-y: auto;
+  padding: 0 14px 14px;
+}
+
+.search-results a {
+  display: block;
+  padding: 10px;
+  border: 1px solid var(--blue-dark);
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.search-results a:hover {
+  border-color: var(--red-main);
+}
+
+.search-results .search-empty {
+  color: var(--blue-dark);
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  text-align: center;
+  padding: 10px;
+}
 
 .side-welcome {
   padding: 16px;
@@ -1259,10 +1372,15 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 }
 
 @media(max-width:700px){
+  .left-rail{
+    position:relative; left:auto; top:auto; transform:none;
+    width:100%;
+  }
   .side-nav{
     position:relative; left:auto!important; right:auto!important; top:auto; transform:none;
-    width:100%; margin-bottom:5px; display:grid; grid-template-columns:repeat(4,1fr);
+    width:100%; margin-bottom:5px; display:grid; grid-template-columns:repeat(5,1fr);
   }
+  .quick-tools-btn{ font-size:11px; }
   .window-container{ margin-top:0; }
   .side-nav a{ font-size:10px; }
   .section{ padding:28px 14px 10px; }
@@ -1378,17 +1496,36 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
       </div>
     </div>
 
-    <nav class="side-nav side-nav-left" aria-label="Navegación principal">
-      <aside class="side-welcome" aria-label="Espacio personal">
-        <div class="banner-title">MI ESPACIO</div>
-        <p>Bienvenidos a mi espacio, libre de censura. Todo mi contenido concentrado como fuente de consulta libre e independiente.</p>
-      </aside>
-      <div class="side-label">INDICE</div>
-      <a href="/videos/">VIDEOS</a>
-      <a href="/directos/">DIRECTOS</a>
-      <a href="/articulos/">ARTICULOS</a>
-      <a href="/recursos/">RECURSOS</a>
-    </nav>
+    <div class="left-rail">
+      <nav class="side-nav side-nav-left" aria-label="Navegación principal">
+        <aside class="side-welcome" aria-label="Espacio personal">
+          <div class="banner-title">MI ESPACIO</div>
+          <p>Bienvenidos a mi espacio, libre de censura. Todo mi contenido concentrado como fuente de consulta libre e independiente.</p>
+        </aside>
+        <div class="side-label">INDICE</div>
+        <a href="/">INICIO</a>
+        <a href="/videos/">VIDEOS</a>
+        <a href="/directos/">DIRECTOS</a>
+        <a href="/articulos/">ARTICULOS</a>
+        <a href="/recursos/">RECURSOS</a>
+      </nav>
+
+      <div class="quick-tools" aria-label="Buscar y navegar por tags">
+        <button type="button" class="quick-tools-btn" id="openSearchBtn">🔍 BUSCAR</button>
+        <a href="/tags/" class="quick-tools-btn">🏷 TAGS</a>
+      </div>
+    </div>
+
+    <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+      <div class="search-box">
+        <div class="search-box-head">
+          <span>BUSCAR EN EL SITIO</span>
+          <button type="button" id="closeSearchBtn" aria-label="Cerrar buscador">✕</button>
+        </div>
+        <input type="text" id="searchInput" placeholder="Escribí un título, tema o tag..." autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
 
     
 
@@ -1432,6 +1569,76 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
 <script>
 (() => {
+  // Buscador del sitio
+  (function () {
+    const openBtn = document.getElementById('openSearchBtn');
+    const closeBtn = document.getElementById('closeSearchBtn');
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    if (!openBtn || !overlay) return;
+
+    let indice = null;
+
+    async function cargarIndice() {
+      if (indice) return indice;
+      try {
+        const res = await fetch('/search-index.json');
+        indice = await res.json();
+      } catch (e) {
+        indice = [];
+      }
+      return indice;
+    }
+
+    function renderizar(lista) {
+      results.innerHTML = '';
+      if (!lista.length) {
+        results.innerHTML = '<div class="search-empty">Sin resultados.</div>';
+        return;
+      }
+      lista.slice(0, 40).forEach(item => {
+        const a = document.createElement('a');
+        a.href = item.url;
+        a.innerHTML = '<strong>' + item.title + '</strong>';
+        results.appendChild(a);
+      });
+    }
+
+    async function buscar(query) {
+      const data = await cargarIndice();
+      const q = query.trim().toLowerCase();
+      if (!q) { renderizar(data.slice(0, 20)); return; }
+      const filtrado = data.filter(item => {
+        const enTitulo = item.title && item.title.toLowerCase().includes(q);
+        const enDescripcion = item.description && item.description.toLowerCase().includes(q);
+        const enTags = Array.isArray(item.tags) && item.tags.some(t => t.toLowerCase().includes(q));
+        return enTitulo || enDescripcion || enTags;
+      });
+      renderizar(filtrado);
+    }
+
+    async function abrir() {
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      await cargarIndice();
+      renderizar(indice.slice(0, 20));
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function cerrar() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      input.value = '';
+    }
+
+    openBtn.addEventListener('click', abrir);
+    closeBtn.addEventListener('click', cerrar);
+    overlay.addEventListener('click', e => { if (e.target === overlay) cerrar(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
+    input.addEventListener('input', () => buscar(input.value));
+  })();
+
   // Reveal de elementos: imprescindible para que la portada no quede invisible.
   const reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
@@ -1439,7 +1646,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
       entries.forEach(entry => {
         entry.target.classList.toggle('is-visible', entry.isIntersecting);
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => revealObserver.observe(el));
   } else {
     reveals.forEach(el => el.classList.add('is-visible'));
