@@ -1,5 +1,13 @@
 ---
-title: "Circo democratico - EL PERONISMO MURIO"
-date: "2026-08-23"
-bitchute: "https://www.bitchute.com/video/QdAuahmTN5Y"
+title: Circo democratico - EL PERONISMO MURIO
+description: Otra funcion mas del circo demoniocratico
+date: 2025-10-28
+bitchute: https://www.bitchute.com/video/QdAuahmTN5Y
+tags:
+  - Democracia
+  - Peronismo
+  - Elecciones argentina
+  - Politicos titeres
+  - Nacionalismo argentino
+  - Kirchnerismo
 ---
