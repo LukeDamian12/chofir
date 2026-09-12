@@ -9,297 +9,126 @@ public_folder: "/assets/uploads"
 
 collections:
 
-  # ============================================================
-  # VIDEOS
-  # ============================================================
-
   - name: "videos"
     label: "Videos"
     folder: "content/videos"
     create: true
     slug: "{{slug}}"
-
     fields:
-
-      - label: "Título"
-        name: "title"
-        widget: "string"
-
-      - label: "Descripción"
-        name: "description"
-        widget: "text"
-
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción", name: "description", widget: "text"}
       - label: "Fecha"
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DD"
         date_format: "YYYY-MM-DD"
         time_format: false
-
-      - label: "Miniatura"
-        name: "thumbnail"
-        widget: "image"
-        required: false
-
-      - label: "YouTube"
-        name: "youtube"
-        widget: "string"
-        required: false
-
-      - label: "BitChute"
-        name: "bitchute"
-        widget: "string"
-        required: false
-
-      - label: "Odysee"
-        name: "odysee"
-        widget: "string"
-        required: false
-
-      - label: "Link de descarga"
-        name: "download"
-        widget: "string"
-        required: false
-
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
+      - {label: "YouTube", name: "youtube", widget: "string", required: false}
+      - {label: "BitChute", name: "bitchute", widget: "string", required: false}
+      - {label: "Odysee", name: "odysee", widget: "string", required: false}
+      - {label: "Link de descarga", name: "download", widget: "string", required: false}
       - label: "Tags"
         name: "tags"
         widget: "list"
         required: false
-        allow_add: true
-        hint: "Cada tag puede tener una o varias palabras. Ejemplos: filosofía política, historia de España, crítica al liberalismo."
-        field:
-          label: "Tag"
-          name: "tag"
-          widget: "string"
-
-      - label: "Notas adicionales"
-        name: "body"
-        widget: "markdown"
-        required: false
-
-
-  # ============================================================
-  # DIRECTOS
-  # ============================================================
+        hint: "Escribí un tag por línea. Cada tag puede contener varias palabras, por ejemplo: Historia de España"
+      - {label: "Notas adicionales", name: "body", widget: "markdown", required: false}
 
   - name: "directos"
     label: "Directos"
     folder: "content/directos"
     create: true
     slug: "{{slug}}"
-
     fields:
-
-      - label: "Título"
-        name: "title"
-        widget: "string"
-
-      - label: "Descripción"
-        name: "description"
-        widget: "text"
-
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción", name: "description", widget: "text"}
       - label: "Fecha"
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DD"
         date_format: "YYYY-MM-DD"
         time_format: false
-
-      - label: "Miniatura"
-        name: "thumbnail"
-        widget: "image"
-        required: false
-
-      - label: "YouTube"
-        name: "youtube"
-        widget: "string"
-        required: false
-
-      - label: "BitChute"
-        name: "bitchute"
-        widget: "string"
-        required: false
-
-      - label: "Odysee"
-        name: "odysee"
-        widget: "string"
-        required: false
-
-      - label: "Link de descarga"
-        name: "download"
-        widget: "string"
-        required: false
-
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
+      - {label: "YouTube", name: "youtube", widget: "string", required: false}
+      - {label: "BitChute", name: "bitchute", widget: "string", required: false}
+      - {label: "Odysee", name: "odysee", widget: "string", required: false}
+      - {label: "Link de descarga", name: "download", widget: "string", required: false}
       - label: "Tags"
         name: "tags"
         widget: "list"
         required: false
-        allow_add: true
-        hint: "Cada tag puede tener una o varias palabras. Ejemplos: filosofía política, historia de España, crítica al liberalismo."
-        field:
-          label: "Tag"
-          name: "tag"
-          widget: "string"
-
-      - label: "Notas adicionales"
-        name: "body"
-        widget: "markdown"
-        required: false
-
-
-  # ============================================================
-  # ARTÍCULOS
-  # ============================================================
+        hint: "Escribí un tag por línea. Cada tag puede contener varias palabras, por ejemplo: Historia de España"
+      - {label: "Notas adicionales", name: "body", widget: "markdown", required: false}
 
   - name: "articulos"
     label: "Artículos"
     folder: "content/articulos"
     create: true
     slug: "{{slug}}"
-
     fields:
-
-      - label: "Título"
-        name: "title"
-        widget: "string"
-
-      - label: "Descripción / introducción"
-        name: "description"
-        widget: "text"
-
-      - label: "Autor"
-        name: "author"
-        widget: "string"
-        required: false
-
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción / introducción", name: "description", widget: "text"}
+      - {label: "Autor", name: "author", widget: "string", required: false}
       - label: "Fecha"
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DD"
         date_format: "YYYY-MM-DD"
         time_format: false
-
-      - label: "Miniatura"
-        name: "thumbnail"
-        widget: "image"
-        required: false
-
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
       - label: "Tags"
         name: "tags"
         widget: "list"
         required: false
-        allow_add: true
-        hint: "Cada tag puede tener una o varias palabras. Ejemplos: filosofía política, historia de España, crítica al liberalismo."
-        field:
-          label: "Tag"
-          name: "tag"
-          widget: "string"
-
-      - label: "Texto del artículo"
-        name: "body"
-        widget: "markdown"
-
-
-  # ============================================================
-  # RECURSOS
-  # ============================================================
+        hint: "Escribí un tag por línea. Cada tag puede contener varias palabras, por ejemplo: Historia de España"
+      - {label: "Texto del artículo", name: "body", widget: "markdown"}
 
   - name: "recursos"
     label: "Recursos"
     folder: "content/recursos"
     create: true
     slug: "{{slug}}"
-
     fields:
-
-      - label: "Título"
-        name: "title"
-        widget: "string"
-
-      - label: "Descripción"
-        name: "description"
-        widget: "text"
-
-      - label: "Miniatura"
-        name: "thumbnail"
-        widget: "image"
-        required: false
-
-      - label: "Categoría"
-        name: "categoria"
-        widget: "string"
-        required: false
-
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Miniatura", name: "thumbnail", widget: "image", required: false}
+      - {label: "Categoría", name: "categoria", widget: "string", required: false}
       - label: "Tags"
         name: "tags"
         widget: "list"
         required: false
-        allow_add: true
-        hint: "Cada tag puede tener una o varias palabras. Ejemplos: filosofía política, historia de España, crítica al liberalismo."
-        field:
-          label: "Tag"
-          name: "tag"
-          widget: "string"
-
-      - label: "Link de descarga (PDF)"
-        name: "archivo"
-        widget: "string"
-        required: false
-
-      - label: "Link para leer online"
-        name: "enlace"
-        widget: "string"
-        required: false
-
-      - label: "Notas adicionales"
-        name: "body"
-        widget: "markdown"
-        required: false
-
-
-  # ============================================================
-  # BITÁCORA
-  # ============================================================
+        hint: "Escribí un tag por línea. Cada tag puede contener varias palabras, por ejemplo: Historia de España"
+      - {label: "Link de descarga (PDF)", name: "archivo", widget: "string", required: false}
+      - {label: "Link para leer online", name: "enlace", widget: "string", required: false}
+      - {label: "Notas adicionales", name: "body", widget: "markdown", required: false}
 
   - name: "bitacora"
     label: "Bitácora"
-
     files:
-
       - name: "bitacora"
         label: "Lo más reciente"
         file: "_data/bitacora.json"
-
         fields:
-
           - label: "Entradas"
             name: "entradas"
             widget: "list"
-
             fields:
-
               - label: "Fecha"
                 name: "fecha"
                 widget: "datetime"
                 format: "YYYY-MM-DD"
                 date_format: "YYYY-MM-DD"
                 time_format: false
-
-              - label: "Texto"
-                name: "texto"
-                widget: "string"
-
+              - {label: "Texto", name: "texto", widget: "string"}
 
       - name: "systemlog"
         label: "Log de sistema (frases)"
         file: "_data/systemlog.json"
-
         fields:
-
           - label: "Frases"
             name: "frases"
             widget: "list"
-
             field:
               label: "Frase"
               name: "texto"
