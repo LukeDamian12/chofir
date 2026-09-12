@@ -1,6 +1,6 @@
 ---
 title: Charla con CHINDA BRANDOLINO sobre Malthusianismo, eugenesia, control
-  demogrßfico
+  demografico
 description: Entrevista a la doc Chinda Brandolino donde charlamos sobre temas variados
 date: 2022-02-08
 thumbnail: https://thumbnails.lbry.com/BWO68Aiy4g4
