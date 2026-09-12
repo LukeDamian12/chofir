@@ -14,11 +14,12 @@ bitchute: https://www.bitchute.com/video/pF1LvtzM2Cdj
 odysee: https://odysee.com/Analisis-de-EL-ELEGIDO-novela-Masonica:020cf14f463f61dbfca01f47a46660e43b6001b8
 download: https://seed306b.bitchute.com/0zjjPw4b2uyK/pF1LvtzM2Cdj.mp4
 tags:
-  - masoneria
+  - Masoneria
   - television
   - peliculas
   - ocultismo
   - esoterismo
   - rituales
   - satanismo
+  - Sionismo
 ---
