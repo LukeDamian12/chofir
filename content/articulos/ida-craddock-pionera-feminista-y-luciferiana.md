@@ -3,7 +3,7 @@ title: Ida Craddock - pionera feminista y Luciferiana
 description: Ida Craddock, una referente feminista y luciferiana militante.
 author: Lucas
 date: 2019-05-19
-thumbnail: ''
+thumbnail: https://i.pinimg.com/originals/08/11/98/0811989000ff635982640c94e8b84fd5.jpg
 tags:
   - Luciferianismo
   - Esoterismo
