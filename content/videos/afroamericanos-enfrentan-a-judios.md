@@ -10,7 +10,6 @@ odysee: https://odysee.com/negrosdomanjudio:6a427241b21667d24cf95dbe38df55f3c36f
 download: https://player.odycdn.com/v6/streams/6a427241b21667d24cf95dbe38df55f3c36fdd87/b250a4.mp4?download=true
 tags:
   - Judios
-  - sionismo
-  - supremacismo
-  - ""
+  - Sionismo
+  - Supremacismo
 ---
