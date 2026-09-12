@@ -15,11 +15,13 @@ odysee: https://odysee.com/Analisis-de-EL-ELEGIDO-novela-Masonica:020cf14f463f61
 download: https://seed306b.bitchute.com/0zjjPw4b2uyK/pF1LvtzM2Cdj.mp4
 tags:
   - Masoneria
-  - television
+  - Television
   - peliculas y series
   - ocultismo
-  - esoterismo
-  - rituales
+  - Esoterismo
+  - Rituales satanicos
   - satanismo
   - Sionismo
+  - Plan andinia
+  - Mensajes subliminales
 ---
