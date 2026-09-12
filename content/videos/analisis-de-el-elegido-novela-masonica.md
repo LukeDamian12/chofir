@@ -6,7 +6,7 @@ description: >-
   tematica masónica, y sionista, ya que involucra al Plan andinia y la lucha de
   poder entre dos logias masonicas. 
 
-  En este video vemos y analizamos un poco de esta interesante novela.
+  En este video vemos y analizamos un poco de esta rara pero interesante novela.
 date: 2023-03-04
 thumbnail: https://thumbs.odycdn.com/3ab59668f14bec9c12712ab50382944b.webp
 youtube: https://www.youtube.com/watch?v=ivr2m_bAg2U
