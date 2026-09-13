@@ -4,7 +4,7 @@ layout: base.njk
 
 {% set videos = collections.videos %}
 {% set destacadoVideo = videos[0] %}
-{% set restoVideos = videos.slice(1) %}
+{% set restoVideos = videos %}
 {% set platformThumbs = platformThumbnails | default({}) %}
 <section class="section reveal from-up" id="videos">
   <div class="section-head"><h2 class="section-title" data-text="VIDEOS & RECIENTES">VIDEOS & RECIENTES</h2></div>
@@ -16,12 +16,12 @@ layout: base.njk
       {% elif destacadoVideo.data.odysee %}<div class="video-embed-wrap"><iframe src="{{ destacadoVideo.data.odysee | odyseeEmbed }}" title="{{ destacadoVideo.data.title }}" loading="lazy" allowfullscreen></iframe></div>
       {% else %}<a class="media-placeholder" href="{{ destacadoVideo.url }}"><img src="{% if destacadoVideo.data.thumbnail %}{{ destacadoVideo.data.thumbnail }}{% elif destacadoVideo.data.youtube %}{{ destacadoVideo.data.youtube | youtubeThumbnail }}{% elif destacadoVideo.data.bitchute %}{{ platformThumbnails[destacadoVideo.data.bitchute] | default('/assets/thumbs/bitchute.svg') }}{% elif destacadoVideo.data.odysee %}{{ platformThumbnails[destacadoVideo.data.odysee] | default('/assets/thumbs/odysee.svg') }}{% else %}/assets/thumbs/video.svg{% endif %}" alt="{{ destacadoVideo.data.title }}"><span class="media-overlay-title">{{ destacadoVideo.data.title }}</span><span class="ctr-play-btn"></span></a>{% endif %}
     </div>
-    <div class="feature-copy"><div class="meta">VIDEO MAS RECIENTE · {{ destacadoVideo.data.date | fechaCorta }}</div><h3>{{ destacadoVideo.data.title }}</h3><p>{{ destacadoVideo.data.description | default('Archivo audiovisual de SoFirMoLo.') }}</p><a href="{{ destacadoVideo.url }}" class="ctr-link">VER VIDEO COMPLETO →</a></div>
+    <div class="feature-copy"><div class="meta">VIDEO MAS RECIENTE · {{ destacadoVideo.data.date | fechaCorta }}</div><h3>{{ destacadoVideo.data.title }}</h3><a href="{{ destacadoVideo.url }}" class="ctr-link">VER VIDEO COMPLETO →</a></div>
   </div>
   {% endif %}
   <div class="carousel-wrap"><div class="carousel-track" id="videos-track">
     {% for item in restoVideos %}{% if item.data.thumbnail %}{% set thumb = item.data.thumbnail %}{% elif item.data.youtube %}{% set thumb = item.data.youtube | youtubeThumbnail %}{% elif item.data.bitchute %}{% set thumb = platformThumbnails[item.data.bitchute] | default('/assets/thumbs/bitchute.svg') %}{% elif item.data.odysee %}{% set thumb = platformThumbnails[item.data.odysee] | default('/assets/thumbs/odysee.svg') %}{% else %}{% set thumb = '/assets/thumbs/video.svg' %}{% endif %}
-    <a class="card" href="{{ item.url }}"><div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"{% if item.data.odysee %} data-platform-thumb="{{ item.data.odysee }}"{% elif item.data.bitchute %} data-platform-thumb="{{ item.data.bitchute }}"{% endif %}><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · {{ item.data.date | fechaCorta }}</div><h4>{{ item.data.title }}</h4><p>{{ item.data.description | default('Ver publicación completa.') }}</p></a>
+    <a class="card" href="{{ item.url }}"><div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"{% if item.data.odysee %} data-platform-thumb="{{ item.data.odysee }}"{% elif item.data.bitchute %} data-platform-thumb="{{ item.data.bitchute }}"{% endif %}><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · {{ item.data.date | fechaCorta }}</div><h4>{{ item.data.title }}</h4></a>
     {% endfor %}
   </div></div>
 </section>

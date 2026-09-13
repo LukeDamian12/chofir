@@ -1611,7 +1611,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         </header>
 
         <div class="marquee" aria-label="Investigación libre e independiente">
-            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO SIN CENSURA</span>
+            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO AUTONECTADO Y SIN CENSURA</span>
         </div>
 
         <div class="section-divider"></div>
@@ -1944,51 +1944,79 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   })();
 
   /* =========================================================
-     AUTO-SCROLL ROBUSTO
+     AUTO-SCROLL ROBUSTO DE CARRUSELES
      ========================================================= */
-  // Posición del cursor para la red de partículas.
-  let mx = -100, my = -100;
-  addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, {passive:true});
+  // El carrusel avanza una tarjeta cada 10 segundos.
+  // Se pausa solamente cuando el usuario interactúa de verdad
+  // (rueda, arrastre/touch o foco de teclado), y luego se reanuda.
+  const setupCarouselAutoscroll = () => {
+    const tracks = [...document.querySelectorAll('.carousel-track')]
+      .filter(track => track.scrollWidth > track.clientWidth + 4);
 
-  const tracks = [...document.querySelectorAll('.carousel-track')];
-  const interactionTimers = new WeakMap();
+    if (!tracks.length) return;
 
-  const pauseTrack = (track, delay = 9000) => {
-    track.dataset.paused = '1';
-    track.classList.add('is-user-interacting');
-    const old = interactionTimers.get(track);
-    if (old) clearTimeout(old);
-    interactionTimers.set(track, setTimeout(() => {
-      track.dataset.paused = '0';
-      track.classList.remove('is-user-interacting');
-    }, delay));
-  };
+    const interactionTimers = new WeakMap();
 
-  tracks.forEach(track => {
-    track.dataset.paused = '0';
-    track.addEventListener('mouseenter', () => pauseTrack(track, 12000), {passive:true});
-    track.addEventListener('touchstart', () => pauseTrack(track, 12000), {passive:true});
-    track.addEventListener('wheel', () => pauseTrack(track, 9000), {passive:true});
-    track.addEventListener('pointerdown', () => pauseTrack(track, 12000), {passive:true});
-    track.addEventListener('focusin', () => pauseTrack(track, 12000));
-  });
+    const pauseTrack = (track, delay = 8000) => {
+      track.dataset.paused = '1';
+      track.classList.add('is-user-interacting');
 
-  const autoScroll = () => {
-    if (document.hidden) return;
+      const oldTimer = interactionTimers.get(track);
+      if (oldTimer) clearTimeout(oldTimer);
+
+      const timer = setTimeout(() => {
+        track.dataset.paused = '0';
+        track.classList.remove('is-user-interacting');
+      }, delay);
+      interactionTimers.set(track, timer);
+    };
+
     tracks.forEach(track => {
+      track.dataset.paused = '0';
+
+      // No se pausa por apoyar el mouse encima: así el autoscroll
+      // continúa funcionando aunque el cursor quede sobre el carrusel.
+      track.addEventListener('wheel', () => pauseTrack(track, 8000), { passive: true });
+      track.addEventListener('touchstart', () => pauseTrack(track, 10000), { passive: true });
+      track.addEventListener('pointerdown', () => pauseTrack(track, 10000), { passive: true });
+      track.addEventListener('focusin', () => pauseTrack(track, 10000));
+    });
+
+    const advanceTrack = track => {
       if (track.dataset.paused === '1') return;
-      const maxScroll = track.scrollWidth - track.clientWidth;
+
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
       if (maxScroll <= 4) return;
+
       const firstCard = track.querySelector('.card');
-      const gap = parseFloat(getComputedStyle(track).gap) || 14;
-      const step = firstCard ? firstCard.getBoundingClientRect().width + gap : Math.max(280, track.clientWidth * .72);
+      const styles = getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap) || 14;
+      const step = firstCard
+        ? firstCard.getBoundingClientRect().width + gap
+        : Math.max(280, track.clientWidth * 0.72);
+
       const atEnd = track.scrollLeft >= maxScroll - 8;
-      track.scrollTo({ left: atEnd ? 0 : Math.min(track.scrollLeft + step, maxScroll), behavior: 'smooth' });
+      const nextLeft = atEnd ? 0 : Math.min(track.scrollLeft + step, maxScroll);
+
+      track.scrollTo({ left: nextLeft, behavior: 'smooth' });
+    };
+
+    // Un temporizador independiente por carrusel evita que un carrusel
+    // con problemas o sin overflow frene a los demás.
+    tracks.forEach(track => {
+      setInterval(() => {
+        if (!document.hidden) advanceTrack(track);
+      }, 10000);
     });
   };
 
-  // Diez segundos: suficientemente visible para leer una tarjeta y sin resultar invasivo.
-  setInterval(autoScroll, 10000);
+  // El script está al final del body, pero usamos esta comprobación
+  // para que también funcione si la plantilla cambia de posición después.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCarouselAutoscroll, { once: true });
+  } else {
+    setupCarouselAutoscroll();
+  }
 
   /* =========================================================
      GLITCH LOOP PARA ENCABEZADOS Y TÍTULOS DE SECCIÓN

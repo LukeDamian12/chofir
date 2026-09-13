@@ -17,7 +17,6 @@ description: "Todo el contenido de VIDEOS en SoFirMoLo, ordenado del más recien
                   <div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div>
                   <div class="meta">ARCHIVO AUDIOVISUAL{% if item.date %} · {{ item.date | fechaCorta }}{% endif %}</div>
                   <h4>{{ item.data.title }}</h4>
-                  <p>{{ item.data.description }}</p>
                 </a>
                 {% endfor %}
               </div>
