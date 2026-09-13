@@ -1,7 +1,7 @@
 ---
 title: La cumbia del sionismo
 description: Cumbia anti sionista
-date: 2026-09-06
+date: 2026-08-25
 thumbnail: ''
 youtube: https://www.youtube.com/watch?v=1mKdcmvMg6g
 bitchute: ''
