@@ -4,7 +4,6 @@ layout: base.njk
 
 {% set videos = collections.videos %}
 {% set destacadoVideo = videos[0] %}
-{% set restoVideos = videos %}
 {% set platformThumbs = platformThumbnails | default({}) %}
 <section class="section reveal from-up" id="videos">
   <div class="section-head"><h2 class="section-title" data-text="VIDEOS & RECIENTES">VIDEOS & RECIENTES</h2></div>
@@ -20,7 +19,7 @@ layout: base.njk
   </div>
   {% endif %}
   <div class="carousel-wrap"><div class="carousel-track" id="videos-track">
-    {% for item in restoVideos %}{% if item.data.thumbnail %}{% set thumb = item.data.thumbnail %}{% elif item.data.youtube %}{% set thumb = item.data.youtube | youtubeThumbnail %}{% elif item.data.bitchute %}{% set thumb = platformThumbnails[item.data.bitchute] | default('/assets/thumbs/bitchute.svg') %}{% elif item.data.odysee %}{% set thumb = platformThumbnails[item.data.odysee] | default('/assets/thumbs/odysee.svg') %}{% else %}{% set thumb = '/assets/thumbs/video.svg' %}{% endif %}
+    {% for item in collections.videos %}{% if item.data.thumbnail %}{% set thumb = item.data.thumbnail %}{% elif item.data.youtube %}{% set thumb = item.data.youtube | youtubeThumbnail %}{% elif item.data.bitchute %}{% set thumb = platformThumbnails[item.data.bitchute] | default('/assets/thumbs/bitchute.svg') %}{% elif item.data.odysee %}{% set thumb = platformThumbnails[item.data.odysee] | default('/assets/thumbs/odysee.svg') %}{% else %}{% set thumb = '/assets/thumbs/video.svg' %}{% endif %}
     <a class="card" href="{{ item.url }}"><div class="card-cover"><img src="{{ thumb }}" alt="Miniatura: {{ item.data.title }}" loading="lazy"{% if item.data.odysee %} data-platform-thumb="{{ item.data.odysee }}"{% elif item.data.bitchute %} data-platform-thumb="{{ item.data.bitchute }}"{% endif %}><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · {{ item.data.date | fechaCorta }}</div><h4>{{ item.data.title }}</h4></a>
     {% endfor %}
   </div></div>

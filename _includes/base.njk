@@ -125,6 +125,28 @@ a:hover {
   text-shadow: 0 0 10px var(--red-glow), 0 0 15px var(--blue-glow) !important;
 }
 
+/* =========================================================
+   CURSOR SOFIRMOLO — CSS NATIVO, SIN CAPA FLOTANTE
+   El navegador mueve el cursor real: no se duplica ni queda
+   congelado al arrastrar scrollbars o salir del documento.
+   ========================================================= */
+@media (pointer: fine) {
+  html, body, body * {
+    cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2728%27%20viewBox%3D%270%200%2028%2028%27%3E%3Cpath%20d%3D%27M3%202%20L20%2011%20L13%2014%20L10%2023%20Z%27%20fill%3D%27%23020105%27%20stroke%3D%27%231266ff%27%20stroke-width%3D%272%27%2F%3E%3Cpath%20d%3D%27M5%204%20L16%2010%27%20stroke%3D%27%237cb3ff%27%20stroke-width%3D%271%27%2F%3E%3Ccircle%20cx%3D%2712.5%27%20cy%3D%2712.5%27%20r%3D%272.2%27%20fill%3D%27%23ff122b%27%2F%3E%3C%2Fsvg%3E") 3 2, auto;
+  }
+
+  a, button, .card, .ctr-link, .retro-arrow,
+  [role="button"], input[type="button"], input[type="submit"],
+  label[for], select, summary {
+    cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2728%27%20viewBox%3D%270%200%2028%2028%27%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%279%27%20fill%3D%27%23020105%27%20fill-opacity%3D%27.88%27%20stroke%3D%27%231266ff%27%20stroke-width%3D%272%27%2F%3E%3Cpath%20d%3D%27M14%202%20V7%20M14%2021%20V26%20M2%2014%20H7%20M21%2014%20H26%27%20stroke%3D%27%237cb3ff%27%20stroke-width%3D%271.5%27%2F%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%273.2%27%20fill%3D%27%23ff122b%27%2F%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E") 14 14, pointer;
+  }
+
+  input[type="text"], input[type="search"], input[type="email"],
+  input[type="url"], textarea, [contenteditable="true"] {
+    cursor: text;
+  }
+}
+
 .window-container {
   position: relative;
   isolation: isolate;
@@ -1611,7 +1633,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         </header>
 
         <div class="marquee" aria-label="Investigación libre e independiente">
-            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO AUTONECTADO Y SIN CENSURA</span>
+            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO SIN CENSURA</span>
         </div>
 
         <div class="section-divider"></div>
@@ -1942,6 +1964,18 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
       }).catch(() => {});
     });
   })();
+
+  // Posición del puntero compartida por la red geométrica de partículas.
+  // Sin estas coordenadas, el primer frame de partículas terminaba con ReferenceError.
+  let mx = -100, my = -100;
+  addEventListener('pointermove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+  }, { passive: true });
+  addEventListener('pointerleave', () => {
+    mx = -100;
+    my = -100;
+  }, { passive: true });
 
   /* =========================================================
      AUTO-SCROLL ROBUSTO DE CARRUSELES
