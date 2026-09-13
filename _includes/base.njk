@@ -9,6 +9,7 @@
     <title>{{ paginaTitulo }}{% if title %} · SoFirMoLo{% endif %}</title>
     <meta name="description" content="{{ paginaDescripcion }}">
     <link rel="canonical" href="{{ paginaUrl }}">
+    <link rel="icon" type="image/png" href="/assets/favicon-sofirmolo.png">
 
     <meta property="og:type" content="{{ 'video.other' if (youtube or bitchute or odysee) else 'article' }}">
     <meta property="og:title" content="{{ paginaTitulo }}">
@@ -127,18 +128,19 @@ a:hover {
 
 /* =========================================================
    CURSOR SOFIRMOLO — CSS NATIVO, SIN CAPA FLOTANTE
-   El navegador mueve el cursor real: no se duplica ni queda
-   congelado al arrastrar scrollbars o salir del documento.
+   Más grande y visible, azul/rojo neón.
+   Sigue siendo el cursor real del navegador: no se duplica
+   ni queda congelado al arrastrar scrollbars.
    ========================================================= */
 @media (pointer: fine) {
   html, body, body * {
-    cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2728%27%20viewBox%3D%270%200%2028%2028%27%3E%3Cpath%20d%3D%27M3%202%20L20%2011%20L13%2014%20L10%2023%20Z%27%20fill%3D%27%23020105%27%20stroke%3D%27%231266ff%27%20stroke-width%3D%272%27%2F%3E%3Cpath%20d%3D%27M5%204%20L16%2010%27%20stroke%3D%27%237cb3ff%27%20stroke-width%3D%271%27%2F%3E%3Ccircle%20cx%3D%2712.5%27%20cy%3D%2712.5%27%20r%3D%272.2%27%20fill%3D%27%23ff122b%27%2F%3E%3C%2Fsvg%3E") 3 2, auto;
+    cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj4KPGRlZnM+CiAgPGZpbHRlciBpZD0iZyIgeD0iLTYwJSIgeT0iLTYwJSIgd2lkdGg9IjIyMCUiIGhlaWdodD0iMjIwJSI+CiAgICA8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIxLjE1IiByZXN1bHQ9ImIiLz4KICAgIDxmZU1lcmdlPjxmZU1lcmdlTm9kZSBpbj0iYiIvPjxmZU1lcmdlTm9kZSBpbj0iU291cmNlR3JhcGhpYyIvPjwvZmVNZXJnZT4KICA8L2ZpbHRlcj4KPC9kZWZzPgo8cGF0aCBkPSJNNSAzIEwyOSAxNiBMMjAgMjAgTDE2IDMxIFoiIGZpbGw9IiMwMjAxMDUiIHN0cm9rZT0iI2ZmMTczOCIgc3Ryb2tlLXdpZHRoPSI0IiBvcGFjaXR5PSIuNzgiLz4KPHBhdGggZD0iTTQgMiBMMjggMTUgTDE5IDE5IEwxNSAzMCBaIiBmaWxsPSIjMDIwMTA1IiBzdHJva2U9IiMxNjc4ZmYiIHN0cm9rZS13aWR0aD0iMi40IiBmaWx0ZXI9InVybCgjZykiLz4KPHBhdGggZD0iTTcuNSA1LjggTDIyLjUgMTQiIHN0cm9rZT0iI2E3ZDhmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIxNy43IiBjeT0iMTgiIHI9IjMuMSIgZmlsbD0iI2ZmMTczOCIvPgo8Y2lyY2xlIGN4PSIxNy43IiBjeT0iMTgiIHI9IjEuMiIgZmlsbD0iI2Y0ZmJmZiIvPgo8L3N2Zz4=") 4 3, auto;
   }
 
   a, button, .card, .ctr-link, .retro-arrow,
   [role="button"], input[type="button"], input[type="submit"],
   label[for], select, summary {
-    cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2728%27%20viewBox%3D%270%200%2028%2028%27%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%279%27%20fill%3D%27%23020105%27%20fill-opacity%3D%27.88%27%20stroke%3D%27%231266ff%27%20stroke-width%3D%272%27%2F%3E%3Cpath%20d%3D%27M14%202%20V7%20M14%2021%20V26%20M2%2014%20H7%20M21%2014%20H26%27%20stroke%3D%27%237cb3ff%27%20stroke-width%3D%271.5%27%2F%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%273.2%27%20fill%3D%27%23ff122b%27%2F%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E") 14 14, pointer;
+    cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KPGRlZnM+CiAgPGZpbHRlciBpZD0iZyIgeD0iLTYwJSIgeT0iLTYwJSIgd2lkdGg9IjIyMCUiIGhlaWdodD0iMjIwJSI+CiAgICA8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIxLjEiIHJlc3VsdD0iYiIvPgogICAgPGZlTWVyZ2U+PGZlTWVyZ2VOb2RlIGluPSJiIi8+PGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+PC9mZU1lcmdlPgogIDwvZmlsdGVyPgo8L2RlZnM+CjxjaXJjbGUgY3g9IjIxIiBjeT0iMjEiIHI9IjEzLjUiIGZpbGw9IiMwMjAxMDUiIGZpbGwtb3BhY2l0eT0iLjkiIHN0cm9rZT0iI2ZmMTczOCIgc3Ryb2tlLXdpZHRoPSI0IiBvcGFjaXR5PSIuNzgiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMTMuNSIgZmlsbD0iIzAyMDEwNSIgZmlsbC1vcGFjaXR5PSIuOTQiIHN0cm9rZT0iIzE2NzhmZiIgc3Ryb2tlLXdpZHRoPSIyLjIiIGZpbHRlcj0idXJsKCNnKSIvPgo8cGF0aCBkPSJNMjAgMi41VjguNSBNMjAgMzEuNVYzNy41IE0yLjUgMjBIOC41IE0zMS41IDIwSDM3LjUiIHN0cm9rZT0iI2E3ZDhmZiIgc3Ryb2tlLXdpZHRoPSIxLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTUuMiAyMEgyNC44IE0yMCAxNS4yVjI0LjgiIHN0cm9rZT0iI2ZmMTczOCIgc3Ryb2tlLXdpZHRoPSIxLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyLjQiIGZpbGw9IiNmNGZiZmYiLz4KPC9zdmc+") 20 20, pointer;
   }
 
   input[type="text"], input[type="search"], input[type="email"],
@@ -1633,7 +1635,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         </header>
 
         <div class="marquee" aria-label="Investigación libre e independiente">
-            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO SIN CENSURA</span>
+            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO AUTONECTADO Y SIN CENSURA</span>
         </div>
 
         <div class="section-divider"></div>
