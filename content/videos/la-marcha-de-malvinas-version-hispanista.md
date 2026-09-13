@@ -1,5 +1,13 @@
 ---
-title: "La marcha de Malvinas version hispanista"
-date: "2026-08-29"
-youtube: "https://www.youtube.com/watch?v=opLtH9WOsRc"
+title: La marcha de Malvinas version hispanista
+description: Reversion de la marcha de las Malvinas
+date: 2026-04-02
+thumbnail: ''
+youtube: https://www.youtube.com/watch?v=opLtH9WOsRc
+bitchute: ''
+odysee: ''
+download: ''
+tags:
+  - Musica basada
+  - Hispanismo
 ---
