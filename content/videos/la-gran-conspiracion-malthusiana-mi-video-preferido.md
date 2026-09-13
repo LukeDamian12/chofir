@@ -4,9 +4,9 @@ description: Pobreza estructurada, Vacunas con agentes anti conceptivos, aliment
 date: 2019-06-02
 thumbnail: https://static-3.bitchute.com/live/cover_images/0zjjPw4b2uyK/1igswumUwipc0GUWmvjAOLC6_1280x720.jpg
 youtube: ''
-bitchute: ''
+bitchute: https://www.bitchute.com/video/38hWvyHTmHUV
 odysee: https://odysee.com/malthus:64e1bcf429e78da8f9b134d079ece360343b0ea9
-download: ''
+download: https://seed131b.bitchute.com/0zjjPw4b2uyK/38hWvyHTmHUV.mp4
 tags:
   - Malthusianismo
   - Thomas Malthus
