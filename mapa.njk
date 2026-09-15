@@ -47,7 +47,7 @@ permalink: "/mapa/"
 
 <section class="km-shell">
   <div class="km-topbar">
-    <div><div class="km-kicker">// ATLAS · ARCHIVO VIVO · BETA 3.1 · RENDIMIENTO + IA</div><h1 class="km-title">MAPA DE CONOCIMIENTO</h1></div>
+    <div><div class="km-kicker">// ATLAS · ARCHIVO VIVO · SOFIRMOLO MIND</div><h1 class="km-title">MAPA DE CONOCIMIENTO</h1></div>
     <div class="km-status" id="km-stats">CARGANDO RED...</div>
   </div>
   <div class="km-grid" id="km-fullscreen-root">
@@ -64,15 +64,15 @@ permalink: "/mapa/"
       </div>
       <div id="knowledge-map"></div>
       <div class="km-legend">
-        <span style="color:#4f9cff"><i class="km-dot" style="background:#4f9cff"></i>TAG AUTOMÁTICO</span><br>
-        <span style="color:#ff3650"><i class="km-dot" style="background:#ff3650"></i>NODO EDITORIAL / DOSSIER</span><br>
-        <span style="color:#dbeaff">◇ relación IA</span> · ···· automática · <span style="color:#ff7184">◆ manual</span>
+        <span style="color:#dbeaff;letter-spacing:.10em">SOFIRMOLO MIND</span><br>
+        <span style="color:#4f9cff">RED VIVA DE IDEAS Y CONTENIDOS</span><br>
+        <span style="color:#ff7184">INFORMACIÓN ACTUALIZADA: <b class="km-last-update">CARGANDO...</b></span>
       </div>
       <div class="km-help">ARRASTRAR FONDO = MOVER MAPA<br>RUEDA = ZOOM · ARRASTRAR NODO = REORDENAR<br>CLIC NODO = ABRIR/CERRAR · DOBLE CLIC = CENTRAR</div>
     </div>
     <aside class="km-panel">
       <div class="km-panel-head">[ INFORMACIÓN DEL NODO ]</div>
-      <div class="km-panel-body" id="km-info"><div class="km-empty">Seleccioná un nodo. La red se genera desde tus tags; las fichas y relaciones manuales vienen de <strong>_data/knowledge.json</strong>.</div></div>
+      <div class="km-panel-body" id="km-info"><div class="km-empty"><strong style="color:#dbeaff">SOFIRMOLO MIND</strong><br><br>Seleccioná un nodo para explorar su información, contenidos y conexiones.<br><br>Información actualizada: <strong class="km-last-update">CARGANDO...</strong></div></div>
     </aside>
   </div>
 </section>
@@ -85,6 +85,7 @@ permalink: "/mapa/"
 "articulos":[{% for item in collections.articulos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"ARTÍCULO"}{% if not loop.last %},{% endif %}{% endfor %}],
 "recursos":[{% for item in collections.recursos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"RECURSO"}{% if not loop.last %},{% endif %}{% endfor %}]
 }</script>
+<script type="application/json" id="km-extra-dates">{% if bitacora and bitacora.entradas %}{{ bitacora.entradas | toJson | safe }}{% else %}[]{% endif %}</script>
 <script src="https://unpkg.com/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
 <script>
 (() => {
@@ -98,6 +99,11 @@ permalink: "/mapa/"
   const pairKey=(a,b)=>[a,b].sort().join('|||');
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const fmtDate=v=>{if(!v)return'';const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v).slice(0,10);return new Intl.DateTimeFormat('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(d)};
+  const extraDates=(()=>{try{return JSON.parse(document.getElementById('km-extra-dates')?.textContent||'[]')}catch(_){return[]}})();
+  const latestCandidates=[...raw.map(x=>x.date),...(Array.isArray(extraDates)?extraDates.map(x=>x?.fecha||x?.date):[])].filter(Boolean);
+  const latestRaw=latestCandidates.sort((a,b)=>new Date(b)-new Date(a))[0]||'';
+  const latestPublicDate=latestRaw?fmtDate(latestRaw):'SIN REGISTRO';
+  document.querySelectorAll('.km-last-update').forEach(el=>{el.textContent=latestPublicDate});
   const tagMap=new Map(), autoMap=new Map();
 
   function ensureTag(tag){
@@ -316,7 +322,7 @@ permalink: "/mapa/"
   const primary=anchors[0]?cy.getElementById(anchors[0].id):cy.nodes().first();
   const ALL_EDGES=cy.edges();
   const ALL_NODES=cy.nodes();
-  const INFO_DEFAULT='<div class="km-empty">Seleccioná un nodo. Un segundo clic sobre el mismo nodo lo cierra. La red se genera desde tus tags; las fichas y relaciones manuales vienen de <strong>_data/knowledge.json</strong>.</div>';
+  const INFO_DEFAULT=`<div class="km-empty"><strong style="color:#dbeaff">SOFIRMOLO MIND</strong><br><br>Seleccioná un nodo para explorar su información, contenidos y conexiones. Un segundo clic sobre el mismo nodo lo cierra.<br><br>Información actualizada: <strong>${esc(latestPublicDate)}</strong></div>`;
 
   // ---------------------------------------------------------
   // RENDIMIENTO
@@ -393,11 +399,11 @@ permalink: "/mapa/"
     const n=tagMap.get(node.id()),meta=n?.meta||{},rels=connectionInfo(node),contents=(n?.contents||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,12);
     info.innerHTML=`
       <div class="km-node-title">${esc(meta.title||n?.label||node.data('label'))}</div>
-      <div class="km-node-meta">${meta.dossier?esc(meta.status||'DOSSIER EDITORIAL'):'TAG AUTOMÁTICO'} · ${n?.count||0} CONTENIDOS · ${rels.length} CONEXIONES${node.data('cluster')?' · ZONA IA: '+esc(node.data('cluster')):''}</div>
-      <div class="km-desc">${esc(meta.description||'Nodo generado automáticamente a partir de los tags de tu archivo. Podés enriquecerlo desde el panel sin tocar el código.')}</div>
+      <div class="km-node-meta">${n?.count||0} CONTENIDOS · ${rels.length} CONEXIONES</div>
+      <div class="km-desc">${esc(meta.description||'Explorá los contenidos y relaciones vinculados a este concepto dentro del archivo SoFirMoLo.')}</div>
       ${meta.more_info?`<div class="km-more">${esc(meta.more_info)}</div>`:''}
       ${meta.quote?`<div class="km-quote">“${esc(meta.quote)}”</div>`:''}
-      <div class="km-section"><h3>// CONEXIONES</h3>${rels.length?rels.slice(0,24).map(r=>`<span class="km-chip ${r.manual?'manual':''}" title="${esc(r.note||('Coincide en '+r.weight+' contenido(s)'))}">${r.manual?'◆ ':r.ai?'◇ ':'· '}${esc(r.label)}${r.weight>1&&!r.manual&&!r.ai?' ×'+r.weight:''}</span>`).join(''):'<div class="km-empty">Sin conexiones.</div>'}</div>
+      <div class="km-section"><h3>// CONEXIONES</h3>${rels.length?rels.slice(0,24).map(r=>`<span class="km-chip ${r.manual?'manual':''}" title="${esc(r.note||('Coincide en '+r.weight+' contenido(s)'))}">· ${esc(r.label)}${r.weight>1&&!r.manual&&!r.ai?' ×'+r.weight:''}</span>`).join(''):'<div class="km-empty">Sin conexiones.</div>'}</div>
       <div class="km-section"><h3>// CONTENIDOS RELACIONADOS</h3>${contents.length?contents.map(x=>`<a class="km-content" href="${esc(x.url)}">&gt; ${esc(x.title||'Sin título')}<small>${esc(x.kind||'ARCHIVO')} · ${esc(fmtDate(x.date))}</small></a>`).join(''):'<div class="km-empty">Todavía no hay contenidos asociados.</div>'}</div>
       <a class="km-open" href="/dossiers/?tag=${encodeURIComponent(n?.label||node.data('label'))}">ABRIR DOSSIER →</a>`;
   }
@@ -482,7 +488,7 @@ permalink: "/mapa/"
   }
   rebuildAnimationBuckets();
   requestAnimationFrame(animateEdges);
-  document.getElementById('km-stats').textContent=`${tagMap.size} NODOS · ${edgeMap.size} RELACIONES · ${smartKeys.size} ESENCIALES${aiClusters.length?' · IA: '+aiClusters.length+' ZONAS':''}`;
+  document.getElementById('km-stats').textContent=`${tagMap.size} NODOS · ${edgeMap.size} RELACIONES · ${smartKeys.size} ESENCIALES`;
   applyEdgeMode();setTimeout(origin,120);
 })();
 </script>

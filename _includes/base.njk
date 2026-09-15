@@ -749,8 +749,8 @@ a:hover {
   display: block;
   margin-top: 2px;
   color: var(--red-glow);
-  font-size: 14px;
-  line-height: 1.35;
+  font-size: 18px;
+  line-height: 1.28;
   text-shadow: 0 0 8px rgba(255, 18, 43, .9), 0 0 13px rgba(18, 102, 255, .35);
 }
 
@@ -767,8 +767,11 @@ a:hover {
 .km-visual {
   position: relative;
   z-index: 4;
+  display: block;
+  width: 100%;
   height: 153px;
-  margin: 5px 0 5px;
+  margin: 7px 0 7px;
+  overflow: visible;
 }
 
 .km-network {
@@ -1018,8 +1021,8 @@ a:hover {
 
 .lofi-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
   margin-top: 8px;
 }
 
@@ -1028,7 +1031,7 @@ a:hover {
   border: 1px solid var(--blue-main);
   background: var(--blue-dark);
   color: #fff;
-  font: bold 13px "Courier New", monospace; /* +20% */
+  font: bold 11px "Courier New", monospace; /* compacto: 5 controles */
   transition: background 0.15s;
 }
 
@@ -1072,22 +1075,23 @@ a:hover {
   pointer-events: none;
 }
 
-.lofi-load {
-  display: block;
+.lofi-library-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   margin-top: 8px;
-  padding: 5px;
+  padding: 5px 6px;
   border: 1px dotted var(--blue-dark);
   color: var(--blue-light);
-  font-size: 11px; /* +20% */
-  text-align: center;
+  font-size: 9px;
+  line-height: 1.35;
+  text-align: left;
 }
 
-.lofi-load input {
-  display: block;
-  width: 100%;
-  margin-top: 4px;
-  color: var(--blue-light);
-  font-size: 10px;
+.lofi-library-note span:first-child {
+  color: var(--red-light);
+  white-space: nowrap;
 }
 
 .lofi-player audio { display: none; }
@@ -1828,7 +1832,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
           <span class="km-topic km-t1">ESOTERISMO</span>
           <span class="km-topic red km-t2">OCULTISMO</span>
           <span class="km-topic red km-t3">HISPANIDAD</span>
-          <span class="km-topic km-t4">CONSPIRACIONES</span>
+          <span class="km-topic km-t4">CIENTIFICISMO</span>
           <span class="km-topic km-t5">FILOSOFIA</span>
           <span class="km-topic red km-t6">ESPIRITUALIDAD</span>
           <span class="km-topic km-t7">GNOSTICISMO</span>
@@ -1871,18 +1875,20 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
           <span class="lofi-led"></span>
         </div>
         <div class="cassette">
-          <div class="cassette-label">SOFIRMOLO<br><small>LO-FI SESSION</small></div>
+          <div class="cassette-label">{{ lofi.station_title or "SOFIRMOLO" }}<br><small>{{ lofi.station_subtitle or "LO-FI SESSION" }}</small></div>
           <div class="reel reel-left"><i></i></div>
           <div class="reel reel-right"><i></i></div>
           <div class="tape-line"></div>
         </div>
         <div class="lofi-now">
-          <span class="lofi-status" id="lofiStatus">SISTEMA LISTO</span>
+          <span class="lofi-status" id="lofiStatus">CARGANDO PLAYLIST...</span>
           <span id="lofiTime">00:00</span>
         </div>
         <div class="lofi-controls">
-          <button type="button" id="lofiPlay" aria-label="Reproducir">▶</button>
+          <button type="button" id="lofiPrev" aria-label="Pista anterior">⏮</button>
+          <button type="button" id="lofiPlay" aria-label="Reproducir o pausar">▶</button>
           <button type="button" id="lofiStop" aria-label="Detener">■</button>
+          <button type="button" id="lofiNext" aria-label="Pista siguiente">⏭</button>
           <button type="button" id="lofiMute" aria-label="Silenciar">VOL</button>
         </div>
         <div class="lofi-progress">
@@ -1891,11 +1897,12 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
             <div class="lofi-progress-handle" id="lofiProgressHandle"></div>
           </div>
         </div>
-        <label class="lofi-load">
-          CARGAR AUDIO
-          <input id="lofiFile" type="file" accept="audio/*">
-        </label>
+        <div class="lofi-library-note">
+          <span id="lofiTrackPos">0/0</span>
+          <span>SELECCIÓN SOFIRMOLO</span>
+        </div>
         <audio id="lofiAudio" preload="metadata"></audio>
+        <script type="application/json" id="lofiPlaylist">{{ (lofi.tracks or []) | toJson | safe }}</script>
       </aside>
 
       <div class="system-log" id="systemLog" aria-hidden="true"></div>
@@ -2453,27 +2460,90 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     requestAnimationFrame(draw);
   }
 
-  // LOFI Cassette Player
+  // LOFI Cassette Player — playlist publica administrada desde Sveltia.
+  // El visitante puede reproducir, pausar, avanzar, retroceder y silenciar,
+  // pero NO puede cargar archivos desde el navegador.
   const audio = document.getElementById('lofiAudio');
   const play = document.getElementById('lofiPlay');
   const stop = document.getElementById('lofiStop');
   const mute = document.getElementById('lofiMute');
-  const file = document.getElementById('lofiFile');
+  const prev = document.getElementById('lofiPrev');
+  const next = document.getElementById('lofiNext');
   const seekTrack = document.getElementById('lofiProgressTrack');
   const seekFill = document.getElementById('lofiProgressFill');
   const seekHandle = document.getElementById('lofiProgressHandle');
-  let isSeeking = false;
   const status = document.getElementById('lofiStatus');
   const time = document.getElementById('lofiTime');
+  const pos = document.getElementById('lofiTrackPos');
   const player = document.querySelector('.lofi-player');
+  const playlistNode = document.getElementById('lofiPlaylist');
+  let isSeeking = false;
+  let currentTrack = 0;
+  const repeatPlaylist = {% if lofi.repeat_playlist == false %}false{% else %}true{% endif %};
+  let playlist = [];
+
+  try {
+    const rawPlaylist = JSON.parse(playlistNode?.textContent || '[]');
+    playlist = (Array.isArray(rawPlaylist) ? rawPlaylist : [])
+      .map((track, index) => ({
+        title: String(track?.titulo || track?.title || `PISTA ${index + 1}`),
+        src: String(track?.archivo || track?.file || ''),
+        enabled: track?.activo !== false && track?.enabled !== false
+      }))
+      .filter(track => track.enabled && track.src);
+  } catch (_) {
+    playlist = [];
+  }
 
   if (audio && play) {
+    function setSeekVisual(pct) {
+      const safe = Math.max(0, Math.min(100, Number(pct) || 0));
+      seekFill.style.width = safe + '%';
+      seekHandle.style.left = safe + '%';
+    }
+
+    function updateTrackPosition() {
+      if (pos) pos.textContent = playlist.length ? `${currentTrack + 1}/${playlist.length}` : '0/0';
+    }
+
+    function loadTrack(index, autoplay = false) {
+      if (!playlist.length) {
+        audio.removeAttribute('src');
+        status.textContent = 'SIN PISTAS PUBLICADAS';
+        time.textContent = '00:00';
+        updateTrackPosition();
+        setSeekVisual(0);
+        return;
+      }
+      currentTrack = ((index % playlist.length) + playlist.length) % playlist.length;
+      const track = playlist[currentTrack];
+      audio.src = track.src;
+      audio.load();
+      status.textContent = track.title.toUpperCase();
+      time.textContent = '00:00';
+      setSeekVisual(0);
+      updateTrackPosition();
+      play.textContent = '▶';
+      player.classList.remove('playing');
+      if (autoplay) {
+        audio.play().then(() => {
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        }).catch(() => {
+          play.textContent = '▶';
+        });
+      }
+    }
+
     play.addEventListener('click', async () => {
-      if (!audio.src) return file?.click();
+      if (!playlist.length) return;
+      if (!audio.src) loadTrack(currentTrack, false);
       if (audio.paused) {
-        await audio.play();
-        player.classList.add('playing');
-        play.textContent = 'Ⅱ';
+        try {
+          await audio.play();
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        } catch (_) {}
       } else {
         audio.pause();
         player.classList.remove('playing');
@@ -2482,23 +2552,35 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
 
     stop.addEventListener('click', () => {
-      audio.pause(); audio.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
       player.classList.remove('playing');
       play.textContent = '▶';
+      setSeekVisual(0);
+      time.textContent = '00:00';
     });
+
+    prev.addEventListener('click', () => loadTrack(currentTrack - 1, !audio.paused));
+    next.addEventListener('click', () => loadTrack(currentTrack + 1, !audio.paused));
 
     mute.addEventListener('click', () => {
       audio.muted = !audio.muted;
       mute.textContent = audio.muted ? 'MUTE' : 'VOL';
     });
 
-    file.addEventListener('change', e => {
-      const f = e.target.files?.[0];
-      if (!f) return;
-      if (audio.src) URL.revokeObjectURL(audio.src);
-      audio.src = URL.createObjectURL(f);
-      audio.load();
-      status.textContent = f.name.toUpperCase();
+    audio.addEventListener('ended', () => {
+      if (!playlist.length) return;
+      if (currentTrack < playlist.length - 1) loadTrack(currentTrack + 1, true);
+      else if (repeatPlaylist) loadTrack(0, true);
+      else {
+        player.classList.remove('playing');
+        play.textContent = '▶';
+      }
+    });
+
+    audio.addEventListener('error', () => {
+      status.textContent = 'AUDIO NO DISPONIBLE';
+      player.classList.remove('playing');
       play.textContent = '▶';
     });
 
@@ -2507,22 +2589,18 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         const m = Math.floor(audio.currentTime / 60).toString().padStart(2, '0');
         const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
         time.textContent = `${m}:${s}`;
-        if (!isSeeking) setSeekVisual((audio.currentTime / audio.duration) * 100);
+        if (!isSeeking && audio.duration) setSeekVisual((audio.currentTime / audio.duration) * 100);
       }
     });
 
-    function setSeekVisual(pct) {
-      seekFill.style.width = pct + '%';
-      seekHandle.style.left = pct + '%';
-    }
-
     function seekFromEvent(e) {
+      if (!audio.duration) return;
       const rect = seekTrack.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       let pct = ((clientX - rect.left) / rect.width) * 100;
       pct = Math.max(0, Math.min(100, pct));
       setSeekVisual(pct);
-      if (audio.duration) audio.currentTime = (pct / 100) * audio.duration;
+      audio.currentTime = (pct / 100) * audio.duration;
     }
 
     seekTrack.addEventListener('pointerdown', e => {
@@ -2531,6 +2609,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
     addEventListener('pointermove', e => { if (isSeeking) seekFromEvent(e); });
     addEventListener('pointerup', () => { isSeeking = false; });
+
+    loadTrack(0, false);
   }
 })();
 </script>
