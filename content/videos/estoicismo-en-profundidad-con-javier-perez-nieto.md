@@ -1,7 +1,7 @@
 ---
 title: ESTOICISMO en Profundidad (Con Javier Perez Nieto)
 description: exposicion sobre estoicismo con Javier Perez Nieto
-date: 2026-07-29
+date: 2023-12-16
 thumbnail: ''
 youtube: https://www.youtube.com/watch?v=hWwx3uiUevM
 bitchute: ''
