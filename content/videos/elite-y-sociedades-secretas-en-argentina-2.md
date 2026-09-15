@@ -1,7 +1,7 @@
 ---
 title: ELITE Y SOCIEDADES SECRETAS en Argentina
 description: Hablamos un poco sobre las sociedades secretas y discretas en Argentina, sobre como los lazos sociales en las primeras etapas de la ninez van forjando los vinculos de poder del futuro dentro de las sociedades elitistas.
-date: 2016-12-27
+date: 2016-01-27
 thumbnail: https://thumbnails.lbry.com/irJFlbNjCeA
 youtube: ''
 bitchute: ''
