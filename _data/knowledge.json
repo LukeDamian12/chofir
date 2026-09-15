@@ -11,36 +11,42 @@
       "title": "Hispanismo",
       "dossier": true,
       "status": "ACTIVO",
+      "subtitle": "Historia, identidad y mundo hispánico",
+      "description": "El hispanismo es el estudio de la cultura hispanica. NO es una ideologia.",
+      "more_info": "El hispanismo NO es una ideologia porque no tiene dogmas ni un sistema de gobierno ni nada que se le parezca. El hispanismo solamente estudia (y puede defender) la cultura hispanica",
+      "quote": "Archivo vivo de ideas, fuentes y relaciones.",
       "accent": "red",
       "priority": 10,
-      "subtitle": "Historia, identidad y mundo hispánico",
-      "description": "Ficha editorial de ejemplo. Este texto lo podés reemplazar desde el panel de administración.",
-      "more_info": "Usá este espacio para desarrollar la idea, dejar preguntas abiertas, explicar debates o contextualizar el nodo.",
-      "quote": "Archivo vivo de ideas, fuentes y relaciones."
+      "x": null,
+      "y": null
     },
     {
       "tag": "Catolicismo",
       "title": "Catolicismo",
       "dossier": true,
       "status": "ACTIVO",
-      "accent": "red",
-      "priority": 8,
       "subtitle": "Doctrina, historia y debates",
       "description": "Ejemplo de nodo enriquecido. Los contenidos relacionados se cargan automáticamente por tag.",
       "more_info": "La ficha editorial es manual; la lista de contenidos y la red de relaciones automáticas se recalculan en cada build.",
-      "quote": "Nodo editorial editable."
+      "quote": "Nodo editorial editable.",
+      "accent": "red",
+      "priority": 8,
+      "x": null,
+      "y": null
     },
     {
       "tag": "Gnosticismo",
       "title": "Gnosticismo",
       "dossier": true,
       "status": "ARCHIVO ABIERTO",
-      "accent": "blue",
-      "priority": 6,
       "subtitle": "Textos, corrientes y relaciones",
       "description": "Ejemplo de dossier temático conectado al archivo mediante tags.",
       "more_info": "Podés ampliar esta ficha desde Sveltia sin tocar el código.",
-      "quote": "Todo nodo puede conducir a otro."
+      "quote": "Todo nodo puede conducir a otro.",
+      "accent": "blue",
+      "priority": 6,
+      "x": null,
+      "y": null
     }
   ],
   "relations": [
