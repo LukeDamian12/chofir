@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SoFirMoLo // Organizador IA del Atlas</title>
+<style>
+:root{--b:#1266ff;--bl:#86baff;--r:#ff1834;--bg:#000;--p:#030711}*{box-sizing:border-box}body{margin:0;background:#000;color:var(--bl);font:15px/1.5 "Courier New",monospace;padding:22px;background-image:linear-gradient(rgba(18,102,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(18,102,255,.045) 1px,transparent 1px);background-size:28px 28px}body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0 3px,rgba(18,102,255,.035) 4px)}.box{max-width:980px;margin:auto;border:1px solid var(--b);background:rgba(0,2,8,.96);box-shadow:0 0 28px rgba(18,102,255,.22)}header{padding:20px;border-bottom:1px dashed var(--b)}h1{margin:0;color:#fff;font-size:24px;text-shadow:0 0 12px var(--b)}.sub{font-size:12px;color:#6e94c9;margin-top:7px}.body{padding:20px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}label{display:block;font-size:11px;color:#fff;margin-bottom:5px}input{width:100%;background:#000814;border:1px solid var(--b);color:#dcecff;font:inherit;padding:10px;outline:none}button,a.btn{font:inherit;font-size:12px;background:#020610;border:1px solid var(--b);color:var(--bl);padding:10px 13px;cursor:pointer;text-decoration:none;display:inline-block;margin:4px 5px 4px 0}button:hover,a.btn:hover{border-color:var(--r);color:#fff;box-shadow:0 0 12px rgba(255,24,52,.3)}button.danger{border-color:var(--r);color:#fff}.note{border-left:2px solid var(--r);padding:10px 12px;background:#070208;font-size:12px;margin:14px 0}.status{padding:10px;border:1px solid #17335e;background:#01040a;font-size:12px;white-space:pre-wrap;min-height:60px}.result{margin-top:15px;display:none}.result textarea{width:100%;height:300px;background:#000;color:#9bc5ff;border:1px solid #17335e;padding:12px;font:12px/1.45 "Courier New",monospace}.ok{color:#86ffb0}.err{color:#ff8090}@media(max-width:700px){.row{grid-template-columns:1fr}}
+</style>
+</head><body><main class="box"><header><h1>SoFirMoLo // ATLAS IA</h1><div class="sub">ORGANIZADOR SEMÁNTICO PRIVADO · las API keys nunca entran en esta página</div></header><section class="body">
+<div class="note">Esta herramienta NO modifica tus tags ni tus relaciones manuales. Genera <b>_data/atlas_ai.json</b>. <b>knowledge.json siempre tiene prioridad.</b></div>
+<div class="row"><div><label>URL DEL WORKER IA</label><input id="worker" placeholder="https://sofirmolo-atlas-ai....workers.dev"></div><div><label>TOKEN PRIVADO DEL ATLAS</label><input id="token" type="password" placeholder="ATLAS_ADMIN_TOKEN"></div></div>
+<div><button id="preview">ANALIZAR / VISTA PREVIA</button><button class="danger" id="save" disabled>GUARDAR ESTA VISTA PREVIA</button><a class="btn" href="/mapa/">ABRIR MAPA →</a></div>
+<p style="font-size:11px;color:#6e94c9">La vista previa consume UNA llamada de IA. Después “Guardar esta vista previa” usa exactamente el mismo plan y NO vuelve a llamar a la IA.</p>
+<div class="status" id="status">[ESPERANDO]</div>
+<div class="result" id="result"><p id="meta"></p><textarea id="json" readonly></textarea></div>
+</section></main>
+<script>
+const $=id=>document.getElementById(id), status=$('status'), result=$('result'), meta=$('meta'), json=$('json');
+let lastPlan=null;
+$('worker').value=localStorage.getItem('sofirmoloAtlasWorker')||'';
+$('token').value=sessionStorage.getItem('sofirmoloAtlasToken')||'';
+function log(t,cls=''){status.className='status '+cls;status.textContent=t}
+function creds(){const worker=$('worker').value.trim().replace(/\/$/,'');const token=$('token').value.trim();if(!worker||!token)throw new Error('Falta URL del Worker o token privado.');localStorage.setItem('sofirmoloAtlasWorker',worker);sessionStorage.setItem('sofirmoloAtlasToken',token);return {worker,token}}
+async function preview(){
+ try{
+  const {worker,token}=creds();lastPlan=null;$('save').disabled=true;result.style.display='none';log('[1/2] Analizando el Atlas con IA...');
+  const r=await fetch(worker+'/organize',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:'{}'});
+  const data=await r.json().catch(()=>({error:'Respuesta no JSON'}));if(!r.ok)throw new Error(data.error||('HTTP '+r.status));
+  lastPlan=data.plan;$('save').disabled=false;log('OK. Vista previa generada. No se modificó GitHub y no hace falta otra llamada de IA para guardarla.','ok');
+  result.style.display='block';meta.textContent=`Motor: ${data.provider||'?'} / ${data.model||'?'} · clusters: ${data.plan?.clusters?.length||0} · relaciones IA: ${data.plan?.relations?.length||0}`;json.value=JSON.stringify(data.plan,null,2);
+ }catch(e){log('ERROR: '+e.message,'err')}
+}
+async function savePreview(){
+ if(!lastPlan){log('Primero generá una vista previa.','err');return}
+ try{
+  const {worker,token}=creds();log('[2/2] Guardando EXACTAMENTE la vista previa en GitHub...');
+  const r=await fetch(worker+'/commit',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({plan:lastPlan})});
+  const data=await r.json().catch(()=>({error:'Respuesta no JSON'}));if(!r.ok)throw new Error(data.error||('HTTP '+r.status));
+  log('OK. El plan quedó guardado en GitHub. Cloudflare Pages hará el deploy; después recargá /mapa/.','ok');
+ }catch(e){log('ERROR: '+e.message,'err')}
+}
+$('preview').onclick=preview;$('save').onclick=()=>{if(confirm('¿Guardar exactamente esta vista previa en GitHub?'))savePreview()};
+</script></body></html>

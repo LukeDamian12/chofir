@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "tag": "Hispanismo",
+      "title": "Hispanismo",
+      "subtitle": "Historia, identidad y mundo hispánico",
+      "description": "Nodo editorial de prueba. Reúne automáticamente todo contenido etiquetado con «Hispanismo» y permite añadir contexto, relaciones y notas desde el panel.",
+      "status": "EN DESARROLLO",
+      "accent": "blue",
+      "quote": "Un archivo no es una colección muerta: es una red de ideas.",
+      "related": ["Historia de España", "América hispana", "Escuela de Salamanca", "Nacionalismo"],
+      "notes": "Beta inicial. Editá este texto desde el panel cuando habilites la colección DOSSIERS."
+    },
+    {
+      "tag": "Catolicismo",
+      "title": "Catolicismo",
+      "subtitle": "Doctrina, historia, Iglesia y debates",
+      "description": "Dossier de prueba conectado por tags. Los videos, directos, artículos y recursos que lleven el tag «Catolicismo» aparecen automáticamente.",
+      "status": "ACTIVO",
+      "accent": "red",
+      "quote": "Dossier editorial conectado al archivo.",
+      "related": ["Cristianismo", "Teología", "Tomismo", "Escuela de Salamanca", "Política"],
+      "notes": "Podés escribir aquí una introducción extensa, preguntas abiertas o el estado de la investigación."
+    },
+    {
+      "tag": "Gnosticismo",
+      "title": "Gnosticismo",
+      "subtitle": "Textos, corrientes, debates y relaciones",
+      "description": "Ejemplo de dossier temático. La selección de contenidos se actualiza sola en cada build usando el tag correspondiente.",
+      "status": "ARCHIVO ABIERTO",
+      "accent": "blue",
+      "quote": "Todo nodo puede conducir a otro.",
+      "related": ["Cristianismo", "Hermetismo", "Perennialismo", "Filosofía"],
+      "notes": "Usá las relaciones manuales solo para conexiones conceptuales que quieras destacar aunque todavía no compartan contenidos."
+    }
+  ]
+}

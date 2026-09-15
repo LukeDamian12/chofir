@@ -1,0 +1,63 @@
+# ============================================================
+# SoFirMoLo Atlas V2 — BLOQUE PARA SVELTIA
+# Agregar DENTRO de "collections:" de tu admin/config.yml actual.
+# NO reemplazar el config.yml completo.
+# ============================================================
+
+  - name: "atlas_conocimiento"
+    label: "Atlas / Dossiers"
+    files:
+      - name: "knowledge"
+        label: "Mapa de conocimiento"
+        file: "_data/knowledge.json"
+        fields:
+          - label: "Ajustes automáticos"
+            name: "settings"
+            widget: "object"
+            fields:
+              - {label: "Máx. conexiones automáticas por nodo", name: "max_auto_links_per_node", widget: "number", value_type: "int", min: 1, max: 8, default: 2}
+              - {label: "Coincidencias para considerar conexión fuerte", name: "strong_link_min_shared", widget: "number", value_type: "int", min: 2, max: 20, default: 4}
+              - {label: "Cantidad de nodos ancla", name: "anchor_count", widget: "number", value_type: "int", min: 3, max: 16, default: 8}
+              - {label: "Zoom inicial", name: "default_zoom", widget: "number", value_type: "float", min: 0.2, max: 1.5, step: 0.05, default: 0.72}
+
+          - label: "Fichas de nodos"
+            name: "nodes"
+            widget: "list"
+            required: false
+            summary: "{{fields.tag}} · {{fields.status}}"
+            fields:
+              - {label: "Tag exacto", name: "tag", widget: "string", hint: "Tiene que corresponder al tag del contenido. No crea ni modifica tags de tus publicaciones."}
+              - {label: "Título visible", name: "title", widget: "string", required: false}
+              - {label: "Es dossier editorial", name: "dossier", widget: "boolean", default: false}
+              - {label: "Estado", name: "status", widget: "string", required: false}
+              - {label: "Subtítulo", name: "subtitle", widget: "string", required: false}
+              - {label: "Descripción", name: "description", widget: "text", required: false}
+              - {label: "Información ampliada", name: "more_info", widget: "text", required: false}
+              - {label: "Cita / frase", name: "quote", widget: "text", required: false}
+              - {label: "Acento", name: "accent", widget: "select", options: ["blue", "red"], default: "blue"}
+              - {label: "Prioridad visual (0-10)", name: "priority", widget: "number", value_type: "int", min: 0, max: 10, default: 0}
+              - {label: "Posición X opcional", name: "x", widget: "number", required: false, hint: "Dejala vacía para posición automática estable."}
+              - {label: "Posición Y opcional", name: "y", widget: "number", required: false, hint: "Dejala vacía para posición automática estable."}
+
+          - label: "Relaciones manuales"
+            name: "relations"
+            widget: "list"
+            required: false
+            summary: "{{fields.from}} → {{fields.to}}"
+            fields:
+              - {label: "Nodo A / tag", name: "from", widget: "string"}
+              - {label: "Nodo B / tag", name: "to", widget: "string"}
+              - {label: "Texto de la relación", name: "label", widget: "string", required: false}
+              - {label: "Fuerza visual (1-5)", name: "strength", widget: "number", value_type: "int", min: 1, max: 5, default: 3}
+              - {label: "Direccional (A → B)", name: "directed", widget: "boolean", default: false}
+              - {label: "Color", name: "accent", widget: "select", options: ["blue", "red"], default: "red"}
+
+          - label: "Bloquear relaciones automáticas"
+            name: "blocked_relations"
+            widget: "list"
+            required: false
+            summary: "{{fields.from}} × {{fields.to}}"
+            hint: "Usalo cuando dos tags coinciden en contenidos pero no querés que esa conexión aparezca automáticamente."
+            fields:
+              - {label: "Nodo A / tag", name: "from", widget: "string"}
+              - {label: "Nodo B / tag", name: "to", widget: "string"}

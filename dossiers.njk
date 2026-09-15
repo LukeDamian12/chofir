@@ -1,0 +1,46 @@
+---
+layout: base.njk
+title: "Dossiers"
+description: "Dossiers temáticos del archivo SoFirMoLo."
+permalink: "/dossiers/"
+---
+
+<style>
+.ds-shell{padding:22px 18px 36px}.ds-head{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap;margin-bottom:18px}.ds-kicker{font-size:.7rem;letter-spacing:.17em;color:var(--red-light)}.ds-title{font-size:clamp(1.5rem,3vw,2.4rem);color:#fff;text-shadow:0 0 18px var(--blue-glow)}.ds-select{background:#01040a;color:var(--blue-light);border:1px solid var(--blue-main);padding:8px 10px;font:inherit;font-size:.66rem}.ds-grid{display:grid;grid-template-columns:350px minmax(0,1fr);gap:14px}.ds-panel{border:1px solid var(--blue-main);background:rgba(0,2,8,.94);box-shadow:inset 0 0 28px rgba(18,102,255,.08)}.ds-panel-head{padding:10px 13px;border-bottom:1px dashed var(--blue-main);font-size:.66rem;color:#fff;letter-spacing:.13em}.ds-panel-body{padding:16px}.ds-status{display:inline-block;border:1px solid var(--red-main);color:var(--red-light);padding:5px 7px;font-size:.57rem;margin-bottom:12px}.ds-topic{font-size:1.42rem;color:#fff;text-shadow:0 0 13px var(--blue-glow);margin-bottom:4px}.ds-sub{font-size:.67rem;color:#77a7e8;margin-bottom:15px}.ds-desc,.ds-notes{font-size:.7rem;line-height:1.58;color:#a9cfff}.ds-sep{border-top:1px dashed rgba(124,179,255,.35);margin:16px 0}.ds-h{font-size:.62rem;letter-spacing:.14em;color:#fff;margin-bottom:8px}.ds-chip{display:inline-block;border:1px solid rgba(18,102,255,.75);padding:5px 7px;margin:3px 3px 3px 0;font-size:.57rem;color:#a9cfff}.ds-chip.manual{border-color:var(--red-main);color:#ff91a0}.ds-quote{padding:12px;border-left:2px solid var(--red-main);background:#050209;color:#d5e5ff;font-size:.66rem;line-height:1.5}.ds-list{display:grid;gap:8px}.ds-item{display:grid;grid-template-columns:100px 1fr;gap:12px;padding:11px;border:1px solid rgba(124,179,255,.28);background:rgba(3,7,16,.72)}.ds-type{font-size:.54rem;color:var(--red-light);letter-spacing:.08em}.ds-item a{font-size:.69rem;color:#d5e8ff}.ds-item p{font-size:.59rem;color:#758cad;margin-top:4px;line-height:1.4}.ds-auto{font-size:.6rem;color:#6085b5;line-height:1.5;margin-bottom:12px}.ds-empty{padding:22px;border:1px dashed rgba(124,179,255,.35);color:#7695bf;font-size:.67rem}.ds-maplink{display:inline-block;margin-top:12px;border:1px solid var(--red-main);padding:7px 9px;font-size:.61rem;color:#fff}@media(max-width:820px){.ds-grid{grid-template-columns:1fr}.ds-item{grid-template-columns:1fr}}
+</style>
+
+<section class="ds-shell">
+  <div class="ds-head"><div><div class="ds-kicker">// DOSSIERS · ARCHIVO TEMÁTICO</div><h1 class="ds-title">DOSSIERS DE CONOCIMIENTO</h1></div><select class="ds-select" id="ds-picker"><option value="">SELECCIONAR TAG / DOSSIER</option></select></div>
+  <div class="ds-grid">
+    <aside class="ds-panel"><div class="ds-panel-head">[ FICHA EDITORIAL ]</div><div class="ds-panel-body" id="ds-meta"><div class="ds-empty">Elegí un dossier o llegá desde el mapa.</div></div></aside>
+    <section class="ds-panel"><div class="ds-panel-head">[ CONTENIDO RELACIONADO AUTOMÁTICAMENTE POR TAG ]</div><div class="ds-panel-body"><div class="ds-auto">Esta lista no se carga a mano: cada contenido que tenga el tag seleccionado aparece aquí tras el próximo build.</div><div class="ds-list" id="ds-content"></div></div></section>
+  </div>
+</section>
+
+<script type="application/json" id="ds-knowledge">{{ knowledge | toJson | safe }}</script>
+<script type="application/json" id="ds-content-data">{
+"videos":[{% for item in collections.videos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"VIDEO"}{% if not loop.last %},{% endif %}{% endfor %}],
+"directos":[{% for item in collections.directos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"DIRECTO"}{% if not loop.last %},{% endif %}{% endfor %}],
+"articulos":[{% for item in collections.articulos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"ARTÍCULO"}{% if not loop.last %},{% endif %}{% endfor %}],
+"recursos":[{% for item in collections.recursos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"RECURSO"}{% if not loop.last %},{% endif %}{% endfor %}]
+}</script>
+<script>
+(()=>{
+ const cfg=JSON.parse(document.getElementById('ds-knowledge').textContent||'{}'),p=JSON.parse(document.getElementById('ds-content-data').textContent||'{}');
+ const all=[...(p.videos||[]),...(p.directos||[]),...(p.articulos||[]),...(p.recursos||[])];
+ const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9ñü\s-]/g,' ').replace(/\s+/g,' '),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const fmt=v=>{if(!v)return'';const d=new Date(v);return Number.isNaN(d.getTime())?String(v).slice(0,10):new Intl.DateTimeFormat('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(d)};
+ const SYSTEM=new Set(['videos','video','directos','directo','articulos','artículos','articulo','artículo','recursos','recurso','all','nav']);
+ const nodeMap=new Map((cfg.nodes||[]).map(n=>[norm(n.tag),n]));
+ const labels=new Map(); all.forEach(i=>(Array.isArray(i.tags)?i.tags:[]).forEach(t=>{const k=norm(t);if(k&&!SYSTEM.has(k)&&!labels.has(k))labels.set(k,String(t).trim())})); (cfg.nodes||[]).forEach(n=>{const k=norm(n.tag);if(k&&!labels.has(k))labels.set(k,n.tag)});
+ const picker=document.getElementById('ds-picker'),meta=document.getElementById('ds-meta'),out=document.getElementById('ds-content');
+ [...labels.entries()].sort((a,b)=>a[1].localeCompare(b[1],'es')).forEach(([k,t])=>{const o=document.createElement('option');o.value=t;o.textContent=(nodeMap.get(k)?.dossier?'◆ ':'· ')+t;picker.appendChild(o)});
+ const relsFor=k=>(cfg.relations||[]).filter(r=>norm(r.from)===k||norm(r.to)===k).map(r=>({other:norm(r.from)===k?r.to:r.from,label:r.label||'',manual:true}));
+ function render(tag){const k=norm(tag),n=nodeMap.get(k)||{},matches=all.filter(i=>(Array.isArray(i.tags)?i.tags:[]).some(t=>norm(t)===k)).sort((a,b)=>String(b.date).localeCompare(String(a.date))),rels=relsFor(k);
+  meta.innerHTML=`<div class="ds-status">${esc(n.status||(n.dossier?'DOSSIER EDITORIAL':'DOSSIER AUTOMÁTICO'))}</div><div class="ds-topic">${esc(n.title||labels.get(k)||tag)}</div><div class="ds-sub">${esc(n.subtitle||'Generado desde la taxonomía del archivo')}</div><div class="ds-desc">${esc(n.description||'Este tag ya funciona como dossier automático. Si querés una ficha editorial más rica, agregalo a knowledge.json desde el panel.')}</div>${n.more_info?`<div class="ds-sep"></div><div class="ds-h">// INFORMACIÓN AMPLIADA</div><div class="ds-notes">${esc(n.more_info)}</div>`:''}<div class="ds-sep"></div><div class="ds-h">// RELACIONES MANUALES</div>${rels.length?rels.map(r=>`<a class="ds-chip manual" href="/dossiers/?tag=${encodeURIComponent(r.other)}">◆ ${esc(r.other)}${r.label?' · '+esc(r.label):''}</a>`).join(''):'<span class="ds-chip">sin relaciones manuales</span>'}${n.quote?`<div class="ds-sep"></div><div class="ds-quote">“${esc(n.quote)}”</div>`:''}<div class="ds-sep"></div><div class="ds-h">// ESTADÍSTICAS</div><span class="ds-chip">${matches.length} contenidos</span><a class="ds-maplink" href="/mapa/">VER EN EL MAPA →</a>`;
+  out.innerHTML=matches.length?matches.map(i=>`<article class="ds-item"><div class="ds-type">${esc(i.kind||'ARCHIVO')}<br>${esc(fmt(i.date))}</div><div><a href="${esc(i.url)}">&gt; ${esc(i.title||'Sin título')}</a>${i.description?`<p>${esc(i.description)}</p>`:''}</div></article>`).join(''):'<div class="ds-empty">Todavía no hay contenidos con este tag.</div>';
+  picker.value=[...picker.options].find(o=>norm(o.value)===k)?.value||tag;const u=new URL(location.href);u.searchParams.set('tag',tag);history.replaceState(null,'',u);
+ }
+ picker.onchange=()=>render(picker.value);const initial=new URLSearchParams(location.search).get('tag')||[...(cfg.nodes||[])].find(n=>n.dossier)?.tag||labels.values().next().value||'';if(initial)render(initial);
+})();
+</script>

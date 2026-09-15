@@ -1,0 +1,488 @@
+---
+layout: base.njk
+title: "Mapa de conocimiento"
+description: "Atlas interactivo del archivo SoFirMoLo."
+permalink: "/mapa/"
+---
+
+<style>
+.km-shell{padding:22px 18px 34px;position:relative}
+.km-topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.km-kicker{font-size:.72rem;letter-spacing:.18em;color:var(--red-light);text-transform:uppercase}
+.km-title{font-size:clamp(1.45rem,3vw,2.45rem);color:#e2efff;text-shadow:0 0 18px var(--blue-glow);letter-spacing:.06em}
+.km-status{border:1px solid var(--blue-main);padding:7px 10px;background:#01040a;box-shadow:inset 0 0 18px rgba(18,102,255,.12);font-size:.65rem}
+.km-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;min-width:0}
+.km-stage{position:relative;height:clamp(700px,76vh,940px);border:1px solid rgba(124,179,255,.68);background:linear-gradient(rgba(18,102,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(18,102,255,.05) 1px,transparent 1px),radial-gradient(circle at 48% 46%,rgba(18,102,255,.11),transparent 42%),#010207;background-size:32px 32px,32px 32px,auto,auto;overflow:hidden;min-width:0}
+.km-stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0 3px,rgba(255,255,255,.025) 4px);z-index:3}
+#knowledge-map{position:absolute;inset:0;z-index:1}
+.km-toolbar{position:absolute;left:12px;top:12px;right:12px;z-index:7;display:flex;gap:6px;flex-wrap:wrap;align-items:center;pointer-events:none}
+.km-toolbar>*{pointer-events:auto}
+.km-btn,.km-search{font:inherit;font-size:.62rem;color:var(--blue-light);background:rgba(0,4,12,.94);border:1px solid var(--blue-main);padding:7px 9px;min-height:31px}
+.km-btn{cursor:pointer}
+.km-btn:hover,.km-btn.active{color:#fff;border-color:var(--red-main);box-shadow:0 0 12px rgba(255,18,43,.35)}
+.km-search{min-width:190px;flex:1;max-width:310px;outline:none}
+.km-help{position:absolute;right:12px;bottom:12px;z-index:7;background:rgba(0,2,8,.92);border:1px solid rgba(124,179,255,.45);padding:7px 9px;font-size:.52rem;line-height:1.55;color:#7899c7;pointer-events:none}
+.km-legend{position:absolute;left:12px;bottom:12px;z-index:7;background:rgba(0,2,8,.92);border:1px solid rgba(124,179,255,.45);padding:7px 9px;font-size:.52rem;line-height:1.6;pointer-events:none}
+.km-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;box-shadow:0 0 8px currentColor}
+.km-panel{border:1px solid var(--blue-main);background:rgba(0,2,8,.95);height:clamp(700px,76vh,940px);box-shadow:inset 0 0 30px rgba(18,102,255,.08);display:flex;flex-direction:column;min-width:0}
+.km-panel-head{padding:11px 13px;border-bottom:1px dashed var(--blue-main);font-size:.67rem;letter-spacing:.14em;color:#fff}
+.km-panel-body{padding:15px;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--blue-main) #010207}
+.km-node-title{font-size:1.22rem;color:#fff;margin-bottom:4px;text-shadow:0 0 12px var(--blue-glow);overflow-wrap:anywhere}
+.km-node-meta{color:var(--red-light);font-size:.61rem;margin-bottom:13px}
+.km-desc,.km-more{font-size:.69rem;line-height:1.55;color:#a9cfff;margin-bottom:13px}
+.km-section{margin-top:16px;padding-top:11px;border-top:1px dashed rgba(124,179,255,.32)}
+.km-section h3{font-size:.64rem;letter-spacing:.13em;color:#fff;margin-bottom:8px}
+.km-chip{display:inline-block;margin:3px 4px 3px 0;padding:4px 6px;border:1px solid rgba(18,102,255,.68);font-size:.56rem;color:#9cc7ff;background:#020610}
+.km-chip.manual{border-color:rgba(255,18,43,.8);color:#ff91a0}
+.km-content{display:block;padding:7px 0;border-bottom:1px dotted rgba(124,179,255,.20);font-size:.61rem;line-height:1.4}
+.km-content small{display:block;color:#607ba4;margin-top:3px;font-size:.52rem}
+.km-open{display:inline-block;margin-top:12px;padding:7px 9px;border:1px solid var(--red-main);color:#fff;font-size:.61rem}
+.km-empty{font-size:.67rem;color:#7f9cc5;line-height:1.55}
+.km-quote{border-left:2px solid var(--red-main);padding:9px 10px;background:#050209;color:#cfe2ff;font-size:.61rem;line-height:1.5;margin-top:12px}
+.km-grid:fullscreen{background:#000;padding:12px;grid-template-columns:minmax(0,1fr) 380px;width:100vw;height:100vh;gap:12px}
+.km-grid:fullscreen .km-stage,.km-grid:fullscreen .km-panel{height:calc(100vh - 24px)}
+@media(max-width:950px){.km-grid{grid-template-columns:1fr}.km-stage{height:680px}.km-panel{height:auto;min-height:420px}.km-grid:fullscreen{grid-template-columns:1fr}.km-grid:fullscreen .km-panel{display:none}}
+@media(max-width:560px){.km-shell{padding:14px 7px 24px}.km-stage{height:610px}.km-search{order:20;max-width:none;width:100%}.km-help{display:none}.km-panel-body{padding:12px}}
+</style>
+
+<section class="km-shell">
+  <div class="km-topbar">
+    <div><div class="km-kicker">// ATLAS · ARCHIVO VIVO · BETA 3.1 · RENDIMIENTO + IA</div><h1 class="km-title">MAPA DE CONOCIMIENTO</h1></div>
+    <div class="km-status" id="km-stats">CARGANDO RED...</div>
+  </div>
+  <div class="km-grid" id="km-fullscreen-root">
+    <div class="km-stage" id="km-stage">
+      <div class="km-toolbar">
+        <button class="km-btn active" id="km-smart">CONEXIONES: ESENCIALES</button>
+        <button class="km-btn" id="km-all">MOSTRAR TODAS</button>
+        <button class="km-btn" id="km-origin">ORIGEN</button>
+        <button class="km-btn" id="km-fit">VER TODO</button>
+        <button class="km-btn" id="km-minus">−</button>
+        <button class="km-btn" id="km-plus">+</button>
+        <button class="km-btn" id="km-fullscreen">PANTALLA COMPLETA</button>
+        <input class="km-search" id="km-search" placeholder="BUSCAR TAG / CONCEPTO...">
+      </div>
+      <div id="knowledge-map"></div>
+      <div class="km-legend">
+        <span style="color:#4f9cff"><i class="km-dot" style="background:#4f9cff"></i>TAG AUTOMÁTICO</span><br>
+        <span style="color:#ff3650"><i class="km-dot" style="background:#ff3650"></i>NODO EDITORIAL / DOSSIER</span><br>
+        <span style="color:#dbeaff">◇ relación IA</span> · ···· automática · <span style="color:#ff7184">◆ manual</span>
+      </div>
+      <div class="km-help">ARRASTRAR FONDO = MOVER MAPA<br>RUEDA = ZOOM · ARRASTRAR NODO = REORDENAR<br>CLIC NODO = ABRIR/CERRAR · DOBLE CLIC = CENTRAR</div>
+    </div>
+    <aside class="km-panel">
+      <div class="km-panel-head">[ INFORMACIÓN DEL NODO ]</div>
+      <div class="km-panel-body" id="km-info"><div class="km-empty">Seleccioná un nodo. La red se genera desde tus tags; las fichas y relaciones manuales vienen de <strong>_data/knowledge.json</strong>.</div></div>
+    </aside>
+  </div>
+</section>
+
+<script type="application/json" id="km-knowledge">{{ knowledge | toJson | safe }}</script>
+<script type="application/json" id="km-ai-plan">{% if atlas_ai %}{{ atlas_ai | toJson | safe }}{% else %}{}{% endif %}</script>
+<script type="application/json" id="km-content-data">{
+"videos":[{% for item in collections.videos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"VIDEO"}{% if not loop.last %},{% endif %}{% endfor %}],
+"directos":[{% for item in collections.directos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"DIRECTO"}{% if not loop.last %},{% endif %}{% endfor %}],
+"articulos":[{% for item in collections.articulos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"ARTÍCULO"}{% if not loop.last %},{% endif %}{% endfor %}],
+"recursos":[{% for item in collections.recursos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"RECURSO"}{% if not loop.last %},{% endif %}{% endfor %}]
+}</script>
+<script src="https://unpkg.com/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
+<script>
+(() => {
+  const payload=JSON.parse(document.getElementById('km-content-data').textContent||'{}');
+  const raw=[...(payload.videos||[]),...(payload.directos||[]),...(payload.articulos||[]),...(payload.recursos||[])];
+  const config=JSON.parse(document.getElementById('km-knowledge').textContent||'{}');
+  const aiPlan=JSON.parse(document.getElementById('km-ai-plan').textContent||'{}');
+  const settings={max_auto_links_per_node:2,strong_link_min_shared:4,anchor_count:8,default_zoom:.72,...(config.settings||{})};
+  const SYSTEM_TAGS=new Set(['videos','video','directos','directo','articulos','artículos','articulo','artículo','recursos','recurso','all','nav']);
+  const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9ñü\s-]/g,' ').replace(/\s+/g,' ');
+  const pairKey=(a,b)=>[a,b].sort().join('|||');
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmtDate=v=>{if(!v)return'';const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v).slice(0,10);return new Intl.DateTimeFormat('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(d)};
+  const tagMap=new Map(), autoMap=new Map();
+
+  function ensureTag(tag){
+    const label=String(tag||'').trim(); if(!label)return null;
+    const id=norm(label); if(!id||SYSTEM_TAGS.has(id))return null;
+    if(!tagMap.has(id))tagMap.set(id,{id,label,count:0,contents:[],meta:null});
+    return tagMap.get(id);
+  }
+
+  raw.forEach(item=>{
+    const sourceTags=Array.isArray(item.tags)?item.tags:(item.tags?[item.tags]:[]);
+    const unique=[]; const seen=new Set();
+    sourceTags.forEach(t=>{const n=ensureTag(t);if(n&&!seen.has(n.id)){seen.add(n.id);unique.push(n)}});
+    unique.forEach(n=>{n.count++;n.contents.push(item)});
+    for(let i=0;i<unique.length;i++)for(let j=i+1;j<unique.length;j++){
+      const a=unique[i].id,b=unique[j].id,key=pairKey(a,b);
+      if(!autoMap.has(key))autoMap.set(key,{key,source:a,target:b,weight:0,manual:0,directed:0,label:'',accent:'blue'});
+      autoMap.get(key).weight++;
+    }
+  });
+
+  (config.nodes||[]).forEach(meta=>{const n=ensureTag(meta.tag);if(n)n.meta=meta});
+  const blocked=new Set((config.blocked_relations||[]).map(r=>pairKey(norm(r.from),norm(r.to))));
+  blocked.forEach(k=>autoMap.delete(k));
+
+  autoMap.forEach(e=>{
+    const a=tagMap.get(e.source),b=tagMap.get(e.target);
+    e.score=e.weight/Math.sqrt(Math.max(1,a?.count||1)*Math.max(1,b?.count||1));
+  });
+
+  const adjacency=new Map();
+  const addAdj=(id,e)=>{if(!adjacency.has(id))adjacency.set(id,[]);adjacency.get(id).push(e)};
+  autoMap.forEach(e=>{addAdj(e.source,e);addAdj(e.target,e)});
+  const smartKeys=new Set();
+  tagMap.forEach((n,id)=>{
+    const arr=(adjacency.get(id)||[]).slice().sort((a,b)=>(b.score-a.score)||(b.weight-a.weight));
+    arr.slice(0,Math.max(1,+settings.max_auto_links_per_node||2)).forEach(e=>smartKeys.add(e.key));
+  });
+  autoMap.forEach(e=>{e.smart=smartKeys.has(e.key)||e.weight>=Math.max(2,+settings.strong_link_min_shared||4)?1:0});
+
+  const edgeMap=new Map(autoMap);
+
+  // ---------------------------------------------------------
+  // CAPA IA: sugiere relaciones semánticas SIN tocar las
+  // relaciones manuales. Las relaciones bloqueadas siempre ganan.
+  // ---------------------------------------------------------
+  (aiPlan.relations||[]).forEach(r=>{
+    const s=ensureTag(r.from),t=ensureTag(r.to); if(!s||!t||s.id===t.id)return;
+    const key=pairKey(s.id,t.id); if(blocked.has(key))return;
+    const existing=edgeMap.get(key);
+    const patch={ai:1,smart:1,directed:r.directed?1:0,label:r.label||'relación semántica',accent:'blue',aiStrength:Math.max(1,Math.min(5,+r.strength||2))};
+    if(r.directed){patch.source=s.id;patch.target=t.id;}
+    if(existing){
+      // Conserva el peso real por co-ocurrencia y añade la lectura semántica IA.
+      existing.ai=1; existing.smart=1; existing.label=existing.label||patch.label;
+      existing.aiStrength=patch.aiStrength;
+      if(r.directed){existing.directed=1;existing.source=s.id;existing.target=t.id;}
+    } else {
+      edgeMap.set(key,{key,source:s.id,target:t.id,weight:patch.aiStrength,score:.75,manual:0,...patch});
+    }
+  });
+
+  // Las relaciones MANUALES de knowledge.json tienen prioridad absoluta.
+  (config.relations||[]).forEach(r=>{
+    const s=ensureTag(r.from),t=ensureTag(r.to); if(!s||!t||s.id===t.id)return;
+    const key=pairKey(s.id,t.id), existing=edgeMap.get(key);
+    const patch={manual:1,ai:0,smart:1,directed:r.directed?1:0,label:r.label||'',accent:r.accent||'red',manualStrength:+r.strength||3};
+    if(r.directed){patch.source=s.id;patch.target=t.id;}
+    if(existing){Object.assign(existing,patch);}
+    else edgeMap.set(key,{key,source:s.id,target:t.id,weight:Math.max(1,+r.strength||3),score:1,...patch});
+  });
+
+  const aiImportance=new Map((aiPlan.importance||[]).map(x=>[norm(x.tag),Math.max(1,Math.min(10,+x.value||1))]));
+  const aiClusterFor=new Map();
+  const aiClusterTitle=new Map();
+  const aiClusters=[];
+  (aiPlan.clusters||[]).forEach((c,idx)=>{
+    const id=String(c.id||('cluster-'+idx));
+    const title=String(c.title||id);
+    const members=[];
+    (c.members||[]).forEach(tag=>{
+      const nid=norm(tag);
+      if(tagMap.has(nid)&&!aiClusterFor.has(nid)){aiClusterFor.set(nid,id);aiClusterTitle.set(nid,title);members.push(nid);}
+    });
+    if(members.length)aiClusters.push({id,title,members,accent:c.accent||'blue'});
+  });
+
+  const importance=n=>(n.count||0)+((+n.meta?.priority||0)*2)+(n.meta?.dossier?8:0)+(aiImportance.get(n.id)||0)*1.35;
+  const sortedNodes=[...tagMap.values()].sort((a,b)=>(importance(b)-importance(a))||a.label.localeCompare(b.label,'es'));
+
+  // Incidencias para asignar tags omitidos por la IA al cluster semánticamente más próximo.
+  const incident=new Map();
+  const addIncident=(id,e)=>{if(!incident.has(id))incident.set(id,[]);incident.get(id).push(e)};
+  edgeMap.forEach(e=>{addIncident(e.source,e);addIncident(e.target,e)});
+
+  let anchors=[];
+  const clusterFor=new Map();
+  const positions=new Map();
+
+  if(aiClusters.length){
+    // Si existe plan IA, la IA decide las ZONAS; Cytoscape sigue manejando la interacción.
+    const clusterMembers=new Map(aiClusters.map(c=>[c.id,[]]));
+    aiClusterFor.forEach((cid,nid)=>{if(clusterMembers.has(cid)&&tagMap.has(nid))clusterMembers.get(cid).push(tagMap.get(nid));});
+
+    // Tags no asignados: busca el cluster al que tenga vínculos más fuertes.
+    sortedNodes.forEach(n=>{
+      if(aiClusterFor.has(n.id))return;
+      const scoreByCluster=new Map();
+      (incident.get(n.id)||[]).forEach(e=>{
+        const other=e.source===n.id?e.target:e.source;
+        const cid=aiClusterFor.get(other); if(!cid)return;
+        const v=(e.manual?20:0)+(e.ai?8:0)+(e.score||0)*6+(e.weight||0);
+        scoreByCluster.set(cid,(scoreByCluster.get(cid)||0)+v);
+      });
+      let best=null,bv=-1; scoreByCluster.forEach((v,k)=>{if(v>bv){bv=v;best=k;}});
+      if(!best)best=aiClusters[Math.abs([...n.id].reduce((h,ch)=>(h*31+ch.charCodeAt(0))|0,7))%aiClusters.length].id;
+      aiClusterFor.set(n.id,best); aiClusterTitle.set(n.id,aiClusters.find(c=>c.id===best)?.title||best);
+      clusterMembers.get(best)?.push(n);
+    });
+
+    // Centros amplios y estables en una grilla: evita la "bola" de nodos.
+    const ordered=aiClusters.slice().sort((a,b)=>(clusterMembers.get(b.id)?.length||0)-(clusterMembers.get(a.id)?.length||0));
+    const cols=Math.max(2,Math.ceil(Math.sqrt(ordered.length)));
+    const gapX=1550, gapY=1220;
+    const rows=Math.ceil(ordered.length/cols);
+    ordered.forEach((c,i)=>{
+      const col=i%cols,row=Math.floor(i/cols);
+      const center={x:(col-(cols-1)/2)*gapX,y:(row-(rows-1)/2)*gapY};
+      const members=(clusterMembers.get(c.id)||[]).slice().sort((a,b)=>(importance(b)-importance(a))||a.label.localeCompare(b.label,'es'));
+      if(!members.length)return;
+      const anchor=members[0]; anchors.push(anchor); positions.set(anchor.id,center); clusterFor.set(anchor.id,c.id);
+      let idx=1,ring=1;
+      while(idx<members.length){
+        const radius=250+(ring-1)*190;
+        const capacity=Math.max(7,Math.floor((2*Math.PI*radius)/185));
+        const take=Math.min(capacity,members.length-idx);
+        const seed=[...c.id].reduce((v,ch)=>(v*33+ch.charCodeAt(0))>>>0,11);
+        const offset=(seed%360)*Math.PI/180;
+        for(let j=0;j<take;j++){
+          const ang=offset+(j/take)*Math.PI*2+(ring%2?0:.19);
+          const n=members[idx+j];
+          positions.set(n.id,{x:center.x+Math.cos(ang)*radius,y:center.y+Math.sin(ang)*radius});
+          clusterFor.set(n.id,c.id);
+        }
+        idx+=take;ring++;
+      }
+    });
+  } else {
+    // FALLBACK: mismo organizador determinista de la BETA 2 si todavía no corriste la IA.
+    const anchorCount=Math.max(1,Math.min(sortedNodes.length,+settings.anchor_count||8));
+    anchors=sortedNodes.slice(0,anchorCount);
+    const anchorIds=new Set(anchors.map(a=>a.id));
+    anchors.forEach(a=>clusterFor.set(a.id,a.id));
+    sortedNodes.slice(anchorCount).forEach(n=>{
+      let best=null,bestVal=-1;
+      (incident.get(n.id)||[]).forEach(e=>{
+        const other=e.source===n.id?e.target:e.source;
+        if(anchorIds.has(other)){
+          const val=(e.manual?10:0)+(e.ai?5:0)+(e.score||0)*5+(e.weight||0);
+          if(val>bestVal){bestVal=val;best=other;}
+        }
+      });
+      if(!best){let h=0;for(const ch of n.id)h=(h*31+ch.charCodeAt(0))>>>0;best=anchors[h%anchors.length].id;}
+      clusterFor.set(n.id,best);
+    });
+    if(anchors[0])positions.set(anchors[0].id,{x:0,y:0});
+    const outer=anchors.slice(1),anchorRadius=Math.max(1050,outer.length*185);
+    outer.forEach((a,i)=>{const ang=(-Math.PI/2)+(i/Math.max(1,outer.length))*Math.PI*2;positions.set(a.id,{x:Math.cos(ang)*anchorRadius,y:Math.sin(ang)*anchorRadius});});
+    const clusters=new Map();anchors.forEach(a=>clusters.set(a.id,[]));
+    sortedNodes.forEach(n=>{if(!anchorIds.has(n.id)){const aid=clusterFor.get(n.id);if(clusters.has(aid))clusters.get(aid).push(n);}});
+    clusters.forEach((members,aid)=>{
+      const c=positions.get(aid)||{x:0,y:0};
+      members.sort((a,b)=>(importance(b)-importance(a))||a.label.localeCompare(b.label,'es'));
+      let idx=0,ring=1;
+      while(idx<members.length){
+        const radius=190+(ring-1)*150,capacity=Math.max(6,Math.floor((2*Math.PI*radius)/155)),take=Math.min(capacity,members.length-idx);
+        const seed=[...aid].reduce((v,ch)=>(v*33+ch.charCodeAt(0))>>>0,7),offset=(seed%360)*Math.PI/180;
+        for(let j=0;j<take;j++){const ang=offset+(j/take)*Math.PI*2+(ring%2?0:.16),n=members[idx+j];positions.set(n.id,{x:c.x+Math.cos(ang)*radius,y:c.y+Math.sin(ang)*radius});}
+        idx+=take;ring++;
+      }
+    });
+  }
+
+  // Posiciones manuales de knowledge.json son la última palabra.
+  tagMap.forEach(n=>{const hasX=n.meta?.x!==undefined&&n.meta?.x!==null&&n.meta?.x!=='';const hasY=n.meta?.y!==undefined&&n.meta?.y!==null&&n.meta?.y!=='';const x=Number(n.meta?.x),y=Number(n.meta?.y);if(hasX&&hasY&&Number.isFinite(x)&&Number.isFinite(y))positions.set(n.id,{x,y});});
+
+  const elements=[];
+  tagMap.forEach(n=>elements.push({data:{id:n.id,label:n.meta?.title||n.label,count:n.count,dossier:n.meta?.dossier?1:0,accent:n.meta?.accent||'blue',priority:+n.meta?.priority||0,aiImportance:aiImportance.get(n.id)||0,cluster:aiClusterTitle.get(n.id)||''},position:positions.get(n.id)||{x:0,y:0}}));
+  let ec=0;edgeMap.forEach(e=>elements.push({data:{id:'e'+(++ec),source:e.source,target:e.target,weight:e.weight||1,smart:e.smart?1:0,manual:e.manual?1:0,ai:e.ai?1:0,directed:e.directed?1:0,label:e.label||'',accent:e.accent||'blue',score:e.score||0}}));
+
+  const cy=cytoscape({
+    container:document.getElementById('knowledge-map'),elements,layout:{name:'preset'},
+    minZoom:.06,maxZoom:4.2,wheelSensitivity:.18,boxSelectionEnabled:false,autoungrabify:false,autounselectify:true,userPanningEnabled:true,userZoomingEnabled:true,
+    hideEdgesOnViewport: edgeMap.size > 420, textureOnViewport: edgeMap.size > 520, motionBlur:false,
+    style:[
+      {selector:'node',style:{'label':'data(label)','color':'#b9d7ff','font-family':'Courier New','font-size':'11px','font-weight':'bold','text-valign':'bottom','text-margin-y':9,'text-outline-color':'#000','text-outline-width':3,'background-color':'#061631','border-color':'#3f96ff','border-width':2,'width':'mapData(count,1,18,34,72)','height':'mapData(count,1,18,34,72)','shadow-blur':18,'shadow-color':'#1266ff','shadow-opacity':.60,'overlay-padding':9}},
+      {selector:'node[dossier = 1]',style:{'background-color':'#24040a','border-color':'#ff3650','border-width':3,'color':'#fff','shadow-color':'#ff122b','shadow-opacity':.85,'width':'mapData(count,0,18,46,82)','height':'mapData(count,0,18,46,82)'}},
+      {selector:'node.activeNode',style:{'border-color':'#fff','border-width':4,'shadow-color':'#fff','shadow-opacity':1}},
+      {selector:'node.dimLabel',style:{'text-opacity':0}},
+      {selector:'edge',style:{'width':'mapData(weight,1,8,1,3.8)','line-color':'#176dff','opacity':.38,'curve-style':'bezier','line-style':'dashed','line-dash-pattern':[7,11],'line-dash-offset':0,'target-arrow-shape':'none','target-arrow-color':'#176dff'}},
+      {selector:'edge.bulkEdge',style:{'opacity':.30}},
+      {selector:'edge[smart = 0]',style:{'display':'none'}},
+      {selector:'edge[ai = 1][manual = 0]',style:{'line-color':'#c2dcff','target-arrow-color':'#c2dcff','opacity':.62,'line-dash-pattern':[3,8]}},
+      {selector:'edge[manual = 1]',style:{'line-color':'#ff2945','target-arrow-color':'#ff2945','opacity':.72,'width':'mapData(weight,1,5,2,5)'}},
+      {selector:'edge[manual = 1][accent = "blue"]',style:{'line-color':'#4f9cff','target-arrow-color':'#4f9cff'}},
+      {selector:'node[accent = "red"]',style:{'border-color':'#ff3650','shadow-color':'#ff122b'}},
+      {selector:'edge[directed = 1]',style:{'target-arrow-shape':'triangle','arrow-scale':.75}},
+      {selector:'edge.revealEdge',style:{'display':'element','opacity':.78}},
+      {selector:'.faded',style:{'opacity':.055,'text-opacity':.035}},
+      {selector:'edge.focusEdge',style:{'display':'element','opacity':1,'width':4.5,'line-color':'#7cb3ff','target-arrow-color':'#7cb3ff'}},
+      {selector:'edge.focusEdge[manual = 1]',style:{'line-color':'#ff5f73','target-arrow-color':'#ff5f73'}}
+    ]
+  });
+
+  let mode='smart', locked=null;
+  const primary=anchors[0]?cy.getElementById(anchors[0].id):cy.nodes().first();
+  const ALL_EDGES=cy.edges();
+  const ALL_NODES=cy.nodes();
+  const INFO_DEFAULT='<div class="km-empty">Seleccioná un nodo. Un segundo clic sobre el mismo nodo lo cierra. La red se genera desde tus tags; las fichas y relaciones manuales vienen de <strong>_data/knowledge.json</strong>.</div>';
+
+  // ---------------------------------------------------------
+  // RENDIMIENTO
+  // 1) Evita recalcular selectores en cada frame.
+  // 2) En redes grandes anima las líneas por grupos.
+  // 3) Durante pan/zoom/drag pausa solo la animación del guionado;
+  //    las líneas y nodos siguen visibles y unidos.
+  // ---------------------------------------------------------
+  let animBuckets=[], animBucketIndex=0, animPauseUntil=0;
+  function visibleEdgeCollection(){
+    if(mode==='all')return ALL_EDGES;
+    let c=ALL_EDGES.filter('[smart = 1]');
+    if(locked)c=c.union(locked.connectedEdges());
+    return c;
+  }
+  function rebuildAnimationBuckets(){
+    const pool=visibleEdgeCollection();
+    const len=pool.length;
+    const bucketCount=len>1100?4:len>650?3:len>320?2:1;
+    animBuckets=[];
+    for(let b=0;b<bucketCount;b++)animBuckets.push(pool.filter((ele,i)=>i%bucketCount===b));
+    animBucketIndex=0;
+  }
+  function markInteractionPause(ms=150){animPauseUntil=performance.now()+ms}
+
+  function applyEdgeMode(){
+    cy.batch(()=>{
+      ALL_EDGES.removeClass('revealEdge focusEdge bulkEdge');
+      if(mode==='all'){
+        ALL_EDGES.addClass('revealEdge');
+        // Clase puramente visual para redes muy densas: mantiene el mismo
+        // diseño, pero baja un poco la opacidad de la malla de fondo.
+        if(ALL_EDGES.length>500)ALL_EDGES.filter('[smart = 0]').addClass('bulkEdge');
+      }
+      if(locked)locked.connectedEdges().addClass('revealEdge focusEdge').removeClass('bulkEdge');
+    });
+    rebuildAnimationBuckets();
+  }
+
+  function focusNode(node,showInfo=true){
+    locked=node;
+    cy.batch(()=>{
+      ALL_NODES.removeClass('activeNode');
+      cy.elements().removeClass('faded focusEdge');
+      node.addClass('activeNode');
+      if(mode==='all')ALL_EDGES.addClass('revealEdge');
+      const edges=node.connectedEdges();
+      cy.elements().addClass('faded');
+      node.removeClass('faded');
+      edges.addClass('revealEdge focusEdge').removeClass('faded bulkEdge');
+      edges.connectedNodes().removeClass('faded');
+    });
+    rebuildAnimationBuckets();
+    if(showInfo)renderInfo(node);
+  }
+
+  function clearFocus(resetInfo=true){
+    locked=null;
+    cy.batch(()=>{
+      ALL_NODES.removeClass('activeNode');
+      cy.elements().removeClass('faded focusEdge');
+    });
+    applyEdgeMode();
+    if(resetInfo)document.getElementById('km-info').innerHTML=INFO_DEFAULT;
+  }
+  function origin(){if(!primary||!primary.length)return;cy.animate({center:{eles:primary},zoom:Math.max(.35,Math.min(1,+settings.default_zoom||.72))},{duration:450})}
+  function fitAll(){cy.animate({fit:{eles:ALL_NODES,padding:85}},{duration:500})}
+
+  const info=document.getElementById('km-info');
+  function connectionInfo(node){
+    return node.connectedEdges().map(e=>{const other=e.source().id()===node.id()?e.target():e.source();return {label:other.data('label'),manual:e.data('manual')===1,ai:e.data('ai')===1,weight:e.data('weight'),note:e.data('label')||''}}).sort((a,b)=>(Number(b.manual)-Number(a.manual))||(Number(b.ai)-Number(a.ai))||(b.weight-a.weight)||a.label.localeCompare(b.label,'es'));
+  }
+  function renderInfo(node){
+    const n=tagMap.get(node.id()),meta=n?.meta||{},rels=connectionInfo(node),contents=(n?.contents||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,12);
+    info.innerHTML=`
+      <div class="km-node-title">${esc(meta.title||n?.label||node.data('label'))}</div>
+      <div class="km-node-meta">${meta.dossier?esc(meta.status||'DOSSIER EDITORIAL'):'TAG AUTOMÁTICO'} · ${n?.count||0} CONTENIDOS · ${rels.length} CONEXIONES${node.data('cluster')?' · ZONA IA: '+esc(node.data('cluster')):''}</div>
+      <div class="km-desc">${esc(meta.description||'Nodo generado automáticamente a partir de los tags de tu archivo. Podés enriquecerlo desde el panel sin tocar el código.')}</div>
+      ${meta.more_info?`<div class="km-more">${esc(meta.more_info)}</div>`:''}
+      ${meta.quote?`<div class="km-quote">“${esc(meta.quote)}”</div>`:''}
+      <div class="km-section"><h3>// CONEXIONES</h3>${rels.length?rels.slice(0,24).map(r=>`<span class="km-chip ${r.manual?'manual':''}" title="${esc(r.note||('Coincide en '+r.weight+' contenido(s)'))}">${r.manual?'◆ ':r.ai?'◇ ':'· '}${esc(r.label)}${r.weight>1&&!r.manual&&!r.ai?' ×'+r.weight:''}</span>`).join(''):'<div class="km-empty">Sin conexiones.</div>'}</div>
+      <div class="km-section"><h3>// CONTENIDOS RELACIONADOS</h3>${contents.length?contents.map(x=>`<a class="km-content" href="${esc(x.url)}">&gt; ${esc(x.title||'Sin título')}<small>${esc(x.kind||'ARCHIVO')} · ${esc(fmtDate(x.date))}</small></a>`).join(''):'<div class="km-empty">Todavía no hay contenidos asociados.</div>'}</div>
+      <a class="km-open" href="/dossiers/?tag=${encodeURIComponent(n?.label||node.data('label'))}">ABRIR DOSSIER →</a>`;
+  }
+
+  // Clic = toggle real: primer clic abre, segundo clic en el mismo nodo cierra.
+  cy.on('tap','node',e=>{
+    const node=e.target;
+    if(locked&&locked.id()===node.id())clearFocus(true);
+    else focusNode(node,true);
+  });
+  cy.on('dbltap','node',e=>{
+    const node=e.target;
+    if(!locked||locked.id()!==node.id())focusNode(node,true);
+    cy.animate({center:{eles:node},zoom:Math.max(cy.zoom(),.95)},{duration:350});
+  });
+  cy.on('tap',e=>{if(e.target===cy&&locked)clearFocus(true)});
+
+  // Hover adaptativo. En "MOSTRAR TODAS" y redes grandes evita apagar/encender
+  // cientos de elementos en cada movimiento del mouse.
+  let hoverTimer=null, hoverNode=null;
+  cy.on('mouseover','node',e=>{
+    if(locked)return;
+    hoverNode=e.target;
+    clearTimeout(hoverTimer);
+    hoverTimer=setTimeout(()=>{
+      if(!hoverNode||locked)return;
+      const n=hoverNode, ed=n.connectedEdges();
+      cy.batch(()=>{
+        if(mode==='all'&&ALL_EDGES.length>420){
+          ed.addClass('focusEdge').removeClass('bulkEdge');
+        }else{
+          cy.elements().addClass('faded');
+          n.removeClass('faded');
+          ed.addClass('revealEdge focusEdge').removeClass('faded');
+          ed.connectedNodes().removeClass('faded');
+        }
+      });
+    },55);
+  });
+  cy.on('mouseout','node',()=>{
+    hoverNode=null;clearTimeout(hoverTimer);
+    if(!locked){
+      cy.batch(()=>cy.elements().removeClass('faded focusEdge'));
+      applyEdgeMode();
+    }
+  });
+  cy.on('zoom',()=>{
+    markInteractionPause(180);
+    const z=cy.zoom();
+    ALL_NODES.forEach(n=>{if(z<.38&&n.data('dossier')!==1&&n.data('priority')<5)n.addClass('dimLabel');else n.removeClass('dimLabel')});
+  });
+  cy.on('pan drag',()=>markInteractionPause(180));
+  cy.on('free',()=>markInteractionPause(80));
+
+  document.getElementById('km-smart').onclick=()=>{mode='smart';document.getElementById('km-smart').classList.add('active');document.getElementById('km-all').classList.remove('active');applyEdgeMode()};
+  document.getElementById('km-all').onclick=()=>{mode='all';document.getElementById('km-all').classList.add('active');document.getElementById('km-smart').classList.remove('active');applyEdgeMode()};
+  document.getElementById('km-origin').onclick=()=>{clearFocus();origin()};
+  document.getElementById('km-fit').onclick=()=>{clearFocus();fitAll()};
+  document.getElementById('km-plus').onclick=()=>cy.animate({zoom:Math.min(cy.maxZoom(),cy.zoom()*1.25)},{duration:180});
+  document.getElementById('km-minus').onclick=()=>cy.animate({zoom:Math.max(cy.minZoom(),cy.zoom()/1.25)},{duration:180});
+  document.getElementById('km-fullscreen').onclick=async()=>{const el=document.getElementById('km-fullscreen-root');try{if(!document.fullscreenElement)await el.requestFullscreen();else await document.exitFullscreen()}catch(_){}setTimeout(()=>{cy.resize();if(!locked)origin()},120)};
+  document.getElementById('km-search').addEventListener('input',e=>{const q=norm(e.target.value);clearFocus(false);if(!q){document.getElementById('km-info').innerHTML=INFO_DEFAULT;return;}cy.elements().addClass('faded');const found=ALL_NODES.filter(n=>norm(n.data('label')).includes(q));found.removeClass('faded');found.connectedEdges().addClass('revealEdge').removeClass('faded');if(found.length===1){cy.animate({center:{eles:found},zoom:.95},{duration:300});renderInfo(found[0])}});
+  document.addEventListener('fullscreenchange',()=>setTimeout(()=>cy.resize(),80));
+  window.addEventListener('resize',()=>cy.resize());
+
+  // Animación de líneas optimizada. Conserva el guionado en movimiento,
+  // pero no fuerza a redibujar TODAS las relaciones en cada frame.
+  let lastDashFrame=0;
+  function animateEdges(ts){
+    const dense=ALL_EDGES.length>650;
+    const frameGap=dense?135:105; // ~7.4 fps en red densa / ~9.5 fps normal
+    if(!document.hidden&&ts>=animPauseUntil&&ts-lastDashFrame>=frameGap&&animBuckets.length){
+      const bucket=animBuckets[animBucketIndex%animBuckets.length];
+      const dash=-((ts/42)%36);
+      bucket.style('line-dash-offset',dash);
+      // Las conexiones del nodo activo quedan suaves aunque el resto se reparta por grupos.
+      if(locked)locked.connectedEdges().style('line-dash-offset',dash);
+      animBucketIndex=(animBucketIndex+1)%animBuckets.length;
+      lastDashFrame=ts;
+    }
+    requestAnimationFrame(animateEdges);
+  }
+  rebuildAnimationBuckets();
+  requestAnimationFrame(animateEdges);
+  document.getElementById('km-stats').textContent=`${tagMap.size} NODOS · ${edgeMap.size} RELACIONES · ${smartKeys.size} ESENCIALES${aiClusters.length?' · IA: '+aiClusters.length+' ZONAS':''}`;
+  applyEdgeMode();setTimeout(origin,120);
+})();
+</script>

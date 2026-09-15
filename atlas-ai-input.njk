@@ -1,0 +1,13 @@
+---
+permalink: "/atlas-ai-input.json"
+eleventyExcludeFromCollections: true
+---
+{
+  "knowledge": {{ knowledge | toJson | safe }},
+  "content": {
+    "videos": [{% for item in collections.videos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"VIDEO"}{% if not loop.last %},{% endif %}{% endfor %}],
+    "directos": [{% for item in collections.directos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"DIRECTO"}{% if not loop.last %},{% endif %}{% endfor %}],
+    "articulos": [{% for item in collections.articulos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"ARTÍCULO"}{% if not loop.last %},{% endif %}{% endfor %}],
+    "recursos": [{% for item in collections.recursos %}{"title":{{ (item.data.title or "") | toJson | safe }},"url":{{ (item.url or "") | toJson | safe }},"tags":{{ (item.data.tags or []) | toJson | safe }},"date":{{ (item.data.date or "") | toJson | safe }},"description":{{ (item.data.description or "") | toJson | safe }},"kind":"RECURSO"}{% if not loop.last %},{% endif %}{% endfor %}]
+  }
+}

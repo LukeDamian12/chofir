@@ -1,0 +1,65 @@
+{
+  "settings": {
+    "max_auto_links_per_node": 2,
+    "strong_link_min_shared": 4,
+    "anchor_count": 8,
+    "default_zoom": 0.72
+  },
+  "nodes": [
+    {
+      "tag": "Hispanismo",
+      "title": "Hispanismo",
+      "dossier": true,
+      "status": "ACTIVO",
+      "accent": "red",
+      "priority": 10,
+      "subtitle": "Historia, identidad y mundo hispánico",
+      "description": "Ficha editorial de ejemplo. Este texto lo podés reemplazar desde el panel de administración.",
+      "more_info": "Usá este espacio para desarrollar la idea, dejar preguntas abiertas, explicar debates o contextualizar el nodo.",
+      "quote": "Archivo vivo de ideas, fuentes y relaciones."
+    },
+    {
+      "tag": "Catolicismo",
+      "title": "Catolicismo",
+      "dossier": true,
+      "status": "ACTIVO",
+      "accent": "red",
+      "priority": 8,
+      "subtitle": "Doctrina, historia y debates",
+      "description": "Ejemplo de nodo enriquecido. Los contenidos relacionados se cargan automáticamente por tag.",
+      "more_info": "La ficha editorial es manual; la lista de contenidos y la red de relaciones automáticas se recalculan en cada build.",
+      "quote": "Nodo editorial editable."
+    },
+    {
+      "tag": "Gnosticismo",
+      "title": "Gnosticismo",
+      "dossier": true,
+      "status": "ARCHIVO ABIERTO",
+      "accent": "blue",
+      "priority": 6,
+      "subtitle": "Textos, corrientes y relaciones",
+      "description": "Ejemplo de dossier temático conectado al archivo mediante tags.",
+      "more_info": "Podés ampliar esta ficha desde Sveltia sin tocar el código.",
+      "quote": "Todo nodo puede conducir a otro."
+    }
+  ],
+  "relations": [
+    {
+      "from": "Hispanismo",
+      "to": "Historia de España",
+      "label": "marco histórico",
+      "strength": 4,
+      "directed": false,
+      "accent": "blue"
+    },
+    {
+      "from": "Gnosticismo",
+      "to": "Cristianismo",
+      "label": "relación doctrinal / histórica",
+      "strength": 3,
+      "directed": false,
+      "accent": "red"
+    }
+  ],
+  "blocked_relations": []
+}
