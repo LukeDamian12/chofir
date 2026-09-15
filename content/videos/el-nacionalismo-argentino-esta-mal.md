@@ -1,5 +1,21 @@
 ---
-title: "El Nacionalismo argentino ESTA MAL"
-date: "2026-08-05"
-youtube: "https://www.youtube.com/watch?v=gF1aoCmDhZU"
+title: El Nacionalismo argentino ESTA MAL
+description: Critica al nacionaliso argentino, desde su concepcion errada de "nacion" hasta sus bizarros referentes
+date: 2024-06-12
+thumbnail: ''
+youtube: https://www.youtube.com/watch?v=gF1aoCmDhZU
+bitchute: ''
+odysee: ''
+download: ''
+tags:
+  - Nacionalismo
+  - Nacionalismo argentino
+  - Biondini
+  - Santiaco Cuneo
+  - Martin Ayerbe
+  - Guillermo Moreno
+  - Disidencia controlada
+  - nenazis
+  - nazis
+  - hiperboreos
 ---
