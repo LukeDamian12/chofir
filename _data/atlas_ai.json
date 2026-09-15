@@ -1,10 +1,1021 @@
 {
   "version": 1,
-  "generated_at": null,
-  "provider": null,
-  "model": null,
-  "summary": "Todavía no se ejecutó la organización con IA. El mapa usa el algoritmo automático normal.",
-  "clusters": [],
-  "importance": [],
-  "relations": []
+  "generated_at": "2026-09-15T04:03:30.567Z",
+  "provider": "Gemini",
+  "model": "gemini-3.7-flash",
+  "summary": "Organización semántica de la red de contenidos del Atlas SoFirMoLo en 9 zonas temáticas interconectadas que abarcan revisionismo histórico, política argentina, hispanismo, doctrina religiosa, filosofías esotéricas y dinámicas de poder geopo",
+  "clusters": [
+    {
+      "id": "hispanidad-e-historia",
+      "title": "Hispanismo e Historia Imperial",
+      "accent": "blue",
+      "members": [
+        "Hispanismo",
+        "hispanidad",
+        "España",
+        "Imperio español",
+        "Francisco Franco",
+        "Franquismo",
+        "leyenda negra",
+        "Historia de España",
+        "Isabel I de castilla",
+        "Reyes catolicos",
+        "Arriba la hispanidad",
+        "Derechos humanos",
+        "Patricio Lons",
+        "Consejo amoroso",
+        "Literatura hispana",
+        "Hispania",
+        "Cristeros",
+        "Guerra cristera",
+        "mexico",
+        "Marcha española",
+        "Angloesfera vs Hispanidad",
+        "Lengua española",
+        "Sinarquia"
+      ]
+    },
+    {
+      "id": "revisionismo-argentino",
+      "title": "Revisionismo e Independencias Americanas",
+      "accent": "red",
+      "members": [
+        "San Martin",
+        "San Martin agente ingles",
+        "San Martin agente ingles y mason",
+        "Balcanizacion",
+        "Secesion",
+        "Agentes ingleses",
+        "Agente ingles",
+        "falsos proceres",
+        "Falso procer",
+        "independencias",
+        "falsa independencia",
+        "Independencia",
+        "Historia Argentina",
+        "Separatismo",
+        "Traicion de Riego",
+        "Federico Rivanera Carles",
+        "Marranos",
+        "Conversos",
+        "Julio Argentino Roca",
+        "Julio argentio roca",
+        "Baron de Hirsch",
+        "Urquiza",
+        "Gauchos judios",
+        "Jewish Colonization Association",
+        "Colonias judias en argentina",
+        "Sarmiento",
+        "Proceres masones argentinos",
+        "Cipayo",
+        "Cipayos",
+        "Himno Argentino",
+        "Musica influenciada por la masoneria",
+        "Simbolos patrios masonicos",
+        "idolatria estatal",
+        "religion estatal",
+        "fanatismo",
+        "Patagonia",
+        "Incendios",
+        "chile",
+        "Mochileros israelies",
+        "Julius Pope",
+        "Selknam",
+        "Genocidio indigena",
+        "Argentina",
+        "Entrega territorial",
+        "Islas Malvinas",
+        "Tratado antartico",
+        "Seineldin"
+      ]
+    },
+    {
+      "id": "politica-argentina",
+      "title": "Política y Partidocracia Argentina",
+      "accent": "red",
+      "members": [
+        "Javier Milei",
+        "Politicos",
+        "democracia",
+        "Politicos titeres",
+        "Partidocracia",
+        "plutocracia",
+        "Titeres",
+        "kirchnerismo",
+        "cristina wilhem kirchner",
+        "nestor kirchner",
+        "Kirchner",
+        "Cristina Wilhem de Kirchner",
+        "cristina kirchner",
+        "Peronismo",
+        "peron",
+        "Evita Peron",
+        "Peron y la masoneria",
+        "politicos masones",
+        "justicialismo",
+        "tercera posicion",
+        "Mauricio macri",
+        "Macri",
+        "Massa",
+        "Guillermo Moreno",
+        "Santiago Cuneo",
+        "Santiaco Cuneo",
+        "Martin Ayerbe",
+        "Biondini",
+        "Santoro",
+        "Elecciones argentina",
+        "Elecciones 2021",
+        "Karina Milei",
+        "Danann",
+        "El presto",
+        "Gordo Dan",
+        "Nenazos",
+        "YPF",
+        "Corrupcion",
+        "Dictadura argentina del 76",
+        "Videla",
+        "Padre Ravasi",
+        "Cura catolico",
+        "Menem",
+        "Cavalo",
+        "de la rua",
+        "Maslaton"
+      ]
+    },
+    {
+      "id": "economia-y-doctrinas",
+      "title": "Economía, Liberalismo y Doctrinas",
+      "accent": "blue",
+      "members": [
+        "Liberalismo",
+        "Economia",
+        "capitalismo",
+        "capitalismo real",
+        "socialismo",
+        "marxismo",
+        "zurdos",
+        "marxista",
+        "Comunismo",
+        "Bolcheviques",
+        "Lenin",
+        "Stalin",
+        "Fascismo",
+        "Nacional socialismo",
+        "Milagro economico aleman",
+        "Hitler",
+        "Estatismo",
+        "Nueva derecha",
+        "Libertarios",
+        "Liberales",
+        "liberal",
+        "Anarcocapitalismo",
+        "Libertarianismo",
+        "Anaro capitalismo",
+        "Anarquismo",
+        "American Dream",
+        "Rothbard",
+        "Neoliberalismo",
+        "Martinez de hoz",
+        "Escuela de la Salamanca",
+        "economia hispanica",
+        "Doctrina social de la iglesia",
+        "Usura",
+        "Banca judia",
+        "banca rosthchild",
+        "Criptomonedas",
+        "Bitcoin",
+        "Dolar",
+        "deuda externa",
+        "deuda",
+        "bancos",
+        "esquema piramidal ponzi",
+        "Fondos buitre",
+        "jp morgan",
+        "black rock",
+        "Corralito",
+        "crisis 2001",
+        "Crisis economica",
+        "doctrina del shock",
+        "Estafa"
+      ]
+    },
+    {
+      "id": "sociedades-secretas-y-ocultismo",
+      "title": "Masonería, Sectas y Ocultismo",
+      "accent": "red",
+      "members": [
+        "masoneria",
+        "masones",
+        "agentes masones",
+        "Masoneria argentina",
+        "Gran logia de Londres",
+        "Monarquia inglesa",
+        "Duke de Kent",
+        "Orden de la jarretera",
+        "Realeza",
+        "Familia real",
+        "Illuminatis",
+        "sectas",
+        "sociedades secretas",
+        "Linajes",
+        "Rotary Club",
+        "Jokey club",
+        "Orden de Malta",
+        "Fraternidades universitarias",
+        "Skull and bones",
+        "phi beta kappa",
+        "Rosacruces",
+        "ocultismo",
+        "esoterismo",
+        "satanismo",
+        "Rituales satanicos",
+        "Rituales",
+        "ritual",
+        "Luciferianos",
+        "Luciferianismo",
+        "Macumba",
+        "brujas",
+        "brujeria",
+        "wicca",
+        "aleister crowley",
+        "simbologia",
+        "Musica satanica"
+      ]
+    },
+    {
+      "id": "gnosticismo-y-misticismo",
+      "title": "Gnosticismo, Misticismo y Perennialismo",
+      "accent": "blue",
+      "members": [
+        "Gnosticismo",
+        "gnosis",
+        "new age",
+        "Espiritualidad",
+        "teosofia",
+        "cabala",
+        "budismo",
+        "Orientalismo",
+        "ravi shankar",
+        "gurues",
+        "marcionismo",
+        "herejias",
+        "simon el mago",
+        "dualismo",
+        "Gnosticismo hiperboreo",
+        "Gnosis hiperborea",
+        "hiperboreos",
+        "Cristo hiperboreo",
+        "Lucas Carena",
+        "ariosofia",
+        "Thule",
+        "sociedad Vril",
+        "Vril",
+        "Julius Evola",
+        "Rene guenon",
+        "perennialismo",
+        "Filosofia perenne",
+        "helena blavastky",
+        "ida craddock",
+        "Demonios",
+        "Ovnis",
+        "UFO",
+        "UAPs",
+        "desclasificacion ovni",
+        "Elohim",
+        "Extraterrestres",
+        "Blue beam proyect",
+        "NASA",
+        "Benjamin Parravicini"
+      ]
+    },
+    {
+      "id": "religion-y-filosofia",
+      "title": "Religión, Teología y Filosofía Clásica",
+      "accent": "blue",
+      "members": [
+        "catolicismo",
+        "Cristianismo",
+        "Iglesia catolica",
+        "Jesucristo",
+        "San Agustin",
+        "Santo Tomas de Aquino",
+        "Historia de Cristianismo",
+        "protestantismo",
+        "calvinismo",
+        "judaismo",
+        "Islam",
+        "Musulmanes",
+        "Moros",
+        "Religion",
+        "religiones",
+        "historia de las religiones",
+        "Historia de religiones",
+        "religiones comparadas",
+        "teologia",
+        "Biblia",
+        "Filosofia",
+        "Estoicismo",
+        "Seneca",
+        "Marco Aurelio",
+        "Platonismo",
+        "Platon",
+        "Aristoteles",
+        "Javier Perez Nieto"
+      ]
+    },
+    {
+      "id": "geopolitica-y-poder-global",
+      "title": "Geopolítica, Sionismo y Redes de Poder",
+      "accent": "red",
+      "members": [
+        "Sionismo",
+        "judios",
+        "Plan andinia",
+        "Israel",
+        "Palestina",
+        "Palestina libre",
+        "genocidio palestino",
+        "opresion sionista",
+        "MOSSAD",
+        "Rosthchild",
+        "Rosthchild familia",
+        "Rothschild familia",
+        "Jazaros",
+        "Protocolos sabios de Sion",
+        "Titeres del sionismo",
+        "Rabino de Malta",
+        "Cultos",
+        "Elzstain",
+        "Joe Lewis",
+        "Inglaterra",
+        "Anglosajones",
+        "Anglosajon",
+        "Angloesfera",
+        "EE.UU",
+        "USA",
+        "Imperialismo",
+        "Imperialismo anglosajon",
+        "Imperialismo Frances",
+        "Francia",
+        "Revolucion francesa",
+        "Rusia",
+        "Ucrania",
+        "Guerra",
+        "OTAN",
+        "Conflictos belicos orquestados",
+        "Elite",
+        "Elites",
+        "Council of americas",
+        "Susan Segal",
+        "Rockefeller familia",
+        "Rockfeller family",
+        "Rockefeller family",
+        "George Soros",
+        "Think Thanks",
+        "Nuevo orden mundial",
+        "Falsa disidencia",
+        "Disidencia controlada",
+        "FalsaBandera",
+        "Agenda 2030",
+        "Patria Grande"
+      ]
+    },
+    {
+      "id": "biopolitica-cultura-y-control",
+      "title": "Biopolítica, Cultura y Control Social",
+      "accent": "red",
+      "members": [
+        "Manipulacion",
+        "Mass media",
+        "Television",
+        "television argentina",
+        "control mental",
+        "control de masas",
+        "control social masivo",
+        "Control social",
+        "Lavado cerebral",
+        "Colonizacion mental",
+        "mensajes subliminales",
+        "propaganda",
+        "desinformacion",
+        "Control de la informacion",
+        "Censura",
+        "Wikipedia",
+        "Hollywood",
+        "peliculas y series",
+        "Superman",
+        "Superheroes",
+        "Marvel",
+        "DC Comics",
+        "Batman",
+        "Star Wars",
+        "Anticristo",
+        "Musica",
+        "Musica basada",
+        "cancion anti illuminati sionista",
+        "borregos",
+        "normies",
+        "Influencers",
+        "domadas",
+        "Iceberg de conspiraciones",
+        "Conspiraciones",
+        "teorias conspirativas",
+        "matrix",
+        "IA",
+        "Metaverso",
+        "Mark Zukerberg",
+        "Tecnocracia",
+        "Tecnato americano",
+        "Donald Trump",
+        "Peter Thiel",
+        "Elon Musk",
+        "Francis Bacon",
+        "Nueva atlantida",
+        "Distopia",
+        "Materialismo",
+        "Transhumanismo",
+        "Lenguaje",
+        "Malthusianismo",
+        "Thomas Malthus",
+        "David Ricardo",
+        "Despoblacion",
+        "anti-natalismo",
+        "aborto",
+        "Planned parenthood",
+        "Margareth Sanger",
+        "Maria Stopes",
+        "Club malthusiano de chicago",
+        "club de Roma",
+        "Ecologismo",
+        "cambio climatico",
+        "calentamiento global",
+        "Bill gates",
+        "vacunas",
+        "plandemia",
+        "cuarentena",
+        "Monsanto",
+        "Manipulacion genetica en alimentos",
+        "Chinda brandolino",
+        "Inmigracion",
+        "Plan Kalergi",
+        "Invasion mora",
+        "Invasion musulmana",
+        "Guerra civil",
+        "Conflicto social",
+        "Racismo",
+        "Racismo cientifico",
+        "Cientificismo",
+        "Frenologia",
+        "Lombrosianos",
+        "Eugenesia",
+        "darwinismo",
+        "Darwin",
+        "supremacismo",
+        "Supremacismo blanco",
+        "supremacismo ario",
+        "supremacismo judio",
+        "Nazismo",
+        "Nazis",
+        "Nenazis",
+        "Houston Chamberlain",
+        "nacionalismo",
+        "nacionalismo argentino",
+        "Feminismo",
+        "liberalismo cultural",
+        "marxismo cultural",
+        "dialectica materialista",
+        "Progresismo",
+        "posmodernismo",
+        "liberacion sexual",
+        "promiscuidad",
+        "lucha de sexos",
+        "lucha de clases",
+        "Simone de Beauvoir",
+        "Femibolches",
+        "Sigmun Schlomo Freud",
+        "Psicoanalisis",
+        "salem",
+        "matanza de salem",
+        "opresion",
+        "ataque al cristianismo",
+        "Colonizacion",
+        "periodismo titere",
+        "Corporaciones",
+        "Grupo Clarin",
+        "instituto tavistok",
+        "Tiranias",
+        "Dictadura",
+        "Ideologias",
+        "Entrevistas"
+      ]
+    },
+    {
+      "id": "otros",
+      "title": "Otros / conexiones transversales",
+      "accent": "blue",
+      "members": [
+        "Hippies"
+      ]
+    }
+  ],
+  "importance": [
+    {
+      "tag": "Sionismo",
+      "value": 10
+    },
+    {
+      "tag": "masoneria",
+      "value": 10
+    },
+    {
+      "tag": "judios",
+      "value": 9
+    },
+    {
+      "tag": "Liberalismo",
+      "value": 9
+    },
+    {
+      "tag": "Hispanismo",
+      "value": 9
+    },
+    {
+      "tag": "Javier Milei",
+      "value": 9
+    },
+    {
+      "tag": "hispanidad",
+      "value": 9
+    },
+    {
+      "tag": "catolicismo",
+      "value": 8
+    },
+    {
+      "tag": "ocultismo",
+      "value": 8
+    },
+    {
+      "tag": "esoterismo",
+      "value": 8
+    },
+    {
+      "tag": "satanismo",
+      "value": 8
+    },
+    {
+      "tag": "Politicos",
+      "value": 7
+    },
+    {
+      "tag": "democracia",
+      "value": 7
+    },
+    {
+      "tag": "Manipulacion",
+      "value": 7
+    },
+    {
+      "tag": "Plan andinia",
+      "value": 7
+    },
+    {
+      "tag": "Gnosticismo",
+      "value": 7
+    },
+    {
+      "tag": "San Martin",
+      "value": 7
+    },
+    {
+      "tag": "Filosofia",
+      "value": 7
+    },
+    {
+      "tag": "Politicos titeres",
+      "value": 7
+    },
+    {
+      "tag": "Cristianismo",
+      "value": 7
+    },
+    {
+      "tag": "protestantismo",
+      "value": 6
+    },
+    {
+      "tag": "Javier Perez Nieto",
+      "value": 6
+    },
+    {
+      "tag": "nacionalismo",
+      "value": 6
+    },
+    {
+      "tag": "peron",
+      "value": 6
+    },
+    {
+      "tag": "cristina wilhem kirchner",
+      "value": 6
+    },
+    {
+      "tag": "Peronismo",
+      "value": 6
+    },
+    {
+      "tag": "Balcanizacion",
+      "value": 6
+    },
+    {
+      "tag": "Economia",
+      "value": 6
+    },
+    {
+      "tag": "Mass media",
+      "value": 6
+    },
+    {
+      "tag": "Rituales satanicos",
+      "value": 6
+    },
+    {
+      "tag": "Patagonia",
+      "value": 6
+    },
+    {
+      "tag": "Israel",
+      "value": 6
+    },
+    {
+      "tag": "Secesion",
+      "value": 6
+    },
+    {
+      "tag": "Agentes ingleses",
+      "value": 6
+    },
+    {
+      "tag": "España",
+      "value": 6
+    },
+    {
+      "tag": "Hollywood",
+      "value": 6
+    },
+    {
+      "tag": "socialismo",
+      "value": 6
+    },
+    {
+      "tag": "Feminismo",
+      "value": 6
+    },
+    {
+      "tag": "capitalismo",
+      "value": 6
+    },
+    {
+      "tag": "Malthusianismo",
+      "value": 5
+    }
+  ],
+  "relations": [
+    {
+      "from": "masoneria",
+      "to": "San Martin",
+      "label": "afiliación histórica debatida",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "San Martin",
+      "to": "Balcanizacion",
+      "label": "rol atribuido",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "San Martin",
+      "to": "Secesion",
+      "label": "participación en",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "San Martin agente ingles",
+      "to": "Agentes ingleses",
+      "label": "categorización",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Sionismo",
+      "to": "Plan andinia",
+      "label": "teoría territorial",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Plan andinia",
+      "to": "Patagonia",
+      "label": "foco geográfico",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Sionismo",
+      "to": "Israel",
+      "label": "ideología de estado",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Israel",
+      "to": "Palestina",
+      "label": "conflicto territorial",
+      "strength": 5,
+      "directed": false
+    },
+    {
+      "from": "Javier Milei",
+      "to": "Liberalismo",
+      "label": "adhesión ideológica",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Javier Milei",
+      "to": "Anarcocapitalismo",
+      "label": "corriente profesada",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Liberalismo",
+      "to": "Economia",
+      "label": "marco doctrinario",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Liberalismo",
+      "to": "socialismo",
+      "label": "oposición doctrinaria",
+      "strength": 5,
+      "directed": false
+    },
+    {
+      "from": "catolicismo",
+      "to": "Liberalismo",
+      "label": "crítica doctrinaria",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "catolicismo",
+      "to": "Doctrina social de la iglesia",
+      "label": "doctrina oficial",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Doctrina social de la iglesia",
+      "to": "capitalismo",
+      "label": "crítica socioeconómica",
+      "strength": 3,
+      "directed": true
+    },
+    {
+      "from": "ocultismo",
+      "to": "esoterismo",
+      "label": "convergencia temática",
+      "strength": 5,
+      "directed": false
+    },
+    {
+      "from": "ocultismo",
+      "to": "satanismo",
+      "label": "vinculación ritual",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "esoterismo",
+      "to": "new age",
+      "label": "influencia doctrinal",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Gnosticismo",
+      "to": "new age",
+      "label": "trasfondo filosófico",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Gnosticismo hiperboreo",
+      "to": "hiperboreos",
+      "label": "cosmología base",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Nazismo",
+      "to": "hiperboreos",
+      "label": "apropiación mítica",
+      "strength": 3,
+      "directed": false
+    },
+    {
+      "from": "Hispanismo",
+      "to": "hispanidad",
+      "label": "núcleo conceptual",
+      "strength": 5,
+      "directed": false
+    },
+    {
+      "from": "hispanidad",
+      "to": "catolicismo",
+      "label": "fundamento cultural",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "leyenda negra",
+      "to": "Hispanismo",
+      "label": "objeto de refutación",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "peron",
+      "to": "Peronismo",
+      "label": "fundador ideológico",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "peron",
+      "to": "masoneria",
+      "label": "vínculo investigado",
+      "strength": 3,
+      "directed": false
+    },
+    {
+      "from": "cristina wilhem kirchner",
+      "to": "kirchnerismo",
+      "label": "liderazgo político",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "democracia",
+      "to": "Partidocracia",
+      "label": "degeneración institucional",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Politicos titeres",
+      "to": "Partidocracia",
+      "label": "dinámica operativa",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Malthusianismo",
+      "to": "Eugenesia",
+      "label": "afinidad teórica",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Malthusianismo",
+      "to": "Despoblacion",
+      "label": "objetivo atribuido",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Thomas Malthus",
+      "to": "Malthusianismo",
+      "label": "fundador teórico",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Mass media",
+      "to": "control mental",
+      "label": "instrumento de",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Mass media",
+      "to": "Manipulacion",
+      "label": "mecanismo operativo",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Hollywood",
+      "to": "mensajes subliminales",
+      "label": "vehículo de difusión",
+      "strength": 3,
+      "directed": true
+    },
+    {
+      "from": "Feminismo",
+      "to": "marxismo cultural",
+      "label": "marco conceptual atribuido",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "marxismo cultural",
+      "to": "liberalismo cultural",
+      "label": "sinergia ideológica",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Usura",
+      "to": "Banca judia",
+      "label": "crítica económica",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "sociedades secretas",
+      "to": "Illuminatis",
+      "label": "tipología",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "sociedades secretas",
+      "to": "masoneria",
+      "label": "ejemplo cardinal",
+      "strength": 5,
+      "directed": false
+    },
+    {
+      "from": "Transhumanismo",
+      "to": "Materialismo",
+      "label": "base filosófica",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "IA",
+      "to": "Transhumanismo",
+      "label": "vector tecnológico",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Javier Perez Nieto",
+      "to": "Gnosticismo",
+      "label": "análisis crítico",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Javier Perez Nieto",
+      "to": "hispanidad",
+      "label": "defensa conceptual",
+      "strength": 4,
+      "directed": true
+    },
+    {
+      "from": "Filosofia",
+      "to": "Estoicismo",
+      "label": "rama filosófica",
+      "strength": 5,
+      "directed": true
+    },
+    {
+      "from": "Estoicismo",
+      "to": "Seneca",
+      "label": "referente principal",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Ecologismo",
+      "to": "cambio climatico",
+      "label": "eje discursivo",
+      "strength": 4,
+      "directed": false
+    },
+    {
+      "from": "Monsanto",
+      "to": "Manipulacion genetica en alimentos",
+      "label": "producción y patentes",
+      "strength": 5,
+      "directed": true
+    }
+  ]
 }
