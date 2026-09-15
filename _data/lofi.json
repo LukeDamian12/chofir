@@ -1,6 +1,27 @@
 {
-  "station_title": "SOFIRMOLO",
+  "station_title": "DJ SoFiR",
   "station_subtitle": "LO-FI SESSION",
   "repeat_playlist": true,
-  "tracks": []
+  "tracks": [
+    {
+      "titulo": "Lament for Gandalf",
+      "archivo": "/assets/uploads/Lament for Gandalf - cover with R0guishR0bin.mp3",
+      "activo": true
+    },
+    {
+      "titulo": "Master of war",
+      "archivo": "/assets/uploads/Game of Thrones S8 Master of War - Ramin Djawadi (Epic Throne Room OST Jon and Daenerys Final Scene).mp3",
+      "activo": true
+    },
+    {
+      "titulo": "Whispers in the void",
+      "archivo": "/assets/uploads/Whispers in the Void.mp3",
+      "activo": true
+    },
+    {
+      "titulo": "Veil of ashes",
+      "archivo": "/assets/uploads/Veil of Ashes.mp3",
+      "activo": true
+    }
+  ]
 }
