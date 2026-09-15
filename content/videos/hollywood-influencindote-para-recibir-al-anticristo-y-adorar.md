@@ -1,7 +1,7 @@
 ---
 title: Hollywood influenciandote para recibir al ANTICRISTO y adorar a LUCIFER
 description: Hollywood influenciando a la gente para la aceptacion de la figura anti-mesianica del anti-cristo
-date: 2026-07-08
+date: 2022-10-12
 thumbnail: https://thumbnails.lbry.com/IZWzBIK4y5E
 youtube: ''
 bitchute: ''
