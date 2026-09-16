@@ -630,6 +630,243 @@ a:hover {
   padding-left: 16px;
 }
 
+
+/* =========================================================
+   ACCESO DESTACADO — MAPA DEL CONOCIMIENTO
+   Tarjeta CRT/neón debajo del índice. No usa imágenes externas.
+   ========================================================= */
+.knowledge-map-promo {
+  position: relative;
+  width: 250px;
+  min-height: 286px;
+  display: block;
+  overflow: hidden;
+  padding: 12px 10px 11px;
+  border: 1px solid var(--red-main);
+  background:
+    radial-gradient(circle at 50% 43%, rgba(18, 102, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 50% 58%, rgba(255, 18, 43, 0.09), transparent 50%),
+    repeating-linear-gradient(0deg, rgba(124, 179, 255, 0.025) 0 1px, transparent 1px 4px),
+    rgba(1, 2, 8, 0.97);
+  box-shadow:
+    0 0 13px rgba(255, 18, 43, 0.30),
+    0 0 24px rgba(18, 102, 255, 0.22),
+    inset 0 0 24px rgba(0, 0, 0, 0.95);
+  color: var(--blue-light);
+  text-align: center;
+  isolation: isolate;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo::before,
+.knowledge-map-promo::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.knowledge-map-promo::before {
+  inset: 5px;
+  border: 1px solid rgba(18, 102, 255, 0.35);
+  clip-path: polygon(0 0, 23% 0, 23% 1px, 1px 1px, 1px 25%, 0 25%, 0 0,
+                     100% 0, 77% 0, 77% 1px, calc(100% - 1px) 1px, calc(100% - 1px) 25%, 100% 25%, 100% 0,
+                     100% 100%, 77% 100%, 77% calc(100% - 1px), calc(100% - 1px) calc(100% - 1px), calc(100% - 1px) 75%, 100% 75%, 100% 100%,
+                     0 100%, 23% 100%, 23% calc(100% - 1px), 1px calc(100% - 1px), 1px 75%, 0 75%, 0 100%);
+  box-shadow: inset 0 0 10px rgba(18, 102, 255, .35);
+}
+
+.knowledge-map-promo::after {
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(124, 179, 255, 0.045) 4px
+  );
+  mix-blend-mode: screen;
+  opacity: .7;
+}
+
+.knowledge-map-promo:hover {
+  transform: translateY(-2px);
+  border-color: var(--red-glow);
+  box-shadow:
+    0 0 18px rgba(255, 18, 43, 0.52),
+    0 0 34px rgba(18, 102, 255, 0.42),
+    inset 0 0 28px rgba(0, 0, 0, 0.96);
+}
+
+.km-kicker {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--blue-light);
+  font: bold 8px/1.3 "Courier New", monospace;
+  letter-spacing: 1.4px;
+  opacity: .82;
+}
+
+.km-title {
+  position: relative;
+  z-index: 6;
+  display: block;
+  color: #e6f1ff;
+  font: 10px/1.35 "Press Start 2P", "Courier New", monospace;
+  letter-spacing: .5px;
+  text-shadow: 0 0 8px rgba(18, 102, 255, .85);
+}
+
+.km-title strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--red-glow);
+  font-size: 18px;
+  line-height: 1.28;
+  text-shadow: 0 0 8px rgba(255, 18, 43, .9), 0 0 13px rgba(18, 102, 255, .35);
+}
+
+.km-tagline {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-top: 5px;
+  color: var(--blue-light);
+  font: bold 9px/1.25 "Courier New", monospace;
+  letter-spacing: .85px;
+}
+
+.km-visual {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: 100%;
+  height: 153px;
+  margin: 7px 0 7px;
+  overflow: visible;
+}
+
+.km-network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 4px rgba(18, 102, 255, .28));
+}
+
+.km-network .km-link {
+  fill: none;
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5;
+  opacity: .78;
+  animation: kmDataFlow 4.8s linear infinite;
+}
+
+.km-network .km-link.red { stroke: #ff334a; }
+.km-network .km-link.blue { stroke: #2d85ff; }
+.km-network .km-link.soft { opacity: .38; stroke-width: .8; }
+
+.km-network .km-node {
+  fill: #020714;
+  stroke-width: 1.25;
+}
+
+.km-network .km-node.blue {
+  stroke: #53a0ff;
+  filter: drop-shadow(0 0 3px #1266ff);
+}
+
+.km-network .km-node.red {
+  stroke: #ff5265;
+  filter: drop-shadow(0 0 3px #ff122b);
+}
+
+.km-network .km-core-ring {
+  fill: rgba(0, 5, 20, .88);
+  stroke: #1266ff;
+  stroke-width: 1.1;
+  filter: drop-shadow(0 0 5px rgba(18, 102, 255, .8));
+}
+
+.km-network .km-brain {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.15;
+}
+
+.km-network .km-brain.blue { stroke: #63b4ff; }
+.km-network .km-brain.red { stroke: #ff5367; }
+
+.km-network .km-pulse {
+  transform-origin: center;
+  animation: kmPulse 2.2s ease-in-out infinite;
+}
+
+.km-topic {
+  position: absolute;
+  z-index: 7;
+  padding: 2px 4px;
+  background: rgba(0, 3, 12, .88);
+  border: 1px solid rgba(18, 102, 255, .65);
+  color: #91c5ff;
+  font: bold 7px/1.2 "Courier New", monospace;
+  letter-spacing: .25px;
+  white-space: nowrap;
+  box-shadow: 0 0 6px rgba(18, 102, 255, .14);
+}
+
+.km-topic.red {
+  border-color: rgba(255, 18, 43, .72);
+  color: #ff8b98;
+  box-shadow: 0 0 6px rgba(255, 18, 43, .14);
+}
+
+.km-t1 { left: 2px; top: 12px; }
+.km-t2 { right: 2px; top: 15px; }
+.km-t3 { left: 0; top: 66px; }
+.km-t4 { right: 0; top: 68px; }
+.km-t5 { left: 12px; bottom: 12px; }
+.km-t6 { right: 3px; bottom: 12px; }
+.km-t7 { left: 50%; top: 3px; transform: translateX(-50%); }
+
+.km-cta {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 29px;
+  border: 1px solid var(--red-main);
+  background: linear-gradient(90deg, rgba(58, 0, 6, .78), rgba(4, 14, 41, .62));
+  color: #fff;
+  font: 9px/1 "Press Start 2P", "Courier New", monospace;
+  text-shadow: 0 0 7px var(--red-glow);
+  box-shadow: inset 0 0 9px rgba(255, 18, 43, .16);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo:hover .km-cta {
+  background: linear-gradient(90deg, rgba(95, 0, 10, .9), rgba(5, 29, 82, .82));
+  box-shadow: 0 0 11px rgba(255, 18, 43, .25), inset 0 0 10px rgba(18, 102, 255, .18);
+}
+
+.knowledge-map-promo:hover .km-network .km-link {
+  opacity: 1;
+}
+
+@keyframes kmDataFlow {
+  to { stroke-dashoffset: -36; }
+}
+
+@keyframes kmPulse {
+  0%, 100% { opacity: .72; transform: scale(.96); }
+  50% { opacity: 1; transform: scale(1.055); }
+}
+
 /* CONTENEDOR DERECHO: agrupa LOFI + bitácora, se acomoda solo según el alto disponible */
 .right-rail {
   position: fixed;
@@ -757,8 +994,8 @@ a:hover {
 
 .lofi-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
   margin-top: 8px;
 }
 
@@ -767,7 +1004,7 @@ a:hover {
   border: 1px solid var(--blue-main);
   background: var(--blue-dark);
   color: #fff;
-  font: bold 13px "Courier New", monospace; /* +20% */
+  font: bold 11px "Courier New", monospace; /* compacto: 5 controles */
   transition: background 0.15s;
 }
 
@@ -811,22 +1048,23 @@ a:hover {
   pointer-events: none;
 }
 
-.lofi-load {
-  display: block;
+.lofi-library-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   margin-top: 8px;
-  padding: 5px;
+  padding: 5px 6px;
   border: 1px dotted var(--blue-dark);
   color: var(--blue-light);
-  font-size: 11px; /* +20% */
-  text-align: center;
+  font-size: 9px;
+  line-height: 1.35;
+  text-align: left;
 }
 
-.lofi-load input {
-  display: block;
-  width: 100%;
-  margin-top: 4px;
-  color: var(--blue-light);
-  font-size: 10px;
+.lofi-library-note span:first-child {
+  color: var(--red-light);
+  white-space: nowrap;
 }
 
 .lofi-player audio { display: none; }
@@ -1405,6 +1643,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   .quick-tools-btn{ font-size:11px; }
   .window-container{ margin-top:0; }
   .side-nav a{ font-size:10px; }
+  .knowledge-map-promo{ width:100%; max-width:none; min-height:278px; }
+  .km-visual{ max-width:320px; margin-left:auto; margin-right:auto; }
   .section{ padding:28px 14px 10px; }
 }
 
@@ -1493,6 +1733,87 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .carousel-track { scroll-behavior: auto; }
+  .km-network .km-link, .km-network .km-pulse { animation: none !important; }
+}
+
+
+/* =========================================================
+   MOBILE — PORTADA PRIMERO + HUB DE NAVEGACIÓN
+   Solo afecta pantallas de hasta 700px.
+   La barra lateral se reubica por JS justo después de la portada.
+   En escritorio no cambia absolutamente nada.
+   ========================================================= */
+@media (max-width: 700px) {
+  body.sf-mobile-layout .window-container {
+    width: 100%;
+  }
+
+  body.sf-mobile-layout .hero-cover {
+    min-height: 42vh;
+    margin-bottom: 0;
+  }
+
+  body.sf-mobile-layout .left-rail {
+    width: 100%;
+    gap: 8px;
+    padding: 8px;
+    margin: 0;
+    background:
+      linear-gradient(180deg, rgba(18,102,255,.045), rgba(255,18,43,.035));
+    border-bottom: 1px solid rgba(18,102,255,.38);
+  }
+
+  body.sf-mobile-layout .side-nav {
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.sf-mobile-layout .side-nav .side-label {
+    grid-column: 1 / -1;
+    padding: 9px 8px;
+  }
+
+  body.sf-mobile-layout .side-nav > a {
+    min-width: 0;
+    padding: 10px 4px;
+    font-size: 12px;
+    border-right: 1px dotted var(--blue-dark);
+  }
+
+  /* INICIO ocupa el ancho completo; las demás secciones van en parejas. */
+  body.sf-mobile-layout .side-nav > a:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  body.sf-mobile-layout .knowledge-map-promo {
+    width: 100%;
+    max-width: none;
+    min-height: 278px;
+    margin: 0;
+  }
+
+  body.sf-mobile-layout .km-visual {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.sf-mobile-layout .quick-tools {
+    width: 100%;
+    gap: 8px;
+  }
+
+  body.sf-mobile-layout .quick-tools-btn {
+    min-height: 38px;
+    font-size: 11px;
+  }
+
+  /* Después del hub móvil continúa el sitio normalmente. */
+  body.sf-mobile-layout .marquee {
+    margin-top: 0;
+  }
 }
 
 </style>
@@ -1531,6 +1852,47 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         <a href="/articulos/">ARTICULOS</a>
         <a href="/recursos/">RECURSOS</a>
       </nav>
+
+      <a class="knowledge-map-promo" href="/mapa/" aria-label="Abrir Mapa del conocimiento">
+        <span class="km-kicker">ARCHIVO // RED DE IDEAS</span>
+        <span class="km-title">MAPA DEL <strong>CONOCIMIENTO</strong></span>
+        <span class="km-tagline">TODO TIENE QUE VER CON TODO</span>
+
+        <span class="km-visual" aria-hidden="true">
+          <svg class="km-network" viewBox="0 0 230 153" role="img">
+            <path class="km-link blue" d="M114 79 L40 25 M114 79 L191 27 M114 79 L32 78 M114 79 L199 80 M114 79 L44 132 M114 79 L185 132 M114 79 L114 19"/>
+            <path class="km-link red" d="M40 25 L114 19 L191 27 M32 78 L44 132 L114 79 L185 132 L199 80"/>
+            <path class="km-link blue soft" d="M40 25 L199 80 M191 27 L44 132 M32 78 L185 132 M114 19 L185 132"/>
+            <path class="km-link red soft" d="M32 78 L191 27 M40 25 L185 132 M114 19 L44 132"/>
+
+            <circle class="km-node blue" cx="40" cy="25" r="3.5"/>
+            <circle class="km-node red" cx="191" cy="27" r="3.5"/>
+            <circle class="km-node red" cx="32" cy="78" r="3.5"/>
+            <circle class="km-node blue" cx="199" cy="80" r="3.5"/>
+            <circle class="km-node blue" cx="44" cy="132" r="3.5"/>
+            <circle class="km-node red" cx="185" cy="132" r="3.5"/>
+            <circle class="km-node blue" cx="114" cy="19" r="3.5"/>
+
+            <g class="km-pulse">
+              <circle class="km-core-ring" cx="114" cy="79" r="28"/>
+              <path class="km-brain blue" d="M110 58 C100 55 94 61 96 69 C89 71 88 83 96 87 C92 95 99 101 108 98 C111 96 112 92 112 87 L112 64 C112 61 111 59 110 58 Z"/>
+              <path class="km-brain red" d="M118 58 C128 55 134 61 132 69 C139 71 140 83 132 87 C136 95 129 101 120 98 C117 96 116 92 116 87 L116 64 C116 61 117 59 118 58 Z"/>
+              <path class="km-brain blue" d="M99 70 C104 70 108 73 110 77 M98 87 C104 87 108 84 111 81 M104 61 C106 65 106 69 104 72"/>
+              <path class="km-brain red" d="M129 70 C124 70 120 73 118 77 M130 87 C124 87 120 84 117 81 M124 61 C122 65 122 69 124 72"/>
+            </g>
+          </svg>
+
+          <span class="km-topic km-t1">ESOTERISMO</span>
+          <span class="km-topic red km-t2">OCULTISMO</span>
+          <span class="km-topic red km-t3">HISPANIDAD</span>
+          <span class="km-topic km-t4">CIENTIFICISMO</span>
+          <span class="km-topic km-t5">FILOSOFIA</span>
+          <span class="km-topic red km-t6">ESPIRITUALIDAD</span>
+          <span class="km-topic km-t7">GNOSTICISMO</span>
+        </span>
+
+        <span class="km-cta">EXPLORAR MAPA <b>→</b></span>
+      </a>
 
       <div class="quick-tools" aria-label="Buscar y navegar por tags">
         <button type="button" class="quick-tools-btn" id="openSearchBtn">🔍 BUSCAR</button>
@@ -1574,12 +1936,14 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
           <div class="tape-line"></div>
         </div>
         <div class="lofi-now">
-          <span class="lofi-status" id="lofiStatus">SISTEMA LISTO</span>
+          <span class="lofi-status" id="lofiStatus">CARGANDO PLAYLIST...</span>
           <span id="lofiTime">00:00</span>
         </div>
         <div class="lofi-controls">
-          <button type="button" id="lofiPlay" aria-label="Reproducir">▶</button>
+          <button type="button" id="lofiPrev" aria-label="Pista anterior">⏮</button>
+          <button type="button" id="lofiPlay" aria-label="Reproducir o pausar">▶</button>
           <button type="button" id="lofiStop" aria-label="Detener">■</button>
+          <button type="button" id="lofiNext" aria-label="Pista siguiente">⏭</button>
           <button type="button" id="lofiMute" aria-label="Silenciar">VOL</button>
         </div>
         <div class="lofi-progress">
@@ -1588,11 +1952,12 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
             <div class="lofi-progress-handle" id="lofiProgressHandle"></div>
           </div>
         </div>
-        <label class="lofi-load">
-          CARGAR AUDIO
-          <input id="lofiFile" type="file" accept="audio/*">
-        </label>
+        <div class="lofi-library-note">
+          <span id="lofiTrackPos">0/0</span>
+          <span>SELECCIÓN SOFIRMOLO</span>
+        </div>
         <audio id="lofiAudio" preload="metadata"></audio>
+        <script type="application/json" id="lofiPlaylist">[]</script>
       </aside>
 
       <div class="system-log" id="systemLog" aria-hidden="true"></div>
@@ -1627,9 +1992,9 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   </div>
 </section>
 
-<script type="application/json" id="ds-knowledge">{"settings":{"max_auto_links_per_node":2,"strong_link_min_shared":4,"anchor_count":8,"default_zoom":0.72},"nodes":[{"tag":"Hispanismo","title":"Hispanismo","dossier":true,"status":"ACTIVO","accent":"red","priority":10,"subtitle":"Historia, identidad y mundo hispánico","description":"Ficha editorial de ejemplo. Este texto lo podés reemplazar desde el panel de administración.","more_info":"Usá este espacio para desarrollar la idea, dejar preguntas abiertas, explicar debates o contextualizar el nodo.","quote":"Archivo vivo de ideas, fuentes y relaciones."},{"tag":"Catolicismo","title":"Catolicismo","dossier":true,"status":"ACTIVO","accent":"red","priority":8,"subtitle":"Doctrina, historia y debates","description":"Ejemplo de nodo enriquecido. Los contenidos relacionados se cargan automáticamente por tag.","more_info":"La ficha editorial es manual; la lista de contenidos y la red de relaciones automáticas se recalculan en cada build.","quote":"Nodo editorial editable."},{"tag":"Gnosticismo","title":"Gnosticismo","dossier":true,"status":"ARCHIVO ABIERTO","accent":"blue","priority":6,"subtitle":"Textos, corrientes y relaciones","description":"Ejemplo de dossier temático conectado al archivo mediante tags.","more_info":"Podés ampliar esta ficha desde Sveltia sin tocar el código.","quote":"Todo nodo puede conducir a otro."}],"relations":[{"from":"Hispanismo","to":"Historia de España","label":"marco histórico","strength":4,"directed":false,"accent":"blue"},{"from":"Gnosticismo","to":"Cristianismo","label":"relación doctrinal / histórica","strength":3,"directed":false,"accent":"red"}],"blocked_relations":[]}</script>
+<script type="application/json" id="ds-knowledge">{"settings":{"max_auto_links_per_node":2,"strong_link_min_shared":4,"anchor_count":8,"default_zoom":0.72},"nodes":[{"tag":"Hispanismo","title":"Hispanismo","dossier":true,"status":"ACTIVO","subtitle":"Historia, identidad y mundo hispánico","description":"El hispanismo es el estudio de la cultura hispanica. NO es una ideologia.","more_info":"El hispanismo NO es una ideologia porque no tiene dogmas ni un sistema de gobierno ni nada que se le parezca. El hispanismo solamente estudia (y puede defender) la cultura hispanica","quote":"Archivo vivo de ideas, fuentes y relaciones.","accent":"red","priority":10,"x":null,"y":null},{"tag":"Catolicismo","title":"Catolicismo","dossier":true,"status":"ACTIVO","subtitle":"Doctrina, historia y debates","description":"Ejemplo de nodo enriquecido. Los contenidos relacionados se cargan automáticamente por tag.","more_info":"La ficha editorial es manual; la lista de contenidos y la red de relaciones automáticas se recalculan en cada build.","quote":"Nodo editorial editable.","accent":"red","priority":8,"x":null,"y":null},{"tag":"Gnosticismo","title":"Gnosticismo","dossier":true,"status":"ARCHIVO ABIERTO","subtitle":"Textos, corrientes y relaciones","description":"Ejemplo de dossier temático conectado al archivo mediante tags.","more_info":"Podés ampliar esta ficha desde Sveltia sin tocar el código.","quote":"Todo nodo puede conducir a otro.","accent":"blue","priority":6,"x":null,"y":null}],"relations":[{"from":"Hispanismo","to":"Historia de España","label":"marco histórico","strength":4,"directed":false,"accent":"blue"},{"from":"Gnosticismo","to":"Cristianismo","label":"relación doctrinal / histórica","strength":3,"directed":false,"accent":"red"}],"blocked_relations":[]}</script>
 <script type="application/json" id="ds-content-data">{
-"videos":[{"title":"Quien incendia la patagonia cada año?","url":"/videos/quien-incendia-la-patagonia-cada-ano/","tags":["videos"],"date":"2026-08-27","description":"","kind":"VIDEO"},{"title":"El plan Tecnato Americano","url":"/videos/el-plan-tecnato-americano/","tags":["videos"],"date":"2026-08-26","description":"","kind":"VIDEO"},{"title":"La cumbia del sionismo","url":"/videos/la-cumbia-del-sionismo/","tags":["videos","Musica","Sionismo","Plan andinia","Gauchos judios","Baron de Hirsch","Urquiza","Julio Argentino Roca"],"date":"2026-08-25T00:00:00.000Z","description":"Cumbia anti sionista","kind":"VIDEO"},{"title":"La \"nueva derecha\" dividida por Milei","url":"/videos/la-nueva-derecha-dividida-por-milei/","tags":["videos"],"date":"2026-08-25","description":"","kind":"VIDEO"},{"title":"Peron fue mason","url":"/videos/peron-fue-mason/","tags":["videos"],"date":"2026-08-24","description":"","kind":"VIDEO"},{"title":"Circo democratico - EL PERONISMO MURIO","url":"/videos/circo-democratico-el-peronismo-murio/","tags":["videos","Democracia","politicos","peronismo","nacionalismo"],"date":"2026-08-23T00:00:00.000Z","description":"Otra funcion mas del circo demoniocratico","kind":"VIDEO"},{"title":"El RITUAL Satanico de Milei - dia 666 de gobierno","url":"/videos/el-ritual-satanico-de-milei-dia-666-de-gobierno/","tags":["videos"],"date":"2026-08-22","description":"","kind":"VIDEO"},{"title":"Respuesta a liberal fan de san martin","url":"/videos/respuesta-a-liberal-fan-de-san-martin/","tags":["videos"],"date":"2026-08-21","description":"","kind":"VIDEO"},{"title":"Pensar en ingles - COLONIALISMO mental anglosajon y LIBERALISMO | Con Javier Perez Nieto","url":"/videos/pensar-en-ingles-colonialismo-mental-anglosajon-y-liberalism/","tags":["videos"],"date":"2026-08-20","description":"","kind":"VIDEO"},{"title":"'San' Martin LiberTraidor","url":"/videos/san-martin-libertraidor/","tags":["videos"],"date":"2026-08-19","description":"","kind":"VIDEO"},{"title":"Immigracion: Del Malthusianismo al gnosticismo (with Javier Perez Nieto)","url":"/videos/immigracion-del-malthusianismo-al-gnosticismo-with-javier-pe/","tags":["videos"],"date":"2026-08-18","description":"","kind":"VIDEO"},{"title":"La \"batalla cultural\" frente a la causa Palestina","url":"/videos/la-batalla-cultural-frente-a-la-causa-palestina/","tags":["videos"],"date":"2026-08-17","description":"","kind":"VIDEO"},{"title":"San Martin ERA MASON  Aunque MANIPULADORES intenten negarlo","url":"/videos/san-martin-era-mason-aunque-manipuladores-intenten-negarlo/","tags":["videos"],"date":"2026-08-16","description":"","kind":"VIDEO"},{"title":"Los hilos de las Logias - Cancion (IA)","url":"/videos/los-hilos-de-las-logias-cancion-ia/","tags":["videos"],"date":"2026-08-15","description":"","kind":"VIDEO"},{"title":"Javier Milei y la estafa crypto de Libra","url":"/videos/javier-milei-y-la-estafa-crypto-de-libra/","tags":["videos"],"date":"2026-08-14","description":"","kind":"VIDEO"},{"title":"Libertarios profundamente ignorantes","url":"/videos/libertarios-profundamente-ignorantes/","tags":["videos"],"date":"2026-08-13","description":"","kind":"VIDEO"},{"title":"Contra el racismo \"cristiano\"","url":"/videos/contra-el-racismo-cristiano/","tags":["videos","Racismo","Cristianismo","catolicismo","protestantismo","judaismo","judios","Historia de religiones","Historia de Cristianismo","teologia","Biblia","Supremacismo blanco"],"date":"2026-08-12T00:00:00.000Z","description":"Desmontando la mentira de \"la maldicion de Noe\" y la logica del racismo disfrazado de cristianismo.","kind":"VIDEO"},{"title":"ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024/2025","url":"/videos/iceberg-argentino-de-conspiraciones-actualizado-2024-2025/","tags":["videos"],"date":"2026-08-12","description":"","kind":"VIDEO"},{"title":"Esoterismo y Artes Marciales - Infiltracion espiritual New age Anti-Cristiana","url":"/videos/esoterismo-y-artes-marciales-infiltracion-espiritual-new-age/","tags":["videos"],"date":"2026-08-11","description":"","kind":"VIDEO"},{"title":"Peron y la hispanidad - discurso epico","url":"/videos/peron-y-la-hispanidad-discurso-epico/","tags":["videos"],"date":"2026-08-10","description":"","kind":"VIDEO"},{"title":"Doctrina Social de la Iglesia explicada para libertarios y zoocialistas","url":"/videos/doctrina-social-de-la-iglesia-explicada-para-libertarios-y-z/","tags":["videos"],"date":"2026-08-09","description":"","kind":"VIDEO"},{"title":"El JUDIO que financio a SAN MARTIN","url":"/videos/el-judio-que-financio-a-san-martin/","tags":["videos"],"date":"2026-08-08","description":"","kind":"VIDEO"},{"title":"El cura Ravasi y su defensa fanatica de criminales y La Derecha","url":"/videos/el-cura-ravasi-y-su-defensa-fanatica-de-criminales-y-la-dere/","tags":["videos"],"date":"2026-08-07","description":"","kind":"VIDEO"},{"title":"Racismo y Leyenda negra Anti-Hispanica","url":"/videos/racismo-y-leyenda-negra-anti-hispanica/","tags":["videos"],"date":"2026-08-06","description":"","kind":"VIDEO"},{"title":"El Nacionalismo argentino ESTA MAL","url":"/videos/el-nacionalismo-argentino-esta-mal/","tags":["videos"],"date":"2026-08-05","description":"","kind":"VIDEO"},{"title":"Economia hispanica de la escuela de la Salamanca vs El sistema usurero","url":"/videos/economia-hispanica-de-la-escuela-de-la-salamanca-vs-el-siste/","tags":["videos"],"date":"2026-08-04","description":"","kind":"VIDEO"},{"title":"La MENTIRA del \"milagro economico\" aleman Nacional-Socialista (por Javier Perez Nieto)","url":"/videos/la-mentira-del-milagro-economico-aleman-nacional-socialista/","tags":["videos"],"date":"2026-08-03","description":"","kind":"VIDEO"},{"title":"Respuesta a Zurdos anti-hispanismo del canal @Posdata_ar","url":"/videos/respuesta-a-zurdos-anti-hispanismo-del-canal-posdata-ar/","tags":["videos"],"date":"2026-08-02","description":"","kind":"VIDEO"},{"title":"Rituales de la elite","url":"/videos/rituales-de-la-elite/","tags":["videos"],"date":"2026-08-01","description":"","kind":"VIDEO"},{"title":"Milei ENTREGA LA ANTARTIDA a la Agenda 10+10+10","url":"/videos/milei-entrega-la-antartida-a-la-agenda-10-10-10/","tags":["videos"],"date":"2026-07-31","description":"","kind":"VIDEO"},{"title":"Milei y Kirchner - La gran estafa al pueblo argentino","url":"/videos/milei-y-kirchner-la-gran-estafa-al-pueblo-argentino/","tags":["videos"],"date":"2026-07-30","description":"","kind":"VIDEO"},{"title":"ESTOICISMO en Profundidad (Con Javier Perez Nieto)","url":"/videos/estoicismo-en-profundidad-con-javier-perez-nieto/","tags":["videos"],"date":"2026-07-29","description":"","kind":"VIDEO"},{"title":"Hispanidad, Masoneria, protestantismo y Leyenda negra, etc, con Javier Perez Nieto","url":"/videos/hispanidad-masoneria-protestantismo-y-leyenda-negra-etc-con/","tags":["videos"],"date":"2026-07-28","description":"","kind":"VIDEO"},{"title":"GNOSTICISMO - Espiritualidad falsa - TRAMPA SATANICA","url":"/videos/gnosticismo-espiritualidad-falsa-trampa-satanica/","tags":["videos"],"date":"2026-07-26","description":"","kind":"VIDEO"},{"title":"HOLLYWOOD ataca la hispanidad catolica","url":"/videos/hollywood-ataca-la-hispanidad-catolica/","tags":["videos"],"date":"2026-07-25","description":"","kind":"VIDEO"},{"title":"El PSICOPATA creador de la ideologia Libertaria - Maximo referente de Milei","url":"/videos/el-psicopata-creador-de-la-ideologia-libertaria-maximo-refer/","tags":["videos"],"date":"2026-07-24","description":"","kind":"VIDEO"},{"title":"El Peligro Libertario","url":"/videos/el-peligro-libertario/","tags":["videos"],"date":"2026-07-23","description":"","kind":"VIDEO"},{"title":"El himno nacional argentino es obra de la masoneria","url":"/videos/el-himno-nacional-argentino-es-obra-de-la-masoneria/","tags":["videos"],"date":"2026-07-21","description":"","kind":"VIDEO"},{"title":"Elite y sociedades secretas en Argentina","url":"/videos/elite-y-sociedades-secretas-en-argentina/","tags":["videos"],"date":"2026-07-20","description":"","kind":"VIDEO"},{"title":"Patricio Lons aconseja a la juventud","url":"/videos/patricio-lons-aconseja-a-la-juventud/","tags":["videos"],"date":"2026-07-19","description":"","kind":"VIDEO"},{"title":"El Gran COMPLOT MASONICO de la \"Independencias\"","url":"/videos/el-gran-complot-masonico-de-la-independencias/","tags":["videos"],"date":"2026-07-18","description":"","kind":"VIDEO"},{"title":"Ritual Cabalistico de Milei por el dia 666 de su gobierno","url":"/videos/ritual-cabalistico-de-milei-por-el-dia-666-de-su-gobierno/","tags":["videos"],"date":"2026-07-17","description":"","kind":"VIDEO"},{"title":"San Martin ERA JUDIO","url":"/videos/san-martin-era-judio/","tags":["videos"],"date":"2026-07-16","description":"","kind":"VIDEO"},{"title":"Javier Perez Nieto - Inmigracion ┐integracion o fractura social?","url":"/videos/javier-perez-nieto-inmigracion-integracion-o-fractura-social/","tags":["videos"],"date":"2026-07-15","description":"","kind":"VIDEO"},{"title":"ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024_2025","url":"/videos/iceberg-argentino-de-conspiraciones-actualizado-2024-2025-2/","tags":["videos"],"date":"2026-07-14","description":"","kind":"VIDEO"},{"title":"La Muerte no es el Final (Marcha hispana catolica)","url":"/videos/la-muerte-no-es-el-final-marcha-hispana-catolica/","tags":["videos"],"date":"2026-07-12","description":"","kind":"VIDEO"},{"title":"La verdad sobre MILEI y \"LA NUEVA DERECHA\"","url":"/videos/la-verdad-sobre-milei-y-la-nueva-derecha/","tags":["videos"],"date":"2026-07-11","description":"","kind":"VIDEO"},{"title":"Francia, Racismo y Leyenda Negra Anti-Hispanica","url":"/videos/francia-racismo-y-leyenda-negra-anti-hispanica/","tags":["videos"],"date":"2026-07-09","description":"","kind":"VIDEO"},{"title":"Hollywood influencißndote para recibir al ANTICRISTO y adorar a LUCIFER","url":"/videos/hollywood-influencindote-para-recibir-al-anticristo-y-adorar/","tags":["videos"],"date":"2026-07-08","description":"","kind":"VIDEO"},{"title":"MASSA el TITERE preferido de la ELITE GLOBALISTA","url":"/videos/massa-el-titere-preferido-de-la-elite-globalista/","tags":["videos"],"date":"2026-07-07","description":"","kind":"VIDEO"},{"title":"El GRAN COMPLOT MASONICO para \"Independizar\" America- La VERDAD sobre el CIPAYO San Martin","url":"/videos/el-gran-complot-masonico-para-independizar-america-la-verdad/","tags":["videos"],"date":"2026-07-06","description":"","kind":"VIDEO"},{"title":"La confiable Wikipedia","url":"/videos/la-confiable-wikipedia/","tags":["videos"],"date":"2026-07-05","description":"","kind":"VIDEO"},{"title":"La MENTIRA de Javier Milei","url":"/videos/la-mentira-de-javier-milei/","tags":["videos"],"date":"2026-07-04","description":"","kind":"VIDEO"},{"title":"El Trasfondo REAL de la Guerra entre Rusia y Ucrania","url":"/videos/el-trasfondo-real-de-la-guerra-entre-rusia-y-ucrania/","tags":["videos"],"date":"2026-07-03","description":"","kind":"VIDEO"},{"title":"A 10 años de la Muerte de BIN LADEN","url":"/videos/a-10-aos-de-la-muerte-de-bin-laden/","tags":["videos","Sionismo","USA","FalsaBandera",""],"date":"2026-06-19T00:00:00.000Z","description":"Con motivo del 10° aniversario de la muerte de Osama Bin Laden, bajo la administracion de Barack Obama, hacemos este repaso historico sobre la verdadera cara del doble agente, Bin Laden.\n","kind":"VIDEO"},{"title":"El peligro del GNOSTICISMO - Con Javier Perez Nieto","url":"/videos/el-peligro-del-gnosticismo-with-javier-perez-nieto/","tags":["videos","Javier Perez Nieto","Gnosticismo","Gnosis hiperborea","Gnosticismo hiperboreo","budismo","religiones","historia de las religiones","cristianismo","protestantismo","calvinismo","matrix","cabala"],"date":"2026-06-16T00:00:00.000Z","description":"Repaso sobre el Gnosticismo con Javier Perez nieto","kind":"VIDEO"},{"title":"Respuesta a Lucas Carena","url":"/videos/respuesta-a-lucas-carena/","tags":["videos","hiperboreos","gnosis hiperborea","Lucas Carena","Nazis","Nenazis","Cristo hiperboreo","ocultismo","esoterismo","domadas"],"date":"2026-06-07T00:00:00.000Z","description":"Domando a lucas macarena","kind":"VIDEO"},{"title":"Cara al Sol","url":"/videos/cara-al-sol/","tags":["videos","Musica","Francisco Franco","Hispanismo"],"date":"2026-06-03T00:00:00.000Z","description":"Mitico himno falangista.","kind":"VIDEO"},{"title":"Desclasificacion OVNI - Javier Perez Nieto","url":"/videos/desclasificacion-ovni-javier-perez-nieto/","tags":["videos","Javier Perez Nieto","Ovnis","UFO","UAPs","desclasificacion ovni","Demonios","Elohim","Extraterrestres","Blue beam proyect","NASA","Esoterismo","Ocultismo","Gnosticismo","San Agustin"],"date":"2026-05-26T00:00:00.000Z","description":"Analisis con Javier Perez nieto sobre la desclasificacion ovni y sus consecuencias.","kind":"VIDEO"},{"title":"Himno a San Martin - Version basada","url":"/videos/himno-a-san-martin-version-basada/","tags":["videos","Musica basada","San Martin","Agente ingles","falsa independencia","Hispanismo","nacionalismo"],"date":"2026-05-25T00:00:00.000Z","description":"Mi homenaje al padre of the fatherland","kind":"VIDEO"},{"title":"TOP 5 Presidentes mas SIONISTAS de Argentina","url":"/videos/presidentes-sionistas-argentina/","tags":["videos","Politicos","democracia","peron","cristina wilhem kirchner","nestor kirchner","kirchnerismo","Mauricio macri","Sionismo","MOSSAD","Julio argentio roca","Javier Milei","Titeres del sionismo","masoneria"],"date":"2026-05-17T00:00:00.000Z","description":"Repaso historico breve sobre los titeres-presidentes argentinos","kind":"VIDEO"},{"title":"Hispanista vs liberal racista - batalla musical","url":"/videos/hispanista-vs-liberal-racista-batalla-musical/","tags":["videos","musica basada","hispanismo","hispanidad","liberal","darwinismo","racismo","supremacismo"],"date":"2026-05-02T00:00:00.000Z","description":"Batalla de aura musical","kind":"VIDEO"},{"title":"La MENTIRA del Cristo Hiperboreo","url":"/videos/la-mentira-del-cristo-hiperboreo/","tags":["videos","Hiperboreos","Gnosticismo hiperboreo","Cristo hiperboreo","new age","esoterismo","ocultismo","teosofia","cabala","satanismo","perennialismo","Julius Evola","Rene guenon","Filosofia perenne","religiones comparadas","Lucas Carena","nacionalismo argentino","nenazis","nazis","Houston Chamberlain","Racismo","supremacismo ario","supremacismo blanco","judios","Jesucristo","desinformacion"],"date":"2026-04-27T00:00:00.000Z","description":"desmontando las burradas del hereje neonazi de lucas carena","kind":"VIDEO"},{"title":"La marcha de Malvinas version hispanista","url":"/videos/la-marcha-de-malvinas-version-hispanista/","tags":["videos","Musica basada","Hispanismo"],"date":"2026-04-02T00:00:00.000Z","description":"Reversion de la marcha de las Malvinas","kind":"VIDEO"},{"title":"Masones celebran 300 años de conspiraciones","url":"/videos/masones-celebran-300-anos-de-conspiraciones/","tags":["videos","Masoneria","Inglaterra","Gran logia de Londres","Monarquia inglesa","Linajes","Duke de Kent","Anglosajones","Illuminatis","Orden de la jarretera","sociedades secretas","esoterismo","ocultismo","sectas"],"date":"2026-02-22T00:00:00.000Z","description":"La perfida Masoneria, en el 2017 cumplio 300 años de existencia en Inglaterra. Y lo festejaron a lo grande, haciendo una importante ceremonia encabezada por el Duque de Kent, el principe Eduardo, de la realeza britanica.","kind":"VIDEO"},{"title":"Milei peon del Sionismo - cancion ia","url":"/videos/mile-sionista-cancion/","tags":["videos","Sionismo","Javier Milei","Musica"],"date":"2025-03-16T00:00:00.000Z","description":"Cancion contra Milei y su sionismo.","kind":"VIDEO"},{"title":"Asumio el nuevo titere de la Elite","url":"/videos/asumio-el-nuevo-titere-de-la-elite/","tags":["videos","Sionismo","Javier Milei","Liberalismo","Plan Andinia"],"date":"2023-12-11T00:00:00.000Z","description":"Asumio el nuevo golem del contubernio judeo masonico","kind":"VIDEO"},{"title":"Catolicismo vs Liberalismo - Milei DOMADO por una adolescente","url":"/videos/catolicismo-vs-liberalismo-milei-domado-por-una-adolescente/","tags":["videos","Javier Milei","Liberalismo","Doctrina social de la Iglesia","Catolicismo","Cristianismo","Ideologias"],"date":"2023-08-20T00:00:00.000Z","description":"La ahora debenida en pornografa, Delfina Wagner, en un space de twitter (X) domo facilmente a Javier Milei cuando le saco a relucir la DSI.","kind":"VIDEO"},{"title":"Negros doman a Judios racistas","url":"/videos/afroamericanos-enfrentan-a-judios/","tags":["videos","Judios","Sionismo","Supremacismo"],"date":"2023-05-19T00:00:00.000Z","description":"Personas de la comunidad afroamericana, en un barrio pobre, hablan de su percepcion sobre como es vivir dia a dia con los judios, a los cuales perciben como personas sumamente racistas, altaneras y soberbias, ademas de ser sectarios.","kind":"VIDEO"},{"title":"Analisis de EL ELEGIDO novela Masonica","url":"/videos/analisis-de-el-elegido-novela-masonica/","tags":["videos","Masoneria","Television","peliculas y series","ocultismo","Esoterismo","Rituales satanicos","satanismo","Sionismo","Plan andinia","Mensajes subliminales"],"date":"2023-03-04T00:00:00.000Z","description":"\"El Elegido\" es una novela que fue emitida por el canal Telefe, en el año 2011. La trama sumamente interesante, ya que involucra un abordaje sobre la tematica masónica, y sionista, ya que involucra al Plan andinia y la lucha de poder entre dos logias masonicas. \nEn este video vemos y analizamos un poco de esta rara pero interesante novela.","kind":"VIDEO"},{"title":"Budismo ¿Filosofia de paz? (con Javier Perez Nieto)","url":"/videos/budismo-filosofia-de-paz-con-javier-perez-nieto/","tags":["videos","Budismo","Orientalismo","Gnosticismo","Filosofia","Religion","New age"],"date":"2022-09-12T00:00:00.000Z","description":"Charla con Javier Perez Nieto , sobre el budismo, desde una optica critica pocas veces abordada.","kind":"VIDEO"},{"title":"Charla con CHINDA BRANDOLINO sobre Malthusianismo, eugenesia, control demografico","url":"/videos/charla-con-chinda-brandolino-sobre-malthusianismo-eugenesia/","tags":["videos","Entrevistas","Chinda brandolino","Malthusianismo","Angloesfera vs Hispanidad","Catolicismo"],"date":"2022-02-08T00:00:00.000Z","description":"Entrevista a la doc Chinda Brandolino donde charlamos sobre temas variados","kind":"VIDEO"},{"title":"La Juderia se rie en tu cara","url":"/videos/hollywood-actores-judios/","tags":["videos","Television","Hollywood","Sionismo","Judios","Mass media","control mental"],"date":"2022-01-02T00:00:00.000Z","description":"Los J boys se burlan de nosotros en publico, impunemente.","kind":"VIDEO"},{"title":"Los HEROES Catolicos MEXICANOS que lucharon contra la tirania masonica","url":"/videos/los-heroes-catolicos-mexicanos-que-lucharon-contra-la-tirani/","tags":["videos","Cristeros","Guerra cristera","protestantismo","masoneria","catolicismo","mexico","hispanidad"],"date":"2021-12-06T00:00:00.000Z","description":"Historia de los cristeros","kind":"VIDEO"},{"title":"Metaverso - La caverna de Plat¾n se volvi¾ Realidad","url":"/videos/metaverso-la-caverna-de-plat34n-se-volvi34-realidad/","tags":["videos","IA","Metaverso","manipulacion","control de masas","mass media","Mark Zukerberg","Filosofia"],"date":"2021-11-06T00:00:00.000Z","description":"Reflexion sobre el metaverso, IA y la virtualidad en general, frente a la realidad","kind":"VIDEO"},{"title":"Peron y Evita - El HISPANISMO vs la SINARQUIA INTERNACIONAL","url":"/videos/peron-y-evita-el-hispanismo-vs-la-sinarquia-internacional/","tags":["videos","Peron","Evita Peron","hispanismo","hispanidad","nacionalismo","peronismo"],"date":"2021-10-19T00:00:00.000Z","description":"Peron y evita ¿hispanistas?","kind":"VIDEO"},{"title":"Politicos Argentinos TITERES de la MASONERIA (Mira el video antes de votar)","url":"/videos/politicos-argentinos-titeres-de-la-masoneria-mira-el-video-a/","tags":["videos","Politicos","Politicos titeres","Democracia","Kirchnerismo","Nestor Kirchner","Santoro","Elecciones argentina"],"date":"2021-10-09T00:00:00.000Z","description":"Todos al servicio de la masoneria","kind":"VIDEO"},{"title":"Tiranias y la hispanidad - Con Javier Perez Nieto","url":"/videos/tiranias-y-la-hispanidad-con-javier-perez-nieto/","tags":["videos","Entrevistas","Javier Perez Nieto","Tiranias","Socialismo","Nacionalismo","Manipulacion","Elite"],"date":"2021-09-14T00:00:00.000Z","description":"charla con Javier Perez Nieto sobre las tiranias y los sistemas de gobierno opresores","kind":"VIDEO"},{"title":"Elecciones 2021 - La Democracia es un CIRCO","url":"/videos/elecciones-2021-la-democracia-es-un-circo/","tags":["videos","Democracia","Elecciones 2021","Politicos","Politicos titeres","titeres","council of americas","Susan Segal","Rockfeller family","Massa","Javier Milei","Cristina Wilhem Kirchner","Judios","sionismo","Masoneria"],"date":"2021-09-11T00:00:00.000Z","description":"Sobre el circo democratico del 2021","kind":"VIDEO"},{"title":"Peste J en la tv argentina","url":"/videos/television-argentina-sionismo/","tags":["videos","Judios","sionismo","television argentina","television","manipulacion","mass media","control mental","mensajes subliminales"],"date":"2021-09-02T00:00:00.000Z","description":".","kind":"VIDEO"},{"title":"PROGRESISMO en 6 Minutos (Video censurado )","url":"/videos/progresismo-en-6-minutos-video-censurado/","tags":["videos","Progresismo","Sigmun Schlomo Freud","Psicoanalisis","Manipulacion","liberalismo cultural","marxismo cultural","satanismo","promiscuidad","posmodernismo","liberacion sexual","materialismo","dialectica materialista","ataque al cristianismo","luciferianos"],"date":"2021-08-19T00:00:00.000Z","description":"Resumen del progresismo","kind":"VIDEO"},{"title":"Feminismo Satanico","url":"/videos/feminismo-satanico/","tags":["videos","Feminismo","Satanismo","ocultismo","new age","esoterismo","Hippies","Historia de las religiones","cristianismo","catolicismo","protestantismo","brujeria","brujas","rituales satanicos","wicca","aleister crowley","ida craddock","helena blavastky"],"date":"2021-06-25T00:00:00.000Z","description":"El feminismo avanzo en estos últimos tiempos a pasos agigantados, hoy vemos a famosas como Emma Watson dando discursos feministas en la ONU y en distintos lugares de gran influencia. Pero el feminismo, como todo lo que impulsa (((la élite))), tiene un trasfondo esotérico satanico muy importante, usualmente cuando se habla de feminismo, se habla de las olas feministas, del liberalismo y marxismo cultural, es decir, se habla siempre de la cuestion sociopolitica que envuelve a éste movimiento, pero, en este video analisamos brevemente el origen satanico del actual movimiento feminista.","kind":"VIDEO"},{"title":"La historia de la opreSION en Palestina + Lord Rothschild da la cara","url":"/videos/la-historia-de-la-opresion-en-palestina-lord-rothschild-da-l/","tags":["videos","Rosthchild","Rosthchild familia","Israel","sionismo","genocidio palestino","Palestina","Inglaterra","Nazis","Eugenesia","racismo","supremacismo judio"],"date":"2021-05-21T00:00:00.000Z","description":"Breve repaso historico sobre la historia de Israel y su fundacion a manos de los Rosthchild","kind":"VIDEO"},{"title":"Isabel I de Castilla, la SUBLIME Reina de la Hispanidad","url":"/videos/isabel-i-de-castilla-la-sublime-reina-de-la-hispanidad/","tags":["videos","hispanidad","hispanismo","Isabel I de castilla","Reyes catolicos","Imperio Español","Arriba la hispanidad","Derechos humanos","catolicismo"],"date":"2021-05-04T00:00:00.000Z","description":"La reina Isabel la catolica es sin dudas, una de las figuras femeninas mas notables de la historia, y una de las mas admirables y entrañables tambien.","kind":"VIDEO"},{"title":"*Victimizacion Masonica* Gran Maestre habla sobre la persecucion a la Masoneria en España","url":"/videos/victimizacion-masonica-gran-maestre-habla-sobre-la-persecuci/","tags":["videos","Francisco Franco","España","Hispanismo","Franquismo","Masoneria","Sinarquia"],"date":"2021-04-22T00:00:00.000Z","description":"Mason llora porque franco lo tenia domado","kind":"VIDEO"},{"title":"¿Quien controla los medios en Argentina?","url":"/videos/control-medios-argentina-clarin/","tags":["videos","Mass media","Manipulacion","Elite","Corporaciones","Grupo Clarin","George Soros","Sionismo","Television argentina"],"date":"2021-04-17T00:00:00.000Z","description":"Los mass media son la principal arma de control social, y esta en manos de muy poca gente, en este video tratamos de deducir quienes controlan los mass media en Argentina.","kind":"VIDEO"},{"title":"NORMIES- Ser Borrego para ser \"Normal\" | EL MITO DEL UNICORNIO Y EL DRAGON","url":"/videos/normies-ser-borrego-para-ser-normal-el-mito-del-unicornio-y/","tags":["videos","borregos","normies"],"date":"2021-04-16T00:00:00.000Z","description":"Un analisis respecto a lo que conlleva ser un \"normie\", que es una palabra usada en internet para definir a lo que, en otras palabras, podria llamarse \"borrego\", a alguien que solo es uno mas del monton.","kind":"VIDEO"},{"title":"Incendios en la Patagonia: Colonizacion encubierta?","url":"/videos/incendios-en-la-patagonia-colonizacion-encubierta/","tags":["videos","Incendios","Patagonia","Sionismo","judios","plan andinia","chile","colonizacion"],"date":"2021-03-13T00:00:00.000Z","description":"Analisis sobre los incendios que se estan llevando a cabo en La Patagonia Argentina, y el posible trasfondo que se podria estar ocultando detras de estos hechos.","kind":"VIDEO"},{"title":"La \"Libertad\" y el Nuevo Orden Mundial (La FARSA del Liberalismo)","url":"/videos/la-libertad-y-el-nuevo-orden-mundial-la-farsa-del-liberalism/","tags":["videos","Liberalismo","Javier milei","corralito","crisis 2001","de la rua","politicos","doctrina del shock","instituto tavistok","bancos","usura","esquema piramidal ponzi"],"date":"2021-02-14T00:00:00.000Z","description":"Analisis sobre el liberalismo economico y sus consecuencias","kind":"VIDEO"},{"title":"Mujeres que Realmente luchan contra la opreSION","url":"/videos/mujeres-que-realmente-luchan-contra-la-opresion/","tags":["videos","Palestina","feminismo","Sionismo","opresion sionista","genocidio palestino"],"date":"2021-01-26T00:00:00.000Z","description":"VIVA PALESTINA LIBRE","kind":"VIDEO"},{"title":"Espiritualidad para idiotas","url":"/videos/espiritualidad-para-idiotas/","tags":["videos","Espiritualidad","new age","gnosticismo","ravi shankar","orientalismo","esoterismo","budismo","gurues"],"date":"2021-01-03T00:00:00.000Z","description":"Breve reflexion sobre ciertas corrientes espirituales orientales que desde hace unas decadas estan teniendo auge en occidente","kind":"VIDEO"},{"title":"FEMINISMO - Marxismo cultural y la FALSA disidencia Liberal","url":"/videos/feminismo-marxismo-cultural-y-la-falsa-disidencia-liberal/","tags":["videos","Feminismo","marxismo","Simone de Beauvoir","Femibolches","liberalismo","marxismo cultural","liberalismo cultural","lucha de sexos","lucha de clases","dialectica materialista","Catolicismo","Protestantismo"],"date":"2020-12-08T00:00:00.000Z","description":"Analisis de la historia del feminismo, la primer, 2da y 3ra ola, y una reflexion sobre la supuesta disidencia liberal conservadora.","kind":"VIDEO"},{"title":"La industria JUDEO SATANICA expuesta","url":"/videos/industria-satanica-expuesta/","tags":["videos","Musica satanica","Control mental","mass media","mensajes subliminales","simbologia","masoneria","illuminatis","esoterismo","ocultismo","satanismo","ritual","rituales satanicos"],"date":"2020-11-18T00:00:00.000Z","description":"La verdad sobre la industria diabolica musical.","kind":"VIDEO"},{"title":"FRANCO, el Caudillo Español que lucho contra la Masoneria y el Comunismo","url":"/videos/franco-el-caudillo-espaol-que-lucho-contra-la-masoneria-y-el/","tags":["videos","Francisco Franco","Hispanidad","Hispanismo","España","Franquismo","Masoneria","Sinarquia","Peron","Evita Peron"],"date":"2020-10-29T00:00:00.000Z","description":"Breve repaso sobre Francisco Franco y su lucha contra la masoneria","kind":"VIDEO"},{"title":"Ceremonia de la MASONERIA MUNDIAL en Londres","url":"/videos/ceremonia-de-la-masoneria-mundial-en-londres/","tags":["videos","Masoneria","Sectas","Satanismo","Esoterismo","Ocultismo","Realeza","Familia real","Linajes"],"date":"2020-10-20T00:00:00.000Z","description":"Ceremonia del antro masonico en ese antro mugroso satanico de Londres.","kind":"VIDEO"},{"title":"Mentiras contra el Hispanismo","url":"/videos/mentiras-contra-el-hispanismo/","tags":["videos","Hispanismo","hispanidad","leyenda negra","masoneria"],"date":"2020-10-11T00:00:00.000Z","description":"En la conversacion analizamos con Daniel Aguado, admin de \"Memes Reaccionarios\" de telegram, distintos ataques algunos realizan contra la Hispanidad y contra el hispanismo.","kind":"VIDEO"},{"title":"La VERDADERA PANDEMIA -- El Fin de Argentina parte 2","url":"/videos/la-verdadera-pandemia-el-fin-de-argentina-parte-2/","tags":["videos","usura","deuda externa","deuda","banca judia","banca rosthchild","jp morgan","black rock","cristina kirchner","liberalismo","politicos"],"date":"2020-09-17T00:00:00.000Z","description":"La verdadera pandemia no es una supergripe, es la usura","kind":"VIDEO"},{"title":"El FIN de Argentina (Parte 1) - LA VACUNA DE BILL GATES","url":"/videos/el-fin-de-argentina-parte-1-la-vacuna-de-bill-gates/","tags":["videos","Bill gates","vacunas","plandemia","cuarentena"],"date":"2020-08-17T00:00:00.000Z","description":"Albertitere Fernandez finalmente nos traerá la vacuna del psicopata malthusiano eugenesista Bill Gates.","kind":"VIDEO"},{"title":"Sarmiento en 1 minuto *La Verdadera historia*","url":"/videos/sarmiento-en-1-minuto-la-verdadera-historia/","tags":["videos","Sarmiento","Masoneria","Proceres masones argentinos","Falso procer","Nacionalismo","Cipayo","Racismo"],"date":"2020-07-30T00:00:00.000Z","description":"La verdad resumida sobre la lacra de Domingo Samiento","kind":"VIDEO"},{"title":"La Gran Conspiracion Anti-Cristiana - Gnosticismo Luciferiano Hiperboreo","url":"/videos/la-gran-conspiracion-anti-cristiana-gnosticismo-luciferiano/","tags":["videos","Gnosticismo","Hiperboreos","Gnosticismo hiperboreo","new age","masoneria","ariosofia","teosofia","ocultismo","esoterismo","sociedades secretas","sectas","satanismo","rituales satanicos","simbologia","illuminatis","Rosacruces","Thule","sociedad Vril"],"date":"2020-07-29T00:00:00.000Z","description":"Repaso historico del origen del gnosticismo luciferiano, desde Platon y su concepcion del universo, de la materia, la antimateria, y el demiurgo, hasta Madame Blavatsky, pasando por el catarismo, el maniqueismo, rosacrucismo... etc.","kind":"VIDEO"},{"title":"Respuesta a Liberales vendepatria Pro-Masoneria","url":"/videos/respuesta-a-liberales-vendepatria-pro-masoneria/","tags":["videos","Liberalismo","Masoneria","Plan andinia","Javier Milei","Influencers","Judios","Sionismo"],"date":"2020-06-20T00:00:00.000Z","description":"Respuesta a downann y a el presto","kind":"VIDEO"},{"title":"Historia de los gauchos judios","url":"/videos/historia-gauchos-judios/","tags":["videos","Plan andinia","Julio Argentino Roca","Urquiza","sionismo","Baron de Hirsch","Jewish Colonization Association","Judios","Gauchos judios","Colonias judias en argentina"],"date":"2020-05-30T00:00:00.000Z","description":"Historia no contada sobre los famosos (o no tan famosos...)  gauchos judios.","kind":"VIDEO"},{"title":"Dictadura Global Comunista y la Disonancia cognitiva","url":"/videos/dictadura-global-comunista-y-la-disonancia-cognitiva/","tags":["videos","Nuevo orden mundial","control social masivo","Control mental","Manipulacion"],"date":"2020-05-09T00:00:00.000Z","description":"Sobre la cuarentena...","kind":"VIDEO"},{"title":"La MENTIRA de los Jazaros","url":"/videos/jazaros-judios-mentira/","tags":["videos","Jazaros","Sionismo","Judios","Israel","Rosthchild","Desinformacion","Disidencia controlada"],"date":"2020-04-29T00:00:00.000Z","description":"¿Alguna vez escuchaste/leiste a alguien acusar a los judios de ser \"falsos judios\", y de ser jazaros? Bueno, dejame contarte la mentira detras de ese cuento creado para desinformar...","kind":"VIDEO"},{"title":"Peron; Hispanismo vs Masoneria","url":"/videos/peron-hispanismo-vs-masoneria/","tags":["videos","Peron","Hispanismo"],"date":"2020-04-16T00:00:00.000Z","description":"Peron y su pensamiento cercano al hispanismo","kind":"VIDEO"},{"title":"Feminismo \"anti blanco\" en hispanoamerica","url":"/videos/feminismo-anti-blanco-en-hispanoamerica/","tags":["videos","Feminismo","marxismo cultural","hispanidad","hispanismo","angloesfera","protestantismo","calvinismo","salem","matanza de salem","brujas","opresion","liberalismo cultural"],"date":"2020-03-07T00:00:00.000Z","description":"El desproposito de ser feminista en hispanoamerica","kind":"VIDEO"},{"title":"Ecologismo - Su verdadera cara EUGENESICA y Anti-Natalista","url":"/videos/ecologismo-su-verdadera-cara-eugenesica-y-anti-natalista/","tags":["videos","Ecologismo","Malthusianismo","Thomas Malthus","Despoblacion","anti-natalismo","cambio climatico","calentamiento global","hollywood","manipulacion","control de masas","eugenesia","racismo","Maria Stopes","Rockefeller family","Hitler","Instituto tavistok"],"date":"2020-02-24T00:00:00.000Z","description":"analisis sobre el verdadero trasfondo Eugenesico y anti natalista del \"ecologismo\"","kind":"VIDEO"},{"title":"el REY JUDIO de la Patagonia","url":"/videos/julius-poper-patagonia-genocidio-selknam/","tags":["videos","Julius Pope","Plan andinia","Gauchos judios","Julio Argentino Roca","Sionismo","Patagonia","Selknam","Racismo","Genocidio indigena","Masoneria"],"date":"2020-02-04T00:00:00.000Z","description":"Historia de Julius Poper, el judio que levanto un reino en la patagonia. Precursor del Plan Andinia.","kind":"VIDEO"},{"title":"La MAFIA SIONISTA Kirchner al descubierto","url":"/videos/sionismo-kirchnerista/","tags":["videos","Sionismo","Kirchner","Cristina Wilhem de Kirchner","Kirchnerismo","peronismo","Politicos","Democracia"],"date":"2019-11-28T00:00:00.000Z","description":"La historia no contada del matrimonio delectivo corrupto asqueroso repugnante de los Kirchner y su relacion con la juderia internacional.","kind":"VIDEO"},{"title":"La GRAN CONSPIRACION Malthusiana (mi video preferido)","url":"/videos/la-gran-conspiracion-malthusiana-mi-video-preferido/","tags":["videos","Malthusianismo","Thomas Malthus","Judios","Margareth Sanger","Club malthusiano de chicago","club de Roma","Ecologismo","Cambio climatico","Bill gates","Vacunas","Chinda brandolino","Liberalismo","Javier Milei","David Ricardo","Hollywood","Planned parenthood"],"date":"2019-06-02T00:00:00.000Z","description":"Pobreza estructurada, Vacunas con agentes anti conceptivos, alimentos transgenicos, ecologismo, feminismo, anarquismo, aborto, esoterismo gnóstico luciferino new age, todo tiene que ver con todo, y todo parece resumirse en Malthusianismo, la filosofía en la cual se basa la élite para crear fomentar el control de la natalidad y la despoblación.","kind":"VIDEO"},{"title":"Cristina Kirchner VENDIENDO LA PATAGONIA","url":"/videos/cfk-vendepatria/","tags":["videos","Democracia","Peronismo","Sionismo","Politicos titeres","Nacionalismo argentino","Kirchnerismo","Cristina Wilhem Kirchner","Patagonia","Monsanto"],"date":"2019-05-29T00:00:00.000Z","description":"Cristina Wilhem Fernandez de Kirchner vendiendo la patagonia y sus recursos naturales a la GENOCIDA Monsanto.\n\nA Tener en cuenta : Mosanto en Argentina esta unida a la empresa Cresud que es de Eduardo Elztain, el socio de George Soros, que a su vez impulsa la despoblacion mediante el marxismo cultural (incluido el aborto). Los Kirchner fueron los maximos impulsores del marxismo cultural en Argentina, implantando la \"ley de identidad de genero\" y el matrimonio homosexual. ","kind":"VIDEO"},{"title":"El Abortista Ernesto Tenembaum se pisa solito","url":"/videos/el-abortista-ernesto-tenembaum-se-pisa-solito/","tags":["videos","Judios","television argentina","periodismo titere","politicos titeres","despoblacion","aborto"],"date":"2018-10-17T00:00:00.000Z","description":"El periodista que milita la agenda rockefeller","kind":"VIDEO"},{"title":"El RABINO DE MALTA - Mago satanico cabalista","url":"/videos/rabino-de-malta/","tags":["videos","Rabino de Malta","Judios","Sionismo","Mauricio Macri","Politicos","Democracia","Ocultismo","Esoterismo","Cultos","New age","Espiritualidad","Cabala","Satanismo","Rituales satanicos"],"date":"2018-09-03T00:00:00.000Z","description":"La historia no contada sobre el vinculo entre el Admor Rabino de Malta, y Argentina.","kind":"VIDEO"},{"title":"FEMILOCAS DELIRANTES HACEN RITUAL SATANICO","url":"/videos/femilocas-delirantes-hacen-ritual-satanico/","tags":["videos","feminismo","satanismo","rituales satanicos","ocultismo"],"date":"2018-07-13T00:00:00.000Z","description":"Marcha feminista","kind":"VIDEO"},{"title":"Victimizacion de JUDIOS en la television argentina","url":"/videos/victimizacion-judia-argentina/","tags":["videos","Television argentina","Television","Manipulacion","judios","sionismo"],"date":"2017-08-16T00:00:00.000Z","description":"Victimizacion de la comunidad judia en la television argentina","kind":"VIDEO"},{"title":"ELITE Y SOCIEDADES SECRETAS en Argentina","url":"/videos/elite-y-sociedades-secretas-en-argentina-2/","tags":["videos","Elite","Sociedades secretas","Masoneria","Jokey club","Rotary Club","Orden de Malta","Peron","Macri","Fraternidades universitarias","Skull and bones","phi beta kappa"],"date":"2016-12-27T00:00:00.000Z","description":"Hablamos un poco sobre las sociedades secretas y discretas en Argentina, sobre como los lazos sociales en las primeras etapas de la ninez van forjando los vinculos de poder del futuro dentro de las sociedades elitistas.","kind":"VIDEO"},{"title":"Macri titere sionista","url":"/videos/macri-titere-sionista/","tags":["videos","Mauricio Macri","Sionismo","Plan andinia","Israel","Mossad","Fondos buitre","Liberalismo"],"date":"2015-06-20T00:00:00.000Z","description":"video hecho en el 2015 antes de que Macri (Machir) sea presidente.","kind":"VIDEO"},{"title":"Cancion ANTI ILLUMINATI SIONISTA 2012","url":"/videos/cancion-anti-sionista/","tags":["videos","cancion anti illuminati sionista","musica","new age","masoneria"],"date":"2011-11-02T00:00:00.000Z","description":"Esta cancion la escucho desde el 2011, el video fue hecho por un legendario usuario de youtube que se llamaba \"leuname07\", del cual aprendi mucho. El tema es genial por eso lo guardé siempre.","kind":"VIDEO"}],
+"videos":[{"title":"La cumbia del sionismo","url":"/videos/la-cumbia-del-sionismo/","tags":["videos","Musica","Sionismo","Plan andinia","Gauchos judios","Baron de Hirsch","Urquiza","Julio Argentino Roca"],"date":"2026-08-25T00:00:00.000Z","description":"Cumbia anti sionista","kind":"VIDEO"},{"title":"Contra el racismo \"cristiano\"","url":"/videos/contra-el-racismo-cristiano/","tags":["videos","Racismo","Cristianismo","catolicismo","protestantismo","judaismo","judios","Historia de religiones","Historia de Cristianismo","teologia","Biblia","Supremacismo blanco"],"date":"2026-08-12T00:00:00.000Z","description":"Desmontando la mentira de \"la maldicion de Noe\" y la logica del racismo disfrazado de cristianismo.","kind":"VIDEO"},{"title":"El peligro del GNOSTICISMO - Con Javier Perez Nieto","url":"/videos/el-peligro-del-gnosticismo-with-javier-perez-nieto/","tags":["videos","Javier Perez Nieto","Gnosticismo","Gnosis hiperborea","Gnosticismo hiperboreo","budismo","religiones","historia de las religiones","cristianismo","protestantismo","calvinismo","matrix","cabala"],"date":"2026-06-16T00:00:00.000Z","description":"Repaso sobre el Gnosticismo con Javier Perez nieto","kind":"VIDEO"},{"title":"Respuesta a Lucas Carena","url":"/videos/respuesta-a-lucas-carena/","tags":["videos","hiperboreos","gnosis hiperborea","Lucas Carena","Nazis","Nenazis","Cristo hiperboreo","ocultismo","esoterismo","domadas"],"date":"2026-06-07T00:00:00.000Z","description":"Domando a lucas macarena","kind":"VIDEO"},{"title":"Desclasificacion OVNI - Javier Perez Nieto","url":"/videos/desclasificacion-ovni-javier-perez-nieto/","tags":["videos","Javier Perez Nieto","Ovnis","UFO","UAPs","desclasificacion ovni","Demonios","Elohim","Extraterrestres","Blue beam proyect","NASA","Esoterismo","Ocultismo","Gnosticismo","San Agustin"],"date":"2026-05-26T00:00:00.000Z","description":"Analisis con Javier Perez nieto sobre la desclasificacion ovni y sus consecuencias.","kind":"VIDEO"},{"title":"Himno a San Martin - Version basada","url":"/videos/himno-a-san-martin-version-basada/","tags":["videos","Musica basada","San Martin","Agente ingles","falsa independencia","Hispanismo","nacionalismo"],"date":"2026-05-25T00:00:00.000Z","description":"Mi homenaje al padre of the fatherland","kind":"VIDEO"},{"title":"TOP 5 Presidentes mas SIONISTAS de Argentina","url":"/videos/presidentes-sionistas-argentina/","tags":["videos","Politicos","democracia","peron","cristina wilhem kirchner","nestor kirchner","kirchnerismo","Mauricio macri","Sionismo","MOSSAD","Julio argentio roca","Javier Milei","Titeres del sionismo","masoneria"],"date":"2026-05-17T00:00:00.000Z","description":"Repaso historico breve sobre los titeres-presidentes argentinos","kind":"VIDEO"},{"title":"Hispanista vs liberal racista - batalla musical","url":"/videos/hispanista-vs-liberal-racista-batalla-musical/","tags":["videos","musica basada","hispanismo","hispanidad","liberal","darwinismo","racismo","supremacismo"],"date":"2026-05-02T00:00:00.000Z","description":"Batalla de aura musical","kind":"VIDEO"},{"title":"La MENTIRA del Cristo Hiperboreo","url":"/videos/la-mentira-del-cristo-hiperboreo/","tags":["videos","Hiperboreos","Gnosticismo hiperboreo","Cristo hiperboreo","new age","esoterismo","ocultismo","teosofia","cabala","satanismo","perennialismo","Julius Evola","Rene guenon","Filosofia perenne","religiones comparadas","Lucas Carena","nacionalismo argentino","nenazis","nazis","Houston Chamberlain","Racismo","supremacismo ario","supremacismo blanco","judios","Jesucristo","desinformacion"],"date":"2026-04-27T00:00:00.000Z","description":"desmontando las burradas del hereje neonazi de lucas carena","kind":"VIDEO"},{"title":"La marcha de Malvinas version hispanista","url":"/videos/la-marcha-de-malvinas-version-hispanista/","tags":["videos","Musica basada","Hispanismo"],"date":"2026-04-02T00:00:00.000Z","description":"Reversion de la marcha de las Malvinas","kind":"VIDEO"},{"title":"Masones celebran 300 años de conspiraciones","url":"/videos/masones-celebran-300-anos-de-conspiraciones/","tags":["videos","Masoneria","Inglaterra","Gran logia de Londres","Monarquia inglesa","Linajes","Duke de Kent","Anglosajones","Illuminatis","Orden de la jarretera","sociedades secretas","esoterismo","ocultismo","sectas"],"date":"2026-02-22T00:00:00.000Z","description":"La perfida Masoneria, en el 2017 cumplio 300 años de existencia en Inglaterra. Y lo festejaron a lo grande, haciendo una importante ceremonia encabezada por el Duque de Kent, el principe Eduardo, de la realeza britanica.","kind":"VIDEO"},{"title":"Quien incendia la patagonia cada año?","url":"/videos/quien-incendia-la-patagonia-cada-ano/","tags":["videos","Incendios","Patagonia","Mochileros israelies","Israel","Plan Andinia","Colonizacion","Cristina Wilhem Kirchner","Elzstain","Joe Lewis","Judios","Sionismo","Secesion"],"date":"2026-01-09T00:00:00.000Z","description":"Todos los años ocurren misteriosos incendios en la Patagonia, y luego aparecen negocios inmobiliarios. En el medio, mochileros israelies que merodean las zonas afectadas....","kind":"VIDEO"},{"title":"El plan Tecnato Americano","url":"/videos/el-plan-tecnato-americano/","tags":["videos","Tecnocracia","Tecnato americano","Donald Trump","Peter Thiel","Materialismo","Transhumanismo","IA","Colonizacion","Imperialismo","Elon Musk","Francis Bacon","Nueva atlantida","Filosofia","Distopia","Nuevo orden mundial"],"date":"2026-01-06T00:00:00.000Z","description":"El gran plan tecnocratico americano de las elites.","kind":"VIDEO"},{"title":"La \"nueva derecha\" dividida por Milei","url":"/videos/la-nueva-derecha-dividida-por-milei/","tags":["videos","Nueva derecha","Danann","El presto","Javier Milei","Liberalismo","Liberales","Sionismo","Democracia","Politicos","Partidocracia"],"date":"2025-12-03T00:00:00.000Z","description":"Internas en \"la nueva derecha\"","kind":"VIDEO"},{"title":"Peron fue mason","url":"/videos/peron-fue-mason/","tags":["videos","Peron","Masoneria","Peron y la masoneria","Peronismo","tercera posicion","justicialismo","partidocracia","democracia","politicos masones","Masoneria argentina","Fascismo","Judios","Sionismo","Evita Peron","Iglesia catolica","Nacionalismo argentino"],"date":"2025-11-19T00:00:00.000Z","description":"Las incomodas verdades sobre Juan Domingo Peron y su relacion con la masoneria","kind":"VIDEO"},{"title":"Circo democratico - EL PERONISMO MURIO","url":"/videos/circo-democratico-el-peronismo-murio/","tags":["videos","Democracia","politicos","peronismo","nacionalismo","Santiago Cuneo","Guillermo Moreno","partidocracia","plutocracia","Politicos titeres"],"date":"2025-10-27T00:00:00.000Z","description":"Otra funcion mas del circo demoniocratico","kind":"VIDEO"},{"title":"Ritual Cabalistico de Milei por el dia 666 de su gobierno","url":"/videos/ritual-cabalistico-de-milei-por-el-dia-666-de-su-gobierno/","tags":["videos","Javier Milei","Ocultismo","Satanismo","Macumba","Karina Milei"],"date":"2025-10-12T00:00:00.000Z","description":"Ritual ocultista macumbero de Javier Milei","kind":"VIDEO"},{"title":"Respuesta a liberal fan de san martin","url":"/videos/respuesta-a-liberal-fan-de-san-martin/","tags":["videos","San Martin","San Martin agente ingles","Balcanizacion","Separatismo","Secesion","Masoneria","Inglaterra","Agentes ingleses","falsos proceres","Traicion de Riego","Historia de España","Historia Argentina"],"date":"2025-08-16T00:00:00.000Z","description":"El youtuber liberal llamado \"santi patriota\" me dedico una video-respuesta a mi video \"el gran complot masonico de las independencias\".","kind":"VIDEO"},{"title":"San Martin ERA JUDIO","url":"/videos/san-martin-era-judio/","tags":["videos","San Martin","San Martin agente ingles","Agentes ingleses","Falsos proceres","Judios","Sionismo","Marranos","Conversos","Masoneria","Federico Rivanera Carles"],"date":"2025-08-06T00:00:00.000Z","description":"San martin era un judio agente de inglaterra y mason. abrazo","kind":"VIDEO"},{"title":"Pensar en ingles - COLONIALISMO mental anglosajon y LIBERALISMO | Con Javier Perez Nieto","url":"/videos/pensar-en-ingles-colonialismo-mental-anglosajon-y-liberalism/","tags":["videos","Javier Perez Nieto","Filosofia","IA","Anglosajon","Angloesfera","Lengua española","Hispanismo","Hispanidad","España","Lenguaje","Manipulacion","Lavado cerebral","Control social","Colonizacion mental"],"date":"2025-04-17T00:00:00.000Z","description":"En este programa exploramos cómo, muchas veces sin darnos cuenta, adoptamos esquemas mentales anglosajones que moldean nuestra forma de ver el mundo, pensar la libertad, la economía, la historia y muchas otras cosas. Junto a Javier P. Nieto, analizamos el fenómeno de \"pensar en inglés\", el colonialismo cultural anglosajón y sus efectos en los pueblos hispanos.\n\nAbordamos la necesidad urgente de recuperar nuestro pensamiento propio, arraigado en la tradición hispano-católica, en el derecho natural, y en la herencia grecorromana","kind":"VIDEO"},{"title":"'San' Martin LiberTraidor","url":"/videos/san-martin-libertraidor/","tags":["videos","Musica basada","San Martin","San Martin agente ingles","Balcanizacion","Masoneria","Falsos proceres"],"date":"2025-04-06T00:00:00.000Z","description":"Cancion dedicada al libertraidor san martin","kind":"VIDEO"},{"title":"Immigracion: Del Malthusianismo al gnosticismo (with Javier Perez Nieto)","url":"/videos/immigracion-del-malthusianismo-al-gnosticismo-with-javier-pe/","tags":["videos","Javier Perez Nieto","Inmigracion","Malthusianismo","Gnosticismo","Guerra civil","Masoneria","Elites","Conflicto social","Estatismo","Hispanidad","Catolicismo","Religion","Islam","Musulmanes","Invasion mora"],"date":"2025-03-30T00:00:00.000Z","description":"Charla con Javier Perez Nieto sobre la inmigracion y su trasfondo","kind":"VIDEO"},{"title":"La \"batalla cultural\" frente a la causa Palestina","url":"/videos/la-batalla-cultural-frente-a-la-causa-palestina/","tags":["videos","Nueva derecha","liberalismo","sionismo","Palestina","Palestina libre","Israel","Disidencia controlada"],"date":"2025-03-27T00:00:00.000Z","description":"Charla sobre \"la nueva derecha\" y su posicion favorable al sionismo","kind":"VIDEO"},{"title":"Milei peon del Sionismo - cancion ia","url":"/videos/mile-sionista-cancion/","tags":["videos","Sionismo","Javier Milei","Musica"],"date":"2025-03-16T00:00:00.000Z","description":"Cancion contra Milei y su sionismo.","kind":"VIDEO"},{"title":"San Martin ERA MASON  Aunque MANIPULADORES intenten negarlo","url":"/videos/san-martin-era-mason-aunque-manipuladores-intenten-negarlo/","tags":["videos","San Martin","San Martin agente ingles","Agentes ingleses","balcanizacion","secesion","independencias","masones","masoneria","agentes masones","falsos proceres","idolatria estatal","religion estatal","historia argentina","manipulacion","fanatismo"],"date":"2025-03-10T00:00:00.000Z","description":"Domada a un viejo manipulador fan de san martin","kind":"VIDEO"},{"title":"Los hilos de las Logias - Cancion (IA)","url":"/videos/los-hilos-de-las-logias-cancion-ia/","tags":["videos","San Martin","San Martin agente ingles","Balcanizacion","Independencias","Secesion","Agentes ingleses","Masoneria","masones","Musica basada"],"date":"2025-02-20T00:00:00.000Z","description":"Cancion sobre las independencias","kind":"VIDEO"},{"title":"Javier Milei y la estafa crypto de Libra","url":"/videos/javier-milei-y-la-estafa-crypto-de-libra/","tags":["videos","Javier Milei","Liberalismo","Criptomonedas","Economia","Estafa","Corrupcion"],"date":"2025-02-15T00:00:00.000Z","description":"Sobre la estafa cripto de Javier Milei","kind":"VIDEO"},{"title":"Javier Perez Nieto - Inmigracion ┐integracion o fractura social?","url":"/videos/javier-perez-nieto-inmigracion-integracion-o-fractura-social/","tags":["videos","Javier Perez Nieto","Entrevistas","Inmigracion","Racismo","Guerra civil","George Soros","Plan Kalergi","Supremacismo blanco","Moros","Invasion mora","Invasion musulmana","Islam","Catolicismo","Hispanidad","España"],"date":"2025-02-10T00:00:00.000Z","description":"Javier perez nieto expone su opinion sobre la inmigracion","kind":"VIDEO"},{"title":"Libertarios profundamente ignorantes","url":"/videos/libertarios-profundamente-ignorantes/","tags":["videos","Liberales","Libertarios","Nenazos","Gordo Dan","Javier Milei","Hispanismo"],"date":"2025-01-30T00:00:00.000Z","description":"Somero analisis de la desbordante ignorancia exibida en redes sociales por los jovenes (y no tan jovenes) incautos que se identifican como 'libertarios', a pesar de que no conocen ni la ideologia que dicen profesar.","kind":"VIDEO"},{"title":"ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024_2025","url":"/videos/iceberg-argentino-de-conspiraciones-actualizado-2024-2025-2/","tags":["videos","Iceberg de conspiraciones","Conspiraciones","teorias conspirativas","masoneria","javier milei","Maslaton","OVNIS","Benjamin Parravicini","Cristina Wilhem Kirchner","Sectas","Cipayos","Agentes ingleses","Mossad","Sionismo","Israel"],"date":"2024-12-04T00:00:00.000Z","description":"Iceberg de conspiraciones , version argentina, completamente full","kind":"VIDEO"},{"title":"Esoterismo y Artes Marciales - Infiltracion espiritual New age Anti-Cristiana","url":"/videos/esoterismo-y-artes-marciales-infiltracion-espiritual-new-age/","tags":["videos","Esoterismo","Ocultismo","Cristianismo","Catolicismo","Orientalismo","Filosofia","Vril","Nazismo","Hollywood","Star Wars","Espiritualidad"],"date":"2024-11-24T00:00:00.000Z","description":"Analisis sobre las artes marciales y el orientalismo desde un punto de vista cristiano","kind":"VIDEO"},{"title":"Peron y la hispanidad - discurso epico","url":"/videos/peron-y-la-hispanidad-discurso-epico/","tags":["videos","Peron","Hispanidad","Hispanismo","Nacionalismo","Peronismo"],"date":"2024-11-20T00:00:00.000Z","description":"Escrito de Peron sobre la hispanidad.","kind":"VIDEO"},{"title":"Doctrina Social de la Iglesia explicada para libertarios y zoocialistas","url":"/videos/doctrina-social-de-la-iglesia-explicada-para-libertarios-y-z/","tags":["videos","Doctrina social de la iglesia","economia","liberalismo","capitalismo real","capitalismo","socialismo","justicialismo","Peron","economia hispanica","Escuela de la Salamanca"],"date":"2024-09-24T00:00:00.000Z","description":"Compendio de la Doctrina social de la iglesia. El video es un extracto del directo realizado el domingo 22 de septiembre donde expuse la cuestion en vivo.","kind":"VIDEO"},{"title":"El JUDIO que financio a SAN MARTIN","url":"/videos/el-judio-que-financio-a-san-martin/","tags":["videos","San Martin","San Martin agente ingles","Sionismo","Judios","Marranos","Conversos","Rothschild familia","Banca judia","Usura","Balcanizacion","Agentes ingleses","Falsos proceres"],"date":"2024-09-20T00:00:00.000Z","description":"Expongo la historia poco contada del mejor amigo judio de San Martin","kind":"VIDEO"},{"title":"El cura Ravasi y su defensa fanatica de criminales y La Derecha","url":"/videos/el-cura-ravasi-y-su-defensa-fanatica-de-criminales-y-la-dere/","tags":["videos","Catolicismo","Cura catolico","Padre Ravasi","Liberalismo","Dictadura argentina del 76","Videla"],"date":"2024-08-26T00:00:00.000Z","description":"Critica al padre Ravasi","kind":"VIDEO"},{"title":"El Nacionalismo argentino ESTA MAL","url":"/videos/el-nacionalismo-argentino-esta-mal/","tags":["videos","Nacionalismo","Nacionalismo argentino","Biondini","Santiaco Cuneo","Martin Ayerbe","Guillermo Moreno","Disidencia controlada","nenazis","nazis","hiperboreos"],"date":"2024-06-12T00:00:00.000Z","description":"Critica al nacionaliso argentino, desde su concepcion errada de \"nacion\" hasta sus bizarros referentes","kind":"VIDEO"},{"title":"Respuesta a Zurdos anti-hispanismo del canal @Posdata_ar","url":"/videos/respuesta-a-zurdos-anti-hispanismo-del-canal-posdata-ar/","tags":["videos","Hispanismo","Hispanidad","zurdos","marxista","leyenda negra","España","Patria Grande","Peronismo"],"date":"2024-02-11T00:00:00.000Z","description":"Respuesta a zurdos de porqueria","kind":"VIDEO"},{"title":"Milei ENTREGA LA ANTARTIDA a la Agenda 10+10+10","url":"/videos/milei-entrega-la-antartida-a-la-agenda-10-10-10/","tags":["videos","Agenda 2030","Tratado antartico","Javier Milei","Sionismo","Secesion","Balcanizacion","Politicos titeres","Partidocracia","Nueva derecha","Liberalismo"],"date":"2024-01-07T00:00:00.000Z","description":"Entrega de la Antartida por parte de Milei","kind":"VIDEO"},{"title":"Milei y Kirchner - La gran estafa al pueblo argentino","url":"/videos/milei-y-kirchner-la-gran-estafa-al-pueblo-argentino/","tags":["videos","Javier Milei","Cristina Wilhem Kirchner","YPF","Corrupcion","Democracia","Partidocracia","Politicos titeres","Seineldin"],"date":"2023-12-27T00:00:00.000Z","description":"La democracia una vez mas, muestra sus miserias.","kind":"VIDEO"},{"title":"El himno nacional argentino es obra de la masoneria","url":"/videos/el-himno-nacional-argentino-es-obra-de-la-masoneria/","tags":["videos","Himno Argentino","Masoneria","Musica influenciada por la masoneria","Simbolos patrios masonicos","Idolatria estatal","Independencia","San Martin agente ingles","San Martin","Julio Argentino Roca"],"date":"2023-12-16T00:00:00.000Z","description":"Analisis nunca antes hecho, sobre el himno argentino y su clara connotacion masonica","kind":"VIDEO"},{"title":"ESTOICISMO en Profundidad (Con Javier Perez Nieto)","url":"/videos/estoicismo-en-profundidad-con-javier-perez-nieto/","tags":["videos","Javier Perez Nieto","Filosofia","Estoicismo","Seneca","Marco Aurelio","Hispania","Cristianismo","Catolicismo","Platonismo","Platon","Aristoteles","Santo Tomas de Aquino"],"date":"2023-12-16T00:00:00.000Z","description":"exposicion sobre estoicismo con Javier Perez Nieto","kind":"VIDEO"},{"title":"GNOSTICISMO - Espiritualidad falsa - TRAMPA SATANICA","url":"/videos/gnosticismo-espiritualidad-falsa-trampa-satanica/","tags":["videos","Gnosticismo","gnosis","espiritualidad","new age","budismo","gnosticismo hiperboreo","marcionismo","herejias","protestantismo","simon el mago","dualismo","platonismo","filosofia","aristoteles","seneca","estoicismo"],"date":"2023-12-16T00:00:00.000Z","description":"Charla sobre gnosticismo","kind":"VIDEO"},{"title":"Asumio el nuevo titere de la Elite","url":"/videos/asumio-el-nuevo-titere-de-la-elite/","tags":["videos","Sionismo","Javier Milei","Liberalismo","Plan Andinia"],"date":"2023-12-11T00:00:00.000Z","description":"Asumio el nuevo golem del contubernio judeo masonico","kind":"VIDEO"},{"title":"El PSICOPATA creador de la ideologia Libertaria - Maximo referente de Milei","url":"/videos/el-psicopata-creador-de-la-ideologia-libertaria-maximo-refer/","tags":["videos","Javier Milei","Rothbard","Anarcocapitalismo","Libertarianismo","Liberalismo","Capitalismo","Eugenesia","Transhumanismo","Progresismo","Judios","Economia"],"date":"2023-09-23T00:00:00.000Z","description":"Analisis sobre Rothbard, el creador del anarcocapitalismo","kind":"VIDEO"},{"title":"Catolicismo vs Liberalismo - Milei DOMADO por una adolescente","url":"/videos/catolicismo-vs-liberalismo-milei-domado-por-una-adolescente/","tags":["videos","Javier Milei","Liberalismo","Doctrina social de la Iglesia","Catolicismo","Cristianismo","Ideologias"],"date":"2023-08-20T00:00:00.000Z","description":"La ahora debenida en pornografa, Delfina Wagner, en un space de twitter (X) domo facilmente a Javier Milei cuando le saco a relucir la DSI.","kind":"VIDEO"},{"title":"El Peligro Libertario","url":"/videos/el-peligro-libertario/","tags":["videos","Libertarianismo","Liberalismo","Anarcocapitalismo","Capitalismo","Transhumanismo","Materialismo","Filosofia","Politicos","Socialismo","Rothbard","Estatismo","Anarquismo","Calvinismo","American Dream","Javier Milei"],"date":"2023-08-16T00:00:00.000Z","description":"Analisis sobre la ideologia libertaria anarcocapitalista y su trasfondo","kind":"VIDEO"},{"title":"La Muerte no es el Final (Marcha hispana catolica)","url":"/videos/la-muerte-no-es-el-final-marcha-hispana-catolica/","tags":["videos","Musica","Marcha española","Cristianismo","Hispanidad"],"date":"2023-08-08T00:00:00.000Z","description":"Cancion española.","kind":"VIDEO"},{"title":"HOLLYWOOD ataca la hispanidad catolica","url":"/videos/hollywood-ataca-la-hispanidad-catolica/","tags":["videos","Hollywood","Mass media","mensajes subliminales","hispanismo","hispanidad","propaganda","satanismo","catolicismo"],"date":"2023-07-09T00:00:00.000Z","description":"Analisis sobre como hollywood retrata a la españa catolica","kind":"VIDEO"},{"title":"Negros doman a Judios racistas","url":"/videos/afroamericanos-enfrentan-a-judios/","tags":["videos","Judios","Sionismo","Supremacismo"],"date":"2023-05-19T00:00:00.000Z","description":"Personas de la comunidad afroamericana, en un barrio pobre, hablan de su percepcion sobre como es vivir dia a dia con los judios, a los cuales perciben como personas sumamente racistas, altaneras y soberbias, ademas de ser sectarios.","kind":"VIDEO"},{"title":"La verdad sobre MILEI y \"LA NUEVA DERECHA\"","url":"/videos/la-verdad-sobre-milei-y-la-nueva-derecha/","tags":["videos","Liberalismo","Javier Milei","Libertarios","Anaro capitalismo","Politicos","Politicos titeres","Nueva Derecha","Manipulacion","Martinez de hoz","Dictadura","Economia"],"date":"2023-04-29T00:00:00.000Z","description":"Analisis sobre el fenomeno Milei y la \"nueva\" derecha","kind":"VIDEO"},{"title":"Analisis de EL ELEGIDO novela Masonica","url":"/videos/analisis-de-el-elegido-novela-masonica/","tags":["videos","Masoneria","Television","peliculas y series","ocultismo","Esoterismo","Rituales satanicos","satanismo","Sionismo","Plan andinia","Mensajes subliminales"],"date":"2023-03-04T00:00:00.000Z","description":"\"El Elegido\" es una novela que fue emitida por el canal Telefe, en el año 2011. La trama sumamente interesante, ya que involucra un abordaje sobre la tematica masónica, y sionista, ya que involucra al Plan andinia y la lucha de poder entre dos logias masonicas. \nEn este video vemos y analizamos un poco de esta rara pero interesante novela.","kind":"VIDEO"},{"title":"Francia, Racismo y Leyenda Negra Anti-Hispanica","url":"/videos/francia-racismo-y-leyenda-negra-anti-hispanica/","tags":["videos","Racismo","Francia","Racismo cientifico","Cientificismo","Frenologia","Revolucion francesa","Liberalismo","Nazismo","Eugenesia","Imperialismo Frances","Catolicismo","Hispanidad","Lombrosianos"],"date":"2022-12-28T00:00:00.000Z","description":"Historia breve del racismo cientifico, el colonialismo europeo, el imperialismo hispanico, y como se relaciona todo eso con la leyenda negra anti española, anti hispanica, y anti catolica.","kind":"VIDEO"},{"title":"Hollywood influenciandote para recibir al ANTICRISTO y adorar a LUCIFER","url":"/videos/hollywood-influencindote-para-recibir-al-anticristo-y-adorar/","tags":["videos","Judios","Hollywood","Satanismo","Rituales","Rituales satanicos","Superman","Superheroes","Marvel","DC Comics","Mensajes subliminales","Propaganda","Ocultismo","Luciferianos","Batman","Anticristo","Cristianismo","Espiritualidad","Gnosticismo","EE.UU"],"date":"2022-10-12T00:00:00.000Z","description":"Hollywood influenciando a la gente para la aceptacion de la figura anti-mesianica del anti-cristo","kind":"VIDEO"},{"title":"Budismo ¿Filosofia de paz? (con Javier Perez Nieto)","url":"/videos/budismo-filosofia-de-paz-con-javier-perez-nieto/","tags":["videos","Budismo","Orientalismo","Gnosticismo","Filosofia","Religion","New age"],"date":"2022-09-12T00:00:00.000Z","description":"Charla con Javier Perez Nieto , sobre el budismo, desde una optica critica pocas veces abordada.","kind":"VIDEO"},{"title":"MASSA el TITERE preferido de la ELITE GLOBALISTA","url":"/videos/massa-el-titere-preferido-de-la-elite-globalista/","tags":["videos","Plutocracia","Democracia","Partidocracia","Massa","Kirchnerismo","Cristina Wilhem Kirchner","Mauricio Macri","Politicos titeres","Council of americas","Susan Segal","Rockefeller familia","Think Thanks","Titeres","Corrupcion","Peronismo"],"date":"2022-08-12T00:00:00.000Z","description":"Nadie llega al poder, si no es aprobado por la elite global que maneja a su antojo a los titeres que ellos controlan en este sistema plutocratico. .","kind":"VIDEO"},{"title":"Patricio Lons aconseja a la juventud","url":"/videos/patricio-lons-aconseja-a-la-juventud/","tags":["videos","Patricio Lons","Hispanismo","Consejo amoroso"],"date":"2022-06-19T00:00:00.000Z","description":"Patricio Lons aconseja a los pibardos","kind":"VIDEO"},{"title":"El GRAN COMPLOT MASONICO para \"Independizar\" America- La VERDAD sobre el CIPAYO San Martin","url":"/videos/el-gran-complot-masonico-para-independizar-america-la-verdad/","tags":["videos","San Martin","Hispanismo","San Martin agente ingles y mason","Hispanidad","Imperio español","Balcanizacion","Secesion","Masoneria argentina","Masoneria","Illuminatis","Revolucion francesa","Liberalismo","Anglosajones","Falso procer","Cipayos","Imperialismo anglosajon"],"date":"2022-06-03T00:00:00.000Z","description":"Documental sobre el cipayo agente ingles y mason, Jose de san Martin, exponiendo lo que nadie se atreve a contar sobre este falso procer","kind":"VIDEO"},{"title":"Economia hispanica de la escuela de la Salamanca vs El sistema usurero","url":"/videos/economia-hispanica-de-la-escuela-de-la-salamanca-vs-el-siste/","tags":["videos","Economia","Escuela de la salamanca","Capitalismo real","Capitalismo","Liberalismo","Socialismo","Criptomonedas","Bitcoin","Usura","Catolicismo"],"date":"2022-05-20T00:00:00.000Z","description":"Disertacion sobre economia hispana","kind":"VIDEO"},{"title":"La MENTIRA del \"milagro economico\" aleman Nacional-Socialista (por Javier Perez Nieto)","url":"/videos/la-mentira-del-milagro-economico-aleman-nacional-socialista/","tags":["videos","Economia","Milagro economico aleman","Nacional socialismo","nazismo","Hitler","Socialismo","estatismo","nacionalismo","tercera posicion","capitalismo"],"date":"2022-05-18T00:00:00.000Z","description":"Exposicion de Javier Perez Nieto sobre el falso milagro economico de la alemania nacional socialista","kind":"VIDEO"},{"title":"La confiable Wikipedia","url":"/videos/la-confiable-wikipedia/","tags":["videos","Wikipedia","Control de la informacion","Mass media","Censura","Sionismo","Judios"],"date":"2022-05-02T00:00:00.000Z","description":"El trasfondo de wikipedia","kind":"VIDEO"},{"title":"La MENTIRA de Javier Milei","url":"/videos/la-mentira-de-javier-milei/","tags":["videos","Javier Milei","Dictadura argentina del 76","Liberalismo","Martinez de hoz","Neoliberalismo","Corralito","Crisis economica","Libertarianismo","Libertarios","Nueva derecha","Menem","Cavalo","Dolar","Economia","AnarcoCapitalismo"],"date":"2022-04-18T00:00:00.000Z","description":"Analisis sobre el fenomeno Javier Milei","kind":"VIDEO"},{"title":"El Trasfondo REAL de la Guerra entre Rusia y Ucrania","url":"/videos/el-trasfondo-real-de-la-guerra-entre-rusia-y-ucrania/","tags":["videos","Rusia","Ucrania","Guerra","Imperialismo","OTAN","Sionismo","Judios","Falsa disidencia","Comunismo","Bolcheviques","Lenin","Stalin","EE.UU","Conflictos belicos orquestados"],"date":"2022-02-27T00:00:00.000Z","description":"El trasfondo historico y geopolitico actual de la guerra entre Rusia y Ucrania","kind":"VIDEO"},{"title":"Charla con CHINDA BRANDOLINO sobre Malthusianismo, eugenesia, control demografico","url":"/videos/charla-con-chinda-brandolino-sobre-malthusianismo-eugenesia/","tags":["videos","Entrevistas","Chinda brandolino","Malthusianismo","Angloesfera vs Hispanidad","Catolicismo"],"date":"2022-02-08T00:00:00.000Z","description":"Entrevista a la doc Chinda Brandolino donde charlamos sobre temas variados","kind":"VIDEO"},{"title":"La Juderia se rie en tu cara","url":"/videos/hollywood-actores-judios/","tags":["videos","Television","Hollywood","Sionismo","Judios","Mass media","control mental"],"date":"2022-01-02T00:00:00.000Z","description":"Los J boys se burlan de nosotros en publico, impunemente.","kind":"VIDEO"},{"title":"Los HEROES Catolicos MEXICANOS que lucharon contra la tirania masonica","url":"/videos/los-heroes-catolicos-mexicanos-que-lucharon-contra-la-tirani/","tags":["videos","Cristeros","Guerra cristera","protestantismo","masoneria","catolicismo","mexico","hispanidad"],"date":"2021-12-06T00:00:00.000Z","description":"Historia de los cristeros","kind":"VIDEO"},{"title":"Metaverso - La caverna de Plat¾n se volvi¾ Realidad","url":"/videos/metaverso-la-caverna-de-plat34n-se-volvi34-realidad/","tags":["videos","IA","Metaverso","manipulacion","control de masas","mass media","Mark Zukerberg","Filosofia"],"date":"2021-11-06T00:00:00.000Z","description":"Reflexion sobre el metaverso, IA y la virtualidad en general, frente a la realidad","kind":"VIDEO"},{"title":"Peron y Evita - El HISPANISMO vs la SINARQUIA INTERNACIONAL","url":"/videos/peron-y-evita-el-hispanismo-vs-la-sinarquia-internacional/","tags":["videos","Peron","Evita Peron","hispanismo","hispanidad","nacionalismo","peronismo"],"date":"2021-10-19T00:00:00.000Z","description":"Peron y evita ¿hispanistas?","kind":"VIDEO"},{"title":"Politicos Argentinos TITERES de la MASONERIA (Mira el video antes de votar)","url":"/videos/politicos-argentinos-titeres-de-la-masoneria-mira-el-video-a/","tags":["videos","Politicos","Politicos titeres","Democracia","Kirchnerismo","Nestor Kirchner","Santoro","Elecciones argentina"],"date":"2021-10-09T00:00:00.000Z","description":"Todos al servicio de la masoneria","kind":"VIDEO"},{"title":"Tiranias y la hispanidad - Con Javier Perez Nieto","url":"/videos/tiranias-y-la-hispanidad-con-javier-perez-nieto/","tags":["videos","Entrevistas","Javier Perez Nieto","Tiranias","Socialismo","Nacionalismo","Manipulacion","Elite"],"date":"2021-09-14T00:00:00.000Z","description":"charla con Javier Perez Nieto sobre las tiranias y los sistemas de gobierno opresores","kind":"VIDEO"},{"title":"Elecciones 2021 - La Democracia es un CIRCO","url":"/videos/elecciones-2021-la-democracia-es-un-circo/","tags":["videos","Democracia","Elecciones 2021","Politicos","Politicos titeres","titeres","council of americas","Susan Segal","Rockfeller family","Massa","Javier Milei","Cristina Wilhem Kirchner","Judios","sionismo","Masoneria"],"date":"2021-09-11T00:00:00.000Z","description":"Sobre el circo democratico del 2021","kind":"VIDEO"},{"title":"Peste J en la tv argentina","url":"/videos/television-argentina-sionismo/","tags":["videos","Judios","sionismo","television argentina","television","manipulacion","mass media","control mental","mensajes subliminales"],"date":"2021-09-02T00:00:00.000Z","description":".","kind":"VIDEO"},{"title":"PROGRESISMO en 6 Minutos (Video censurado )","url":"/videos/progresismo-en-6-minutos-video-censurado/","tags":["videos","Progresismo","Sigmun Schlomo Freud","Psicoanalisis","Manipulacion","liberalismo cultural","marxismo cultural","satanismo","promiscuidad","posmodernismo","liberacion sexual","materialismo","dialectica materialista","ataque al cristianismo","luciferianos"],"date":"2021-08-19T00:00:00.000Z","description":"Resumen del progresismo","kind":"VIDEO"},{"title":"Hispanidad, Masoneria, protestantismo y Leyenda negra, etc, con Javier Perez Nieto","url":"/videos/hispanidad-masoneria-protestantismo-y-leyenda-negra-etc-con/","tags":["videos","Javier Perez Nieto","Hispanismo","Hispanidad","España","protestantismo","catolicismo","filosofia","leyenda negra","masoneria","Darwin","Thomas Malthus","Historia de España","Literatura hispana"],"date":"2021-07-24T00:00:00.000Z","description":"Charla con Javier Perez Nieto sobre hispanidad y temas relacionados","kind":"VIDEO"},{"title":"Feminismo Satanico","url":"/videos/feminismo-satanico/","tags":["videos","Feminismo","Satanismo","ocultismo","new age","esoterismo","Hippies","Historia de las religiones","cristianismo","catolicismo","protestantismo","brujeria","brujas","rituales satanicos","wicca","aleister crowley","ida craddock","helena blavastky"],"date":"2021-06-25T00:00:00.000Z","description":"El feminismo avanzo en estos últimos tiempos a pasos agigantados, hoy vemos a famosas como Emma Watson dando discursos feministas en la ONU y en distintos lugares de gran influencia. Pero el feminismo, como todo lo que impulsa (((la élite))), tiene un trasfondo esotérico satanico muy importante, usualmente cuando se habla de feminismo, se habla de las olas feministas, del liberalismo y marxismo cultural, es decir, se habla siempre de la cuestion sociopolitica que envuelve a éste movimiento, pero, en este video analisamos brevemente el origen satanico del actual movimiento feminista.","kind":"VIDEO"},{"title":"La historia de la opreSION en Palestina + Lord Rothschild da la cara","url":"/videos/la-historia-de-la-opresion-en-palestina-lord-rothschild-da-l/","tags":["videos","Rosthchild","Rosthchild familia","Israel","sionismo","genocidio palestino","Palestina","Inglaterra","Nazis","Eugenesia","racismo","supremacismo judio"],"date":"2021-05-21T00:00:00.000Z","description":"Breve repaso historico sobre la historia de Israel y su fundacion a manos de los Rosthchild","kind":"VIDEO"},{"title":"A 10 años de la Muerte de BIN LADEN","url":"/videos/a-10-aos-de-la-muerte-de-bin-laden/","tags":["videos","Sionismo","USA","FalsaBandera"],"date":"2021-05-10T00:00:00.000Z","description":"Con motivo del 10° aniversario de la muerte de Osama Bin Laden, bajo la administracion de Barack Obama, hacemos este repaso historico sobre la verdadera cara del doble agente, Bin Laden.","kind":"VIDEO"},{"title":"Isabel I de Castilla, la SUBLIME Reina de la Hispanidad","url":"/videos/isabel-i-de-castilla-la-sublime-reina-de-la-hispanidad/","tags":["videos","hispanidad","hispanismo","Isabel I de castilla","Reyes catolicos","Imperio Español","Arriba la hispanidad","Derechos humanos","catolicismo"],"date":"2021-05-04T00:00:00.000Z","description":"La reina Isabel la catolica es sin dudas, una de las figuras femeninas mas notables de la historia, y una de las mas admirables y entrañables tambien.","kind":"VIDEO"},{"title":"*Victimizacion Masonica* Gran Maestre habla sobre la persecucion a la Masoneria en España","url":"/videos/victimizacion-masonica-gran-maestre-habla-sobre-la-persecuci/","tags":["videos","Francisco Franco","España","Hispanismo","Franquismo","Masoneria","Sinarquia"],"date":"2021-04-22T00:00:00.000Z","description":"Mason llora porque franco lo tenia domado","kind":"VIDEO"},{"title":"¿Quien controla los medios en Argentina?","url":"/videos/control-medios-argentina-clarin/","tags":["videos","Mass media","Manipulacion","Elite","Corporaciones","Grupo Clarin","George Soros","Sionismo","Television argentina"],"date":"2021-04-17T00:00:00.000Z","description":"Los mass media son la principal arma de control social, y esta en manos de muy poca gente, en este video tratamos de deducir quienes controlan los mass media en Argentina.","kind":"VIDEO"},{"title":"NORMIES- Ser Borrego para ser \"Normal\" | EL MITO DEL UNICORNIO Y EL DRAGON","url":"/videos/normies-ser-borrego-para-ser-normal-el-mito-del-unicornio-y/","tags":["videos","borregos","normies"],"date":"2021-04-16T00:00:00.000Z","description":"Un analisis respecto a lo que conlleva ser un \"normie\", que es una palabra usada en internet para definir a lo que, en otras palabras, podria llamarse \"borrego\", a alguien que solo es uno mas del monton.","kind":"VIDEO"},{"title":"Incendios en la Patagonia: Colonizacion encubierta?","url":"/videos/incendios-en-la-patagonia-colonizacion-encubierta/","tags":["videos","Incendios","Patagonia","Sionismo","judios","plan andinia","chile","colonizacion"],"date":"2021-03-13T00:00:00.000Z","description":"Analisis sobre los incendios que se estan llevando a cabo en La Patagonia Argentina, y el posible trasfondo que se podria estar ocultando detras de estos hechos.","kind":"VIDEO"},{"title":"La \"Libertad\" y el Nuevo Orden Mundial (La FARSA del Liberalismo)","url":"/videos/la-libertad-y-el-nuevo-orden-mundial-la-farsa-del-liberalism/","tags":["videos","Liberalismo","Javier milei","corralito","crisis 2001","de la rua","politicos","doctrina del shock","instituto tavistok","bancos","usura","esquema piramidal ponzi"],"date":"2021-02-14T00:00:00.000Z","description":"Analisis sobre el liberalismo economico y sus consecuencias","kind":"VIDEO"},{"title":"Mujeres que Realmente luchan contra la opreSION","url":"/videos/mujeres-que-realmente-luchan-contra-la-opresion/","tags":["videos","Palestina","feminismo","Sionismo","opresion sionista","genocidio palestino"],"date":"2021-01-26T00:00:00.000Z","description":"VIVA PALESTINA LIBRE","kind":"VIDEO"},{"title":"Espiritualidad para idiotas","url":"/videos/espiritualidad-para-idiotas/","tags":["videos","Espiritualidad","new age","gnosticismo","ravi shankar","orientalismo","esoterismo","budismo","gurues"],"date":"2021-01-03T00:00:00.000Z","description":"Breve reflexion sobre ciertas corrientes espirituales orientales que desde hace unas decadas estan teniendo auge en occidente","kind":"VIDEO"},{"title":"FEMINISMO - Marxismo cultural y la FALSA disidencia Liberal","url":"/videos/feminismo-marxismo-cultural-y-la-falsa-disidencia-liberal/","tags":["videos","Feminismo","marxismo","Simone de Beauvoir","Femibolches","liberalismo","marxismo cultural","liberalismo cultural","lucha de sexos","lucha de clases","dialectica materialista","Catolicismo","Protestantismo"],"date":"2020-12-08T00:00:00.000Z","description":"Analisis de la historia del feminismo, la primer, 2da y 3ra ola, y una reflexion sobre la supuesta disidencia liberal conservadora.","kind":"VIDEO"},{"title":"La industria JUDEO SATANICA expuesta","url":"/videos/industria-satanica-expuesta/","tags":["videos","Musica satanica","Control mental","mass media","mensajes subliminales","simbologia","masoneria","illuminatis","esoterismo","ocultismo","satanismo","ritual","rituales satanicos"],"date":"2020-11-18T00:00:00.000Z","description":"La verdad sobre la industria diabolica musical.","kind":"VIDEO"},{"title":"FRANCO, el Caudillo Español que lucho contra la Masoneria y el Comunismo","url":"/videos/franco-el-caudillo-espaol-que-lucho-contra-la-masoneria-y-el/","tags":["videos","Francisco Franco","Hispanidad","Hispanismo","España","Franquismo","Masoneria","Sinarquia","Peron","Evita Peron"],"date":"2020-10-29T00:00:00.000Z","description":"Breve repaso sobre Francisco Franco y su lucha contra la masoneria","kind":"VIDEO"},{"title":"Ceremonia de la MASONERIA MUNDIAL en Londres","url":"/videos/ceremonia-de-la-masoneria-mundial-en-londres/","tags":["videos","Masoneria","Sectas","Satanismo","Esoterismo","Ocultismo","Realeza","Familia real","Linajes"],"date":"2020-10-20T00:00:00.000Z","description":"Ceremonia del antro masonico en ese antro mugroso satanico de Londres.","kind":"VIDEO"},{"title":"Mentiras contra el Hispanismo","url":"/videos/mentiras-contra-el-hispanismo/","tags":["videos","Hispanismo","hispanidad","leyenda negra","masoneria"],"date":"2020-10-11T00:00:00.000Z","description":"En la conversacion analizamos con Daniel Aguado, admin de \"Memes Reaccionarios\" de telegram, distintos ataques algunos realizan contra la Hispanidad y contra el hispanismo.","kind":"VIDEO"},{"title":"La VERDADERA PANDEMIA -- El Fin de Argentina parte 2","url":"/videos/la-verdadera-pandemia-el-fin-de-argentina-parte-2/","tags":["videos","usura","deuda externa","deuda","banca judia","banca rosthchild","jp morgan","black rock","cristina kirchner","liberalismo","politicos"],"date":"2020-09-17T00:00:00.000Z","description":"La verdadera pandemia no es una supergripe, es la usura","kind":"VIDEO"},{"title":"El FIN de Argentina (Parte 1) - LA VACUNA DE BILL GATES","url":"/videos/el-fin-de-argentina-parte-1-la-vacuna-de-bill-gates/","tags":["videos","Bill gates","vacunas","plandemia","cuarentena"],"date":"2020-08-17T00:00:00.000Z","description":"Albertitere Fernandez finalmente nos traerá la vacuna del psicopata malthusiano eugenesista Bill Gates.","kind":"VIDEO"},{"title":"Sarmiento en 1 minuto *La Verdadera historia*","url":"/videos/sarmiento-en-1-minuto-la-verdadera-historia/","tags":["videos","Sarmiento","Masoneria","Proceres masones argentinos","Falso procer","Nacionalismo","Cipayo","Racismo"],"date":"2020-07-30T00:00:00.000Z","description":"La verdad resumida sobre la lacra de Domingo Samiento","kind":"VIDEO"},{"title":"La Gran Conspiracion Anti-Cristiana - Gnosticismo Luciferiano Hiperboreo","url":"/videos/la-gran-conspiracion-anti-cristiana-gnosticismo-luciferiano/","tags":["videos","Gnosticismo","Hiperboreos","Gnosticismo hiperboreo","new age","masoneria","ariosofia","teosofia","ocultismo","esoterismo","sociedades secretas","sectas","satanismo","rituales satanicos","simbologia","illuminatis","Rosacruces","Thule","sociedad Vril"],"date":"2020-07-29T00:00:00.000Z","description":"Repaso historico del origen del gnosticismo luciferiano, desde Platon y su concepcion del universo, de la materia, la antimateria, y el demiurgo, hasta Madame Blavatsky, pasando por el catarismo, el maniqueismo, rosacrucismo... etc.","kind":"VIDEO"},{"title":"Cara al Sol","url":"/videos/cara-al-sol/","tags":["videos","Musica","Francisco Franco","Hispanismo"],"date":"2020-07-26T00:00:00.000Z","description":"Mitico himno falangista.","kind":"VIDEO"},{"title":"Respuesta a Liberales vendepatria Pro-Masoneria","url":"/videos/respuesta-a-liberales-vendepatria-pro-masoneria/","tags":["videos","Liberalismo","Masoneria","Plan andinia","Javier Milei","Influencers","Judios","Sionismo"],"date":"2020-06-20T00:00:00.000Z","description":"Respuesta a downann y a el presto","kind":"VIDEO"},{"title":"Historia de los gauchos judios","url":"/videos/historia-gauchos-judios/","tags":["videos","Plan andinia","Julio Argentino Roca","Urquiza","sionismo","Baron de Hirsch","Jewish Colonization Association","Judios","Gauchos judios","Colonias judias en argentina"],"date":"2020-05-30T00:00:00.000Z","description":"Historia no contada sobre los famosos (o no tan famosos...)  gauchos judios.","kind":"VIDEO"},{"title":"Dictadura Global Comunista y la Disonancia cognitiva","url":"/videos/dictadura-global-comunista-y-la-disonancia-cognitiva/","tags":["videos","Nuevo orden mundial","control social masivo","Control mental","Manipulacion"],"date":"2020-05-09T00:00:00.000Z","description":"Sobre la cuarentena...","kind":"VIDEO"},{"title":"La MENTIRA de los Jazaros","url":"/videos/jazaros-judios-mentira/","tags":["videos","Jazaros","Sionismo","Judios","Israel","Rosthchild","Desinformacion","Disidencia controlada"],"date":"2020-04-29T00:00:00.000Z","description":"¿Alguna vez escuchaste/leiste a alguien acusar a los judios de ser \"falsos judios\", y de ser jazaros? Bueno, dejame contarte la mentira detras de ese cuento creado para desinformar...","kind":"VIDEO"},{"title":"Peron; Hispanismo vs Masoneria","url":"/videos/peron-hispanismo-vs-masoneria/","tags":["videos","Peron","Hispanismo"],"date":"2020-04-16T00:00:00.000Z","description":"Peron y su pensamiento cercano al hispanismo","kind":"VIDEO"},{"title":"Feminismo \"anti blanco\" en hispanoamerica","url":"/videos/feminismo-anti-blanco-en-hispanoamerica/","tags":["videos","Feminismo","marxismo cultural","hispanidad","hispanismo","angloesfera","protestantismo","calvinismo","salem","matanza de salem","brujas","opresion","liberalismo cultural"],"date":"2020-03-07T00:00:00.000Z","description":"El desproposito de ser feminista en hispanoamerica","kind":"VIDEO"},{"title":"Ecologismo - Su verdadera cara EUGENESICA y Anti-Natalista","url":"/videos/ecologismo-su-verdadera-cara-eugenesica-y-anti-natalista/","tags":["videos","Ecologismo","Malthusianismo","Thomas Malthus","Despoblacion","anti-natalismo","cambio climatico","calentamiento global","hollywood","manipulacion","control de masas","eugenesia","racismo","Maria Stopes","Rockefeller family","Hitler","Instituto tavistok"],"date":"2020-02-24T00:00:00.000Z","description":"analisis sobre el verdadero trasfondo Eugenesico y anti natalista del \"ecologismo\"","kind":"VIDEO"},{"title":"el REY JUDIO de la Patagonia","url":"/videos/julius-poper-patagonia-genocidio-selknam/","tags":["videos","Julius Pope","Plan andinia","Gauchos judios","Julio Argentino Roca","Sionismo","Patagonia","Selknam","Racismo","Genocidio indigena","Masoneria"],"date":"2020-02-04T00:00:00.000Z","description":"Historia de Julius Poper, el judio que levanto un reino en la patagonia. Precursor del Plan Andinia.","kind":"VIDEO"},{"title":"La MAFIA SIONISTA Kirchner al descubierto","url":"/videos/sionismo-kirchnerista/","tags":["videos","Sionismo","Kirchner","Cristina Wilhem de Kirchner","Kirchnerismo","peronismo","Politicos","Democracia"],"date":"2019-11-28T00:00:00.000Z","description":"La historia no contada del matrimonio delectivo corrupto asqueroso repugnante de los Kirchner y su relacion con la juderia internacional.","kind":"VIDEO"},{"title":"La GRAN CONSPIRACION Malthusiana (mi video preferido)","url":"/videos/la-gran-conspiracion-malthusiana-mi-video-preferido/","tags":["videos","Malthusianismo","Thomas Malthus","Judios","Margareth Sanger","Club malthusiano de chicago","club de Roma","Ecologismo","Cambio climatico","Bill gates","Vacunas","Chinda brandolino","Liberalismo","Javier Milei","David Ricardo","Hollywood","Planned parenthood"],"date":"2019-06-02T00:00:00.000Z","description":"Pobreza estructurada, Vacunas con agentes anti conceptivos, alimentos transgenicos, ecologismo, feminismo, anarquismo, aborto, esoterismo gnóstico luciferino new age, todo tiene que ver con todo, y todo parece resumirse en Malthusianismo, la filosofía en la cual se basa la élite para crear fomentar el control de la natalidad y la despoblación.","kind":"VIDEO"},{"title":"Cristina Kirchner VENDIENDO LA PATAGONIA","url":"/videos/cfk-vendepatria/","tags":["videos","Democracia","Peronismo","Sionismo","Politicos titeres","Nacionalismo argentino","Kirchnerismo","Cristina Wilhem Kirchner","Patagonia","Monsanto"],"date":"2019-05-29T00:00:00.000Z","description":"Cristina Wilhem Fernandez de Kirchner vendiendo la patagonia y sus recursos naturales a la GENOCIDA Monsanto.\n\nA Tener en cuenta : Mosanto en Argentina esta unida a la empresa Cresud que es de Eduardo Elztain, el socio de George Soros, que a su vez impulsa la despoblacion mediante el marxismo cultural (incluido el aborto). Los Kirchner fueron los maximos impulsores del marxismo cultural en Argentina, implantando la \"ley de identidad de genero\" y el matrimonio homosexual. ","kind":"VIDEO"},{"title":"El Abortista Ernesto Tenembaum se pisa solito","url":"/videos/el-abortista-ernesto-tenembaum-se-pisa-solito/","tags":["videos","Judios","television argentina","periodismo titere","politicos titeres","despoblacion","aborto"],"date":"2018-10-17T00:00:00.000Z","description":"El periodista que milita la agenda rockefeller","kind":"VIDEO"},{"title":"El RABINO DE MALTA - Mago satanico cabalista","url":"/videos/rabino-de-malta/","tags":["videos","Rabino de Malta","Judios","Sionismo","Mauricio Macri","Politicos","Democracia","Ocultismo","Esoterismo","Cultos","New age","Espiritualidad","Cabala","Satanismo","Rituales satanicos"],"date":"2018-09-03T00:00:00.000Z","description":"La historia no contada sobre el vinculo entre el Admor Rabino de Malta, y Argentina.","kind":"VIDEO"},{"title":"FEMILOCAS DELIRANTES HACEN RITUAL SATANICO","url":"/videos/femilocas-delirantes-hacen-ritual-satanico/","tags":["videos","feminismo","satanismo","rituales satanicos","ocultismo"],"date":"2018-07-13T00:00:00.000Z","description":"Marcha feminista","kind":"VIDEO"},{"title":"Victimizacion de JUDIOS en la television argentina","url":"/videos/victimizacion-judia-argentina/","tags":["videos","Television argentina","Television","Manipulacion","judios","sionismo"],"date":"2017-08-16T00:00:00.000Z","description":"Victimizacion de la comunidad judia en la television argentina","kind":"VIDEO"},{"title":"ELITE Y SOCIEDADES SECRETAS en Argentina","url":"/videos/elite-y-sociedades-secretas-en-argentina-2/","tags":["videos","Elite","Sociedades secretas","Masoneria","Jokey club","Rotary Club","Orden de Malta","Peron","Macri","Fraternidades universitarias","Skull and bones","phi beta kappa"],"date":"2016-01-27T00:00:00.000Z","description":"Hablamos un poco sobre las sociedades secretas y discretas en Argentina, sobre como los lazos sociales en las primeras etapas de la ninez van forjando los vinculos de poder del futuro dentro de las sociedades elitistas.","kind":"VIDEO"},{"title":"Macri titere sionista","url":"/videos/macri-titere-sionista/","tags":["videos","Mauricio Macri","Sionismo","Plan andinia","Israel","Mossad","Fondos buitre","Liberalismo"],"date":"2015-06-20T00:00:00.000Z","description":"video hecho en el 2015 antes de que Macri (Machir) sea presidente.","kind":"VIDEO"},{"title":"Cancion ANTI ILLUMINATI SIONISTA 2012","url":"/videos/cancion-anti-sionista/","tags":["videos","cancion anti illuminati sionista","musica","new age","masoneria"],"date":"2011-11-02T00:00:00.000Z","description":"Esta cancion la escucho desde el 2011, el video fue hecho por un legendario usuario de youtube que se llamaba \"leuname07\", del cual aprendi mucho. El tema es genial por eso lo guardé siempre.","kind":"VIDEO"}],
 "directos":[{"title":"El MALTHUSIANISMO gano en Argentina - Caida de la natalidad y despoblacion","url":"/directos/el-malthusianismo-gano-en-argentina-caida-de-la-natalidad-y/","tags":["directos"],"date":"2026-09-06","description":"","kind":"DIRECTO"},{"title":"Guerra del sionismo en Iran","url":"/directos/guerra-del-sionismo-en-iran/","tags":["directos"],"date":"2026-09-05","description":"","kind":"DIRECTO"},{"title":"CIPAYOS odian al pueblo argentino","url":"/directos/cipayos-odian-al-pueblo-argentino/","tags":["directos"],"date":"2026-09-04","description":"","kind":"DIRECTO"},{"title":"La DAIA vigila las redes sociales","url":"/directos/la-daia-vigila-las-redes-sociales/","tags":["directos"],"date":"2026-09-03","description":"","kind":"DIRECTO"},{"title":"Charla con PATRICIO LONS sobre la argentinidad, Peron y otros temas","url":"/directos/charla-con-patricio-lons-sobre-la-argentinidad-peron-y-otros/","tags":["directos"],"date":"2026-09-02","description":"","kind":"DIRECTO"},{"title":"Papa Francisco vs Milei - Doctrina social de la iglesia, y otros temas","url":"/directos/papa-francisco-vs-milei-doctrina-social-de-la-iglesia-y-otro/","tags":["directos"],"date":"2026-09-01","description":"","kind":"DIRECTO"},{"title":"Show demoniocratico","url":"/directos/show-demoniocratico/","tags":["directos"],"date":"2026-08-31","description":"","kind":"DIRECTO"},{"title":"DEBATE PRESIDENCIAL EN VIVO (Circo Democratico)","url":"/directos/debate-presidencial-en-vivo-circo-democratico/","tags":["directos"],"date":"2026-08-30","description":"","kind":"DIRECTO"},{"title":"Dia de la Hispanidad","url":"/directos/dia-de-la-hispanidad/","tags":["directos"],"date":"2026-08-29","description":"","kind":"DIRECTO"},{"title":"Iceberg de conspiraciones Argentinas (parte 2)","url":"/directos/iceberg-de-conspiraciones-argentinas-parte-2/","tags":["directos"],"date":"2026-08-28","description":"","kind":"DIRECTO"},{"title":"La \"\"NUEVA\"\" Derecha, y temas varios","url":"/directos/la-nueva-derecha-y-temas-varios/","tags":["directos"],"date":"2026-08-27","description":"","kind":"DIRECTO"},{"title":"Atentado contra Cristina Kirchner (Directo express)","url":"/directos/atentado-contra-cristina-kirchner-directo-express/","tags":["directos"],"date":"2026-08-26","description":"","kind":"DIRECTO"},{"title":"Charla en vivo sobre temas que surjan","url":"/directos/charla-en-vivo-sobre-temas-que-surjan/","tags":["directos"],"date":"2026-08-25","description":"","kind":"DIRECTO"},{"title":"Directo charlando sobre temas varios","url":"/directos/directo-charlando-sobre-temas-varios/","tags":["directos"],"date":"2026-08-24","description":"","kind":"DIRECTO"},{"title":"La DAIA persigue gente por subir memes","url":"/directos/la-daia-persigue-gente-por-subir-memes/","tags":["directos"],"date":"2026-08-23","description":"","kind":"DIRECTO"}],
 "articulos":[{"title":"Ida Craddock - pionera feminista y Luciferiana","url":"/articulos/ida-craddock-pionera-feminista-y-luciferiana/","tags":["articulos","Luciferianismo","Esoterismo","Ocultismo","New age","Aleister Crowley","Teosofia","Demonios","Espiritualidad","Gnosticismo","Feminismo","Aborto"],"date":"2019-05-19T00:00:00.000Z","description":"Ida Craddock, una referente feminista y luciferiana militante.","kind":"ARTÍCULO"},{"title":"El Marxismo y la familia Rosthchild","url":"/articulos/el-marxismo-y-la-familia-rosthchild/","tags":["articulos","Marxismo","Socialismo","Rosthchild","Sionismo","Judios","Zurdos","Comunismo","Protocolos sabios de Sion"],"date":"2015-04-30T00:00:00.000Z","description":"El lazo que une los origenes del marxismo con la familia Rosthcild","kind":"ARTÍCULO"},{"title":"Monsanto, multinacional genocida","url":"/articulos/monsanto-multinacional-genocida/","tags":["articulos","Monsanto","Cristina Wilhem Kirchner","Kirchnerismo","Patagonia","Rockefeller familia","Islas Malvinas","Council of americas","Despoblacion","Manipulacion genetica en alimentos"],"date":"2014-07-27T00:00:00.000Z","description":"Conocé a la multinacional mas genocida.","kind":"ARTÍCULO"},{"title":"TV Chilena (2013) sobre la entrega de la Patagonia","url":"/articulos/tv-chilena-2013-sobre-la-entrega-de-la-patagonia/","tags":["articulos","Plan andinia","Patagonia","Argentina","Entrega territorial","Judios","Sionismo"],"date":"2014-07-27T00:00:00.000Z","description":"Salfate, presentador chileno, habla sobre la apropiacion de tierras patagonicas a manos de poderosos multimillonarios  extranjeros","kind":"ARTÍCULO"}],
 "recursos":[{"title":"Mi primer recurso de prueba","url":"/recursos/mi-primer-recurso/","tags":["recursos"],"date":"","description":"Un documento de ejemplo para comprobar que la plantilla de recursos funciona.","kind":"RECURSO"}]
@@ -1668,6 +2033,49 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
 <script>
 (() => {
+
+  /* =========================================================
+     LAYOUT MÓVIL — PORTADA PRIMERO
+     En <=700px mueve el bloque de navegación/mapa justo
+     debajo de la portada. Al volver a escritorio lo devuelve
+     a su lugar original, sin duplicar elementos ni IDs.
+     ========================================================= */
+  (() => {
+    const rail = document.querySelector('.left-rail');
+    const windowBox = document.querySelector('.window-container');
+    const hero = windowBox?.querySelector('.hero-cover');
+
+    if (!rail || !windowBox || !hero) return;
+
+    const originalParent = rail.parentNode;
+    const originalMarker = document.createComment('sofirmolo-left-rail-origin');
+    originalParent.insertBefore(originalMarker, rail);
+
+    const mobileQuery = window.matchMedia('(max-width: 700px)');
+
+    const applyMobileLayout = () => {
+      if (mobileQuery.matches) {
+        if (hero.nextElementSibling !== rail) {
+          hero.insertAdjacentElement('afterend', rail);
+        }
+        document.body.classList.add('sf-mobile-layout');
+      } else {
+        if (rail.parentNode !== originalParent || originalMarker.nextSibling !== rail) {
+          originalParent.insertBefore(rail, originalMarker.nextSibling);
+        }
+        document.body.classList.remove('sf-mobile-layout');
+      }
+    };
+
+    applyMobileLayout();
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', applyMobileLayout);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(applyMobileLayout);
+    }
+  })();
+
   // Buscador del sitio
   (function () {
     const openBtn = document.getElementById('openSearchBtn');
@@ -2190,27 +2598,90 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     requestAnimationFrame(draw);
   }
 
-  // LOFI Cassette Player
+  // LOFI Cassette Player — playlist publica administrada desde Sveltia.
+  // El visitante puede reproducir, pausar, avanzar, retroceder y silenciar,
+  // pero NO puede cargar archivos desde el navegador.
   const audio = document.getElementById('lofiAudio');
   const play = document.getElementById('lofiPlay');
   const stop = document.getElementById('lofiStop');
   const mute = document.getElementById('lofiMute');
-  const file = document.getElementById('lofiFile');
+  const prev = document.getElementById('lofiPrev');
+  const next = document.getElementById('lofiNext');
   const seekTrack = document.getElementById('lofiProgressTrack');
   const seekFill = document.getElementById('lofiProgressFill');
   const seekHandle = document.getElementById('lofiProgressHandle');
-  let isSeeking = false;
   const status = document.getElementById('lofiStatus');
   const time = document.getElementById('lofiTime');
+  const pos = document.getElementById('lofiTrackPos');
   const player = document.querySelector('.lofi-player');
+  const playlistNode = document.getElementById('lofiPlaylist');
+  let isSeeking = false;
+  let currentTrack = 0;
+  const repeatPlaylist = true;
+  let playlist = [];
+
+  try {
+    const rawPlaylist = JSON.parse(playlistNode?.textContent || '[]');
+    playlist = (Array.isArray(rawPlaylist) ? rawPlaylist : [])
+      .map((track, index) => ({
+        title: String(track?.titulo || track?.title || `PISTA ${index + 1}`),
+        src: String(track?.archivo || track?.file || ''),
+        enabled: track?.activo !== false && track?.enabled !== false
+      }))
+      .filter(track => track.enabled && track.src);
+  } catch (_) {
+    playlist = [];
+  }
 
   if (audio && play) {
+    function setSeekVisual(pct) {
+      const safe = Math.max(0, Math.min(100, Number(pct) || 0));
+      seekFill.style.width = safe + '%';
+      seekHandle.style.left = safe + '%';
+    }
+
+    function updateTrackPosition() {
+      if (pos) pos.textContent = playlist.length ? `${currentTrack + 1}/${playlist.length}` : '0/0';
+    }
+
+    function loadTrack(index, autoplay = false) {
+      if (!playlist.length) {
+        audio.removeAttribute('src');
+        status.textContent = 'SIN PISTAS PUBLICADAS';
+        time.textContent = '00:00';
+        updateTrackPosition();
+        setSeekVisual(0);
+        return;
+      }
+      currentTrack = ((index % playlist.length) + playlist.length) % playlist.length;
+      const track = playlist[currentTrack];
+      audio.src = track.src;
+      audio.load();
+      status.textContent = track.title.toUpperCase();
+      time.textContent = '00:00';
+      setSeekVisual(0);
+      updateTrackPosition();
+      play.textContent = '▶';
+      player.classList.remove('playing');
+      if (autoplay) {
+        audio.play().then(() => {
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        }).catch(() => {
+          play.textContent = '▶';
+        });
+      }
+    }
+
     play.addEventListener('click', async () => {
-      if (!audio.src) return file?.click();
+      if (!playlist.length) return;
+      if (!audio.src) loadTrack(currentTrack, false);
       if (audio.paused) {
-        await audio.play();
-        player.classList.add('playing');
-        play.textContent = 'Ⅱ';
+        try {
+          await audio.play();
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        } catch (_) {}
       } else {
         audio.pause();
         player.classList.remove('playing');
@@ -2219,23 +2690,35 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
 
     stop.addEventListener('click', () => {
-      audio.pause(); audio.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
       player.classList.remove('playing');
       play.textContent = '▶';
+      setSeekVisual(0);
+      time.textContent = '00:00';
     });
+
+    prev.addEventListener('click', () => loadTrack(currentTrack - 1, !audio.paused));
+    next.addEventListener('click', () => loadTrack(currentTrack + 1, !audio.paused));
 
     mute.addEventListener('click', () => {
       audio.muted = !audio.muted;
       mute.textContent = audio.muted ? 'MUTE' : 'VOL';
     });
 
-    file.addEventListener('change', e => {
-      const f = e.target.files?.[0];
-      if (!f) return;
-      if (audio.src) URL.revokeObjectURL(audio.src);
-      audio.src = URL.createObjectURL(f);
-      audio.load();
-      status.textContent = f.name.toUpperCase();
+    audio.addEventListener('ended', () => {
+      if (!playlist.length) return;
+      if (currentTrack < playlist.length - 1) loadTrack(currentTrack + 1, true);
+      else if (repeatPlaylist) loadTrack(0, true);
+      else {
+        player.classList.remove('playing');
+        play.textContent = '▶';
+      }
+    });
+
+    audio.addEventListener('error', () => {
+      status.textContent = 'AUDIO NO DISPONIBLE';
+      player.classList.remove('playing');
       play.textContent = '▶';
     });
 
@@ -2244,22 +2727,18 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         const m = Math.floor(audio.currentTime / 60).toString().padStart(2, '0');
         const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
         time.textContent = `${m}:${s}`;
-        if (!isSeeking) setSeekVisual((audio.currentTime / audio.duration) * 100);
+        if (!isSeeking && audio.duration) setSeekVisual((audio.currentTime / audio.duration) * 100);
       }
     });
 
-    function setSeekVisual(pct) {
-      seekFill.style.width = pct + '%';
-      seekHandle.style.left = pct + '%';
-    }
-
     function seekFromEvent(e) {
+      if (!audio.duration) return;
       const rect = seekTrack.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       let pct = ((clientX - rect.left) / rect.width) * 100;
       pct = Math.max(0, Math.min(100, pct));
       setSeekVisual(pct);
-      if (audio.duration) audio.currentTime = (pct / 100) * audio.duration;
+      audio.currentTime = (pct / 100) * audio.duration;
     }
 
     seekTrack.addEventListener('pointerdown', e => {
@@ -2268,6 +2747,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
     addEventListener('pointermove', e => { if (isSeeking) seekFromEvent(e); });
     addEventListener('pointerup', () => { isSeeking = false; });
+
+    loadTrack(0, false);
   }
 })();
 </script>

@@ -630,6 +630,243 @@ a:hover {
   padding-left: 16px;
 }
 
+
+/* =========================================================
+   ACCESO DESTACADO — MAPA DEL CONOCIMIENTO
+   Tarjeta CRT/neón debajo del índice. No usa imágenes externas.
+   ========================================================= */
+.knowledge-map-promo {
+  position: relative;
+  width: 250px;
+  min-height: 286px;
+  display: block;
+  overflow: hidden;
+  padding: 12px 10px 11px;
+  border: 1px solid var(--red-main);
+  background:
+    radial-gradient(circle at 50% 43%, rgba(18, 102, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 50% 58%, rgba(255, 18, 43, 0.09), transparent 50%),
+    repeating-linear-gradient(0deg, rgba(124, 179, 255, 0.025) 0 1px, transparent 1px 4px),
+    rgba(1, 2, 8, 0.97);
+  box-shadow:
+    0 0 13px rgba(255, 18, 43, 0.30),
+    0 0 24px rgba(18, 102, 255, 0.22),
+    inset 0 0 24px rgba(0, 0, 0, 0.95);
+  color: var(--blue-light);
+  text-align: center;
+  isolation: isolate;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo::before,
+.knowledge-map-promo::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.knowledge-map-promo::before {
+  inset: 5px;
+  border: 1px solid rgba(18, 102, 255, 0.35);
+  clip-path: polygon(0 0, 23% 0, 23% 1px, 1px 1px, 1px 25%, 0 25%, 0 0,
+                     100% 0, 77% 0, 77% 1px, calc(100% - 1px) 1px, calc(100% - 1px) 25%, 100% 25%, 100% 0,
+                     100% 100%, 77% 100%, 77% calc(100% - 1px), calc(100% - 1px) calc(100% - 1px), calc(100% - 1px) 75%, 100% 75%, 100% 100%,
+                     0 100%, 23% 100%, 23% calc(100% - 1px), 1px calc(100% - 1px), 1px 75%, 0 75%, 0 100%);
+  box-shadow: inset 0 0 10px rgba(18, 102, 255, .35);
+}
+
+.knowledge-map-promo::after {
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(124, 179, 255, 0.045) 4px
+  );
+  mix-blend-mode: screen;
+  opacity: .7;
+}
+
+.knowledge-map-promo:hover {
+  transform: translateY(-2px);
+  border-color: var(--red-glow);
+  box-shadow:
+    0 0 18px rgba(255, 18, 43, 0.52),
+    0 0 34px rgba(18, 102, 255, 0.42),
+    inset 0 0 28px rgba(0, 0, 0, 0.96);
+}
+
+.km-kicker {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--blue-light);
+  font: bold 8px/1.3 "Courier New", monospace;
+  letter-spacing: 1.4px;
+  opacity: .82;
+}
+
+.km-title {
+  position: relative;
+  z-index: 6;
+  display: block;
+  color: #e6f1ff;
+  font: 10px/1.35 "Press Start 2P", "Courier New", monospace;
+  letter-spacing: .5px;
+  text-shadow: 0 0 8px rgba(18, 102, 255, .85);
+}
+
+.km-title strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--red-glow);
+  font-size: 18px;
+  line-height: 1.28;
+  text-shadow: 0 0 8px rgba(255, 18, 43, .9), 0 0 13px rgba(18, 102, 255, .35);
+}
+
+.km-tagline {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-top: 5px;
+  color: var(--blue-light);
+  font: bold 9px/1.25 "Courier New", monospace;
+  letter-spacing: .85px;
+}
+
+.km-visual {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: 100%;
+  height: 153px;
+  margin: 7px 0 7px;
+  overflow: visible;
+}
+
+.km-network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 4px rgba(18, 102, 255, .28));
+}
+
+.km-network .km-link {
+  fill: none;
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5;
+  opacity: .78;
+  animation: kmDataFlow 4.8s linear infinite;
+}
+
+.km-network .km-link.red { stroke: #ff334a; }
+.km-network .km-link.blue { stroke: #2d85ff; }
+.km-network .km-link.soft { opacity: .38; stroke-width: .8; }
+
+.km-network .km-node {
+  fill: #020714;
+  stroke-width: 1.25;
+}
+
+.km-network .km-node.blue {
+  stroke: #53a0ff;
+  filter: drop-shadow(0 0 3px #1266ff);
+}
+
+.km-network .km-node.red {
+  stroke: #ff5265;
+  filter: drop-shadow(0 0 3px #ff122b);
+}
+
+.km-network .km-core-ring {
+  fill: rgba(0, 5, 20, .88);
+  stroke: #1266ff;
+  stroke-width: 1.1;
+  filter: drop-shadow(0 0 5px rgba(18, 102, 255, .8));
+}
+
+.km-network .km-brain {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.15;
+}
+
+.km-network .km-brain.blue { stroke: #63b4ff; }
+.km-network .km-brain.red { stroke: #ff5367; }
+
+.km-network .km-pulse {
+  transform-origin: center;
+  animation: kmPulse 2.2s ease-in-out infinite;
+}
+
+.km-topic {
+  position: absolute;
+  z-index: 7;
+  padding: 2px 4px;
+  background: rgba(0, 3, 12, .88);
+  border: 1px solid rgba(18, 102, 255, .65);
+  color: #91c5ff;
+  font: bold 7px/1.2 "Courier New", monospace;
+  letter-spacing: .25px;
+  white-space: nowrap;
+  box-shadow: 0 0 6px rgba(18, 102, 255, .14);
+}
+
+.km-topic.red {
+  border-color: rgba(255, 18, 43, .72);
+  color: #ff8b98;
+  box-shadow: 0 0 6px rgba(255, 18, 43, .14);
+}
+
+.km-t1 { left: 2px; top: 12px; }
+.km-t2 { right: 2px; top: 15px; }
+.km-t3 { left: 0; top: 66px; }
+.km-t4 { right: 0; top: 68px; }
+.km-t5 { left: 12px; bottom: 12px; }
+.km-t6 { right: 3px; bottom: 12px; }
+.km-t7 { left: 50%; top: 3px; transform: translateX(-50%); }
+
+.km-cta {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 29px;
+  border: 1px solid var(--red-main);
+  background: linear-gradient(90deg, rgba(58, 0, 6, .78), rgba(4, 14, 41, .62));
+  color: #fff;
+  font: 9px/1 "Press Start 2P", "Courier New", monospace;
+  text-shadow: 0 0 7px var(--red-glow);
+  box-shadow: inset 0 0 9px rgba(255, 18, 43, .16);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo:hover .km-cta {
+  background: linear-gradient(90deg, rgba(95, 0, 10, .9), rgba(5, 29, 82, .82));
+  box-shadow: 0 0 11px rgba(255, 18, 43, .25), inset 0 0 10px rgba(18, 102, 255, .18);
+}
+
+.knowledge-map-promo:hover .km-network .km-link {
+  opacity: 1;
+}
+
+@keyframes kmDataFlow {
+  to { stroke-dashoffset: -36; }
+}
+
+@keyframes kmPulse {
+  0%, 100% { opacity: .72; transform: scale(.96); }
+  50% { opacity: 1; transform: scale(1.055); }
+}
+
 /* CONTENEDOR DERECHO: agrupa LOFI + bitácora, se acomoda solo según el alto disponible */
 .right-rail {
   position: fixed;
@@ -757,8 +994,8 @@ a:hover {
 
 .lofi-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
   margin-top: 8px;
 }
 
@@ -767,7 +1004,7 @@ a:hover {
   border: 1px solid var(--blue-main);
   background: var(--blue-dark);
   color: #fff;
-  font: bold 13px "Courier New", monospace; /* +20% */
+  font: bold 11px "Courier New", monospace; /* compacto: 5 controles */
   transition: background 0.15s;
 }
 
@@ -811,22 +1048,23 @@ a:hover {
   pointer-events: none;
 }
 
-.lofi-load {
-  display: block;
+.lofi-library-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   margin-top: 8px;
-  padding: 5px;
+  padding: 5px 6px;
   border: 1px dotted var(--blue-dark);
   color: var(--blue-light);
-  font-size: 11px; /* +20% */
-  text-align: center;
+  font-size: 9px;
+  line-height: 1.35;
+  text-align: left;
 }
 
-.lofi-load input {
-  display: block;
-  width: 100%;
-  margin-top: 4px;
-  color: var(--blue-light);
-  font-size: 10px;
+.lofi-library-note span:first-child {
+  color: var(--red-light);
+  white-space: nowrap;
 }
 
 .lofi-player audio { display: none; }
@@ -1405,6 +1643,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   .quick-tools-btn{ font-size:11px; }
   .window-container{ margin-top:0; }
   .side-nav a{ font-size:10px; }
+  .knowledge-map-promo{ width:100%; max-width:none; min-height:278px; }
+  .km-visual{ max-width:320px; margin-left:auto; margin-right:auto; }
   .section{ padding:28px 14px 10px; }
 }
 
@@ -1493,6 +1733,87 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .carousel-track { scroll-behavior: auto; }
+  .km-network .km-link, .km-network .km-pulse { animation: none !important; }
+}
+
+
+/* =========================================================
+   MOBILE — PORTADA PRIMERO + HUB DE NAVEGACIÓN
+   Solo afecta pantallas de hasta 700px.
+   La barra lateral se reubica por JS justo después de la portada.
+   En escritorio no cambia absolutamente nada.
+   ========================================================= */
+@media (max-width: 700px) {
+  body.sf-mobile-layout .window-container {
+    width: 100%;
+  }
+
+  body.sf-mobile-layout .hero-cover {
+    min-height: 42vh;
+    margin-bottom: 0;
+  }
+
+  body.sf-mobile-layout .left-rail {
+    width: 100%;
+    gap: 8px;
+    padding: 8px;
+    margin: 0;
+    background:
+      linear-gradient(180deg, rgba(18,102,255,.045), rgba(255,18,43,.035));
+    border-bottom: 1px solid rgba(18,102,255,.38);
+  }
+
+  body.sf-mobile-layout .side-nav {
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.sf-mobile-layout .side-nav .side-label {
+    grid-column: 1 / -1;
+    padding: 9px 8px;
+  }
+
+  body.sf-mobile-layout .side-nav > a {
+    min-width: 0;
+    padding: 10px 4px;
+    font-size: 12px;
+    border-right: 1px dotted var(--blue-dark);
+  }
+
+  /* INICIO ocupa el ancho completo; las demás secciones van en parejas. */
+  body.sf-mobile-layout .side-nav > a:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  body.sf-mobile-layout .knowledge-map-promo {
+    width: 100%;
+    max-width: none;
+    min-height: 278px;
+    margin: 0;
+  }
+
+  body.sf-mobile-layout .km-visual {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.sf-mobile-layout .quick-tools {
+    width: 100%;
+    gap: 8px;
+  }
+
+  body.sf-mobile-layout .quick-tools-btn {
+    min-height: 38px;
+    font-size: 11px;
+  }
+
+  /* Después del hub móvil continúa el sitio normalmente. */
+  body.sf-mobile-layout .marquee {
+    margin-top: 0;
+  }
 }
 
 </style>
@@ -1531,6 +1852,47 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         <a href="/articulos/">ARTICULOS</a>
         <a href="/recursos/">RECURSOS</a>
       </nav>
+
+      <a class="knowledge-map-promo" href="/mapa/" aria-label="Abrir Mapa del conocimiento">
+        <span class="km-kicker">ARCHIVO // RED DE IDEAS</span>
+        <span class="km-title">MAPA DEL <strong>CONOCIMIENTO</strong></span>
+        <span class="km-tagline">TODO TIENE QUE VER CON TODO</span>
+
+        <span class="km-visual" aria-hidden="true">
+          <svg class="km-network" viewBox="0 0 230 153" role="img">
+            <path class="km-link blue" d="M114 79 L40 25 M114 79 L191 27 M114 79 L32 78 M114 79 L199 80 M114 79 L44 132 M114 79 L185 132 M114 79 L114 19"/>
+            <path class="km-link red" d="M40 25 L114 19 L191 27 M32 78 L44 132 L114 79 L185 132 L199 80"/>
+            <path class="km-link blue soft" d="M40 25 L199 80 M191 27 L44 132 M32 78 L185 132 M114 19 L185 132"/>
+            <path class="km-link red soft" d="M32 78 L191 27 M40 25 L185 132 M114 19 L44 132"/>
+
+            <circle class="km-node blue" cx="40" cy="25" r="3.5"/>
+            <circle class="km-node red" cx="191" cy="27" r="3.5"/>
+            <circle class="km-node red" cx="32" cy="78" r="3.5"/>
+            <circle class="km-node blue" cx="199" cy="80" r="3.5"/>
+            <circle class="km-node blue" cx="44" cy="132" r="3.5"/>
+            <circle class="km-node red" cx="185" cy="132" r="3.5"/>
+            <circle class="km-node blue" cx="114" cy="19" r="3.5"/>
+
+            <g class="km-pulse">
+              <circle class="km-core-ring" cx="114" cy="79" r="28"/>
+              <path class="km-brain blue" d="M110 58 C100 55 94 61 96 69 C89 71 88 83 96 87 C92 95 99 101 108 98 C111 96 112 92 112 87 L112 64 C112 61 111 59 110 58 Z"/>
+              <path class="km-brain red" d="M118 58 C128 55 134 61 132 69 C139 71 140 83 132 87 C136 95 129 101 120 98 C117 96 116 92 116 87 L116 64 C116 61 117 59 118 58 Z"/>
+              <path class="km-brain blue" d="M99 70 C104 70 108 73 110 77 M98 87 C104 87 108 84 111 81 M104 61 C106 65 106 69 104 72"/>
+              <path class="km-brain red" d="M129 70 C124 70 120 73 118 77 M130 87 C124 87 120 84 117 81 M124 61 C122 65 122 69 124 72"/>
+            </g>
+          </svg>
+
+          <span class="km-topic km-t1">ESOTERISMO</span>
+          <span class="km-topic red km-t2">OCULTISMO</span>
+          <span class="km-topic red km-t3">HISPANIDAD</span>
+          <span class="km-topic km-t4">CIENTIFICISMO</span>
+          <span class="km-topic km-t5">FILOSOFIA</span>
+          <span class="km-topic red km-t6">ESPIRITUALIDAD</span>
+          <span class="km-topic km-t7">GNOSTICISMO</span>
+        </span>
+
+        <span class="km-cta">EXPLORAR MAPA <b>→</b></span>
+      </a>
 
       <div class="quick-tools" aria-label="Buscar y navegar por tags">
         <button type="button" class="quick-tools-btn" id="openSearchBtn">🔍 BUSCAR</button>
@@ -1574,12 +1936,14 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
           <div class="tape-line"></div>
         </div>
         <div class="lofi-now">
-          <span class="lofi-status" id="lofiStatus">SISTEMA LISTO</span>
+          <span class="lofi-status" id="lofiStatus">CARGANDO PLAYLIST...</span>
           <span id="lofiTime">00:00</span>
         </div>
         <div class="lofi-controls">
-          <button type="button" id="lofiPlay" aria-label="Reproducir">▶</button>
+          <button type="button" id="lofiPrev" aria-label="Pista anterior">⏮</button>
+          <button type="button" id="lofiPlay" aria-label="Reproducir o pausar">▶</button>
           <button type="button" id="lofiStop" aria-label="Detener">■</button>
+          <button type="button" id="lofiNext" aria-label="Pista siguiente">⏭</button>
           <button type="button" id="lofiMute" aria-label="Silenciar">VOL</button>
         </div>
         <div class="lofi-progress">
@@ -1588,11 +1952,12 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
             <div class="lofi-progress-handle" id="lofiProgressHandle"></div>
           </div>
         </div>
-        <label class="lofi-load">
-          CARGAR AUDIO
-          <input id="lofiFile" type="file" accept="audio/*">
-        </label>
+        <div class="lofi-library-note">
+          <span id="lofiTrackPos">0/0</span>
+          <span>SELECCIÓN SOFIRMOLO</span>
+        </div>
         <audio id="lofiAudio" preload="metadata"></audio>
+        <script type="application/json" id="lofiPlaylist">[]</script>
       </aside>
 
       <div class="system-log" id="systemLog" aria-hidden="true"></div>
@@ -1623,129 +1988,21 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   
   <div class="feature-grid">
     <div class="feature-media">
-      <div class="video-embed-wrap"><iframe src="https://www.youtube.com/embed/zzmiz9SZRsw" title="Quien incendia la patagonia cada año?" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="video-embed-wrap"><iframe src="https://www.youtube.com/embed/1mKdcmvMg6g" title="La cumbia del sionismo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
       
     </div>
-    <div class="feature-copy"><div class="meta">VIDEO MAS RECIENTE · 27-08-2026</div><h3>Quien incendia la patagonia cada año?</h3><a href="/videos/quien-incendia-la-patagonia-cada-ano/" class="ctr-link">VER VIDEO COMPLETO →</a></div>
+    <div class="feature-copy"><div class="meta">VIDEO MAS RECIENTE · 25-08-2026</div><h3>La cumbia del sionismo</h3><a href="/videos/la-cumbia-del-sionismo/" class="ctr-link">VER VIDEO COMPLETO →</a></div>
   </div>
   
   <div class="carousel-wrap"><div class="carousel-track" id="videos-track">
     
-    <a class="card" href="/videos/quien-incendia-la-patagonia-cada-ano/"><div class="card-cover"><img src="https://i.ytimg.com/vi/zzmiz9SZRsw/hqdefault.jpg" alt="Miniatura: Quien incendia la patagonia cada año?" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 27-08-2026</div><h4>Quien incendia la patagonia cada año?</h4></a>
-    
-    <a class="card" href="/videos/el-plan-tecnato-americano/"><div class="card-cover"><img src="https://i.ytimg.com/vi/go0Z4mCkhJQ/hqdefault.jpg" alt="Miniatura: El plan Tecnato Americano" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 26-08-2026</div><h4>El plan Tecnato Americano</h4></a>
-    
     <a class="card" href="/videos/la-cumbia-del-sionismo/"><div class="card-cover"><img src="https://i.ytimg.com/vi/1mKdcmvMg6g/hqdefault.jpg" alt="Miniatura: La cumbia del sionismo" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 25-08-2026</div><h4>La cumbia del sionismo</h4></a>
     
-    <a class="card" href="/videos/la-nueva-derecha-dividida-por-milei/"><div class="card-cover"><img src="https://i.ytimg.com/vi/jK-WW3TnLmA/hqdefault.jpg" alt="Miniatura: La &quot;nueva derecha&quot; dividida por Milei" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 25-08-2026</div><h4>La &quot;nueva derecha&quot; dividida por Milei</h4></a>
-    
-    <a class="card" href="/videos/peron-fue-mason/"><div class="card-cover"><img src="https://i.ytimg.com/vi/X5qzs3PXtiM/hqdefault.jpg" alt="Miniatura: Peron fue mason" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 24-08-2026</div><h4>Peron fue mason</h4></a>
-    
-    <a class="card" href="/videos/circo-democratico-el-peronismo-murio/"><div class="card-cover"><img src="https://i.ytimg.com/vi/Q8cEQOW4tS8/hqdefault.jpg" alt="Miniatura: Circo democratico - EL PERONISMO MURIO" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 23-08-2026</div><h4>Circo democratico - EL PERONISMO MURIO</h4></a>
-    
-    <a class="card" href="/videos/el-ritual-satanico-de-milei-dia-666-de-gobierno/"><div class="card-cover"><img src="https://i.ytimg.com/vi/gbl1xqwLFKA/hqdefault.jpg" alt="Miniatura: El RITUAL Satanico de Milei - dia 666 de gobierno" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 22-08-2026</div><h4>El RITUAL Satanico de Milei - dia 666 de gobierno</h4></a>
-    
-    <a class="card" href="/videos/respuesta-a-liberal-fan-de-san-martin/"><div class="card-cover"><img src="https://i.ytimg.com/vi/xERWpKiIYDo/hqdefault.jpg" alt="Miniatura: Respuesta a liberal fan de san martin" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 21-08-2026</div><h4>Respuesta a liberal fan de san martin</h4></a>
-    
-    <a class="card" href="/videos/pensar-en-ingles-colonialismo-mental-anglosajon-y-liberalism/"><div class="card-cover"><img src="https://i.ytimg.com/vi/9eZhS4R_b0Q/hqdefault.jpg" alt="Miniatura: Pensar en ingles - COLONIALISMO mental anglosajon y LIBERALISMO | Con Javier Perez Nieto" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-08-2026</div><h4>Pensar en ingles - COLONIALISMO mental anglosajon y LIBERALISMO | Con Javier Perez Nieto</h4></a>
-    
-    <a class="card" href="/videos/san-martin-libertraidor/"><div class="card-cover"><img src="https://i.ytimg.com/vi/VjEbpJlYZl4/hqdefault.jpg" alt="Miniatura: &#39;San&#39; Martin LiberTraidor" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 19-08-2026</div><h4>&#39;San&#39; Martin LiberTraidor</h4></a>
-    
-    <a class="card" href="/videos/immigracion-del-malthusianismo-al-gnosticismo-with-javier-pe/"><div class="card-cover"><img src="https://i.ytimg.com/vi/1-cKbfZyocg/hqdefault.jpg" alt="Miniatura: Immigracion: Del Malthusianismo al gnosticismo (with Javier Perez Nieto)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 18-08-2026</div><h4>Immigracion: Del Malthusianismo al gnosticismo (with Javier Perez Nieto)</h4></a>
-    
-    <a class="card" href="/videos/la-batalla-cultural-frente-a-la-causa-palestina/"><div class="card-cover"><img src="https://i.ytimg.com/vi/UL0RKmhIBJ0/hqdefault.jpg" alt="Miniatura: La &quot;batalla cultural&quot; frente a la causa Palestina" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 17-08-2026</div><h4>La &quot;batalla cultural&quot; frente a la causa Palestina</h4></a>
-    
-    <a class="card" href="/videos/san-martin-era-mason-aunque-manipuladores-intenten-negarlo/"><div class="card-cover"><img src="https://i.ytimg.com/vi/YDw64KutWiA/hqdefault.jpg" alt="Miniatura: San Martin ERA MASON  Aunque MANIPULADORES intenten negarlo" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-08-2026</div><h4>San Martin ERA MASON  Aunque MANIPULADORES intenten negarlo</h4></a>
-    
-    <a class="card" href="/videos/los-hilos-de-las-logias-cancion-ia/"><div class="card-cover"><img src="https://i.ytimg.com/vi/gptB62yzVmA/hqdefault.jpg" alt="Miniatura: Los hilos de las Logias - Cancion (IA)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 15-08-2026</div><h4>Los hilos de las Logias - Cancion (IA)</h4></a>
-    
-    <a class="card" href="/videos/javier-milei-y-la-estafa-crypto-de-libra/"><div class="card-cover"><img src="https://i.ytimg.com/vi/gZmBMRZVXFA/hqdefault.jpg" alt="Miniatura: Javier Milei y la estafa crypto de Libra" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 14-08-2026</div><h4>Javier Milei y la estafa crypto de Libra</h4></a>
-    
-    <a class="card" href="/videos/libertarios-profundamente-ignorantes/"><div class="card-cover"><img src="https://i.ytimg.com/vi/LoupEjkLOVE/hqdefault.jpg" alt="Miniatura: Libertarios profundamente ignorantes" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 13-08-2026</div><h4>Libertarios profundamente ignorantes</h4></a>
-    
     <a class="card" href="/videos/contra-el-racismo-cristiano/"><div class="card-cover"><img src="https://i.ytimg.com/vi/9xrJtFsAWJM/hqdefault.jpg" alt="Miniatura: Contra el racismo &quot;cristiano&quot;" loading="lazy" data-platform-thumb="https://www.bitchute.com/video/9xrJtFsAWJM"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-08-2026</div><h4>Contra el racismo &quot;cristiano&quot;</h4></a>
-    
-    <a class="card" href="/videos/iceberg-argentino-de-conspiraciones-actualizado-2024-2025/"><div class="card-cover"><img src="https://i.ytimg.com/vi/xI9tqTp9YJo/hqdefault.jpg" alt="Miniatura: ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024/2025" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-08-2026</div><h4>ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024/2025</h4></a>
-    
-    <a class="card" href="/videos/esoterismo-y-artes-marciales-infiltracion-espiritual-new-age/"><div class="card-cover"><img src="https://i.ytimg.com/vi/DdZSRvueZRk/hqdefault.jpg" alt="Miniatura: Esoterismo y Artes Marciales - Infiltracion espiritual New age Anti-Cristiana" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 11-08-2026</div><h4>Esoterismo y Artes Marciales - Infiltracion espiritual New age Anti-Cristiana</h4></a>
-    
-    <a class="card" href="/videos/peron-y-la-hispanidad-discurso-epico/"><div class="card-cover"><img src="https://i.ytimg.com/vi/RPe6aXBbznA/hqdefault.jpg" alt="Miniatura: Peron y la hispanidad - discurso epico" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 10-08-2026</div><h4>Peron y la hispanidad - discurso epico</h4></a>
-    
-    <a class="card" href="/videos/doctrina-social-de-la-iglesia-explicada-para-libertarios-y-z/"><div class="card-cover"><img src="https://i.ytimg.com/vi/EQu2p3eRTto/hqdefault.jpg" alt="Miniatura: Doctrina Social de la Iglesia explicada para libertarios y zoocialistas" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 09-08-2026</div><h4>Doctrina Social de la Iglesia explicada para libertarios y zoocialistas</h4></a>
-    
-    <a class="card" href="/videos/el-judio-que-financio-a-san-martin/"><div class="card-cover"><img src="https://i.ytimg.com/vi/0krIoI5ITTE/hqdefault.jpg" alt="Miniatura: El JUDIO que financio a SAN MARTIN" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 08-08-2026</div><h4>El JUDIO que financio a SAN MARTIN</h4></a>
-    
-    <a class="card" href="/videos/el-cura-ravasi-y-su-defensa-fanatica-de-criminales-y-la-dere/"><div class="card-cover"><img src="https://i.ytimg.com/vi/lxjc2l2uHdc/hqdefault.jpg" alt="Miniatura: El cura Ravasi y su defensa fanatica de criminales y La Derecha" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 07-08-2026</div><h4>El cura Ravasi y su defensa fanatica de criminales y La Derecha</h4></a>
-    
-    <a class="card" href="/videos/racismo-y-leyenda-negra-anti-hispanica/"><div class="card-cover"><img src="https://i.ytimg.com/vi/E5VVOYk8Fr8/hqdefault.jpg" alt="Miniatura: Racismo y Leyenda negra Anti-Hispanica" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 06-08-2026</div><h4>Racismo y Leyenda negra Anti-Hispanica</h4></a>
-    
-    <a class="card" href="/videos/el-nacionalismo-argentino-esta-mal/"><div class="card-cover"><img src="https://i.ytimg.com/vi/gF1aoCmDhZU/hqdefault.jpg" alt="Miniatura: El Nacionalismo argentino ESTA MAL" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 05-08-2026</div><h4>El Nacionalismo argentino ESTA MAL</h4></a>
-    
-    <a class="card" href="/videos/economia-hispanica-de-la-escuela-de-la-salamanca-vs-el-siste/"><div class="card-cover"><img src="https://i.ytimg.com/vi/7jalUilgtcc/hqdefault.jpg" alt="Miniatura: Economia hispanica de la escuela de la Salamanca vs El sistema usurero" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 04-08-2026</div><h4>Economia hispanica de la escuela de la Salamanca vs El sistema usurero</h4></a>
-    
-    <a class="card" href="/videos/la-mentira-del-milagro-economico-aleman-nacional-socialista/"><div class="card-cover"><img src="https://i.ytimg.com/vi/jOAy1lK3Th4/hqdefault.jpg" alt="Miniatura: La MENTIRA del &quot;milagro economico&quot; aleman Nacional-Socialista (por Javier Perez Nieto)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 03-08-2026</div><h4>La MENTIRA del &quot;milagro economico&quot; aleman Nacional-Socialista (por Javier Perez Nieto)</h4></a>
-    
-    <a class="card" href="/videos/respuesta-a-zurdos-anti-hispanismo-del-canal-posdata-ar/"><div class="card-cover"><img src="https://i.ytimg.com/vi/Q_lJgQmC0JU/hqdefault.jpg" alt="Miniatura: Respuesta a Zurdos anti-hispanismo del canal @Posdata_ar" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 02-08-2026</div><h4>Respuesta a Zurdos anti-hispanismo del canal @Posdata_ar</h4></a>
-    
-    <a class="card" href="/videos/rituales-de-la-elite/"><div class="card-cover"><img src="https://i.ytimg.com/vi/WOxNJPDu7LM/hqdefault.jpg" alt="Miniatura: Rituales de la elite" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 01-08-2026</div><h4>Rituales de la elite</h4></a>
-    
-    <a class="card" href="/videos/milei-entrega-la-antartida-a-la-agenda-10-10-10/"><div class="card-cover"><img src="https://i.ytimg.com/vi/XLMOVKp4vZM/hqdefault.jpg" alt="Miniatura: Milei ENTREGA LA ANTARTIDA a la Agenda 10+10+10" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 31-07-2026</div><h4>Milei ENTREGA LA ANTARTIDA a la Agenda 10+10+10</h4></a>
-    
-    <a class="card" href="/videos/milei-y-kirchner-la-gran-estafa-al-pueblo-argentino/"><div class="card-cover"><img src="https://i.ytimg.com/vi/2pgiuNuthE4/hqdefault.jpg" alt="Miniatura: Milei y Kirchner - La gran estafa al pueblo argentino" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 30-07-2026</div><h4>Milei y Kirchner - La gran estafa al pueblo argentino</h4></a>
-    
-    <a class="card" href="/videos/estoicismo-en-profundidad-con-javier-perez-nieto/"><div class="card-cover"><img src="https://i.ytimg.com/vi/hWwx3uiUevM/hqdefault.jpg" alt="Miniatura: ESTOICISMO en Profundidad (Con Javier Perez Nieto)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 29-07-2026</div><h4>ESTOICISMO en Profundidad (Con Javier Perez Nieto)</h4></a>
-    
-    <a class="card" href="/videos/hispanidad-masoneria-protestantismo-y-leyenda-negra-etc-con/"><div class="card-cover"><img src="https://i.ytimg.com/vi/NhUce5h2_M0/hqdefault.jpg" alt="Miniatura: Hispanidad, Masoneria, protestantismo y Leyenda negra, etc, con Javier Perez Nieto" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 28-07-2026</div><h4>Hispanidad, Masoneria, protestantismo y Leyenda negra, etc, con Javier Perez Nieto</h4></a>
-    
-    <a class="card" href="/videos/gnosticismo-espiritualidad-falsa-trampa-satanica/"><div class="card-cover"><img src="https://i.ytimg.com/vi/nvU6oA5rgLk/hqdefault.jpg" alt="Miniatura: GNOSTICISMO - Espiritualidad falsa - TRAMPA SATANICA" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 26-07-2026</div><h4>GNOSTICISMO - Espiritualidad falsa - TRAMPA SATANICA</h4></a>
-    
-    <a class="card" href="/videos/hollywood-ataca-la-hispanidad-catolica/"><div class="card-cover"><img src="https://i.ytimg.com/vi/JpYR-NnEuvs/hqdefault.jpg" alt="Miniatura: HOLLYWOOD ataca la hispanidad catolica" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 25-07-2026</div><h4>HOLLYWOOD ataca la hispanidad catolica</h4></a>
-    
-    <a class="card" href="/videos/el-psicopata-creador-de-la-ideologia-libertaria-maximo-refer/"><div class="card-cover"><img src="https://i.ytimg.com/vi/BkRz6xZYlok/hqdefault.jpg" alt="Miniatura: El PSICOPATA creador de la ideologia Libertaria - Maximo referente de Milei" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 24-07-2026</div><h4>El PSICOPATA creador de la ideologia Libertaria - Maximo referente de Milei</h4></a>
-    
-    <a class="card" href="/videos/el-peligro-libertario/"><div class="card-cover"><img src="https://i.ytimg.com/vi/ymfn33lu6AE/hqdefault.jpg" alt="Miniatura: El Peligro Libertario" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 23-07-2026</div><h4>El Peligro Libertario</h4></a>
-    
-    <a class="card" href="/videos/el-himno-nacional-argentino-es-obra-de-la-masoneria/"><div class="card-cover"><img src="https://i.ytimg.com/vi/yx7uOOi4T98/hqdefault.jpg" alt="Miniatura: El himno nacional argentino es obra de la masoneria" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 21-07-2026</div><h4>El himno nacional argentino es obra de la masoneria</h4></a>
-    
-    <a class="card" href="/videos/elite-y-sociedades-secretas-en-argentina/"><div class="card-cover"><img src="https://i.ytimg.com/vi/yeUml3GrxP8/hqdefault.jpg" alt="Miniatura: Elite y sociedades secretas en Argentina" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-07-2026</div><h4>Elite y sociedades secretas en Argentina</h4></a>
-    
-    <a class="card" href="/videos/patricio-lons-aconseja-a-la-juventud/"><div class="card-cover"><img src="https://i.ytimg.com/vi/9-RwmwNA_Mo/hqdefault.jpg" alt="Miniatura: Patricio Lons aconseja a la juventud" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 19-07-2026</div><h4>Patricio Lons aconseja a la juventud</h4></a>
-    
-    <a class="card" href="/videos/el-gran-complot-masonico-de-la-independencias/"><div class="card-cover"><img src="https://i.ytimg.com/vi/VPw0vvQSGR8/hqdefault.jpg" alt="Miniatura: El Gran COMPLOT MASONICO de la &quot;Independencias&quot;" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 18-07-2026</div><h4>El Gran COMPLOT MASONICO de la &quot;Independencias&quot;</h4></a>
-    
-    <a class="card" href="/videos/ritual-cabalistico-de-milei-por-el-dia-666-de-su-gobierno/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: Ritual Cabalistico de Milei por el dia 666 de su gobierno" loading="lazy" data-platform-thumb="https://odysee.com/milei-ritual-satanico-666:9fc468eae7309fd19222b94458643b9751f2f4ae"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 17-07-2026</div><h4>Ritual Cabalistico de Milei por el dia 666 de su gobierno</h4></a>
-    
-    <a class="card" href="/videos/san-martin-era-judio/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: San Martin ERA JUDIO" loading="lazy" data-platform-thumb="https://odysee.com/San-martin-era-juden-3108645EA452_video:66a1745c36b35226a862cae197f1429c7e2c595b"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-07-2026</div><h4>San Martin ERA JUDIO</h4></a>
-    
-    <a class="card" href="/videos/javier-perez-nieto-inmigracion-integracion-o-fractura-social/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: Javier Perez Nieto - Inmigracion ┐integracion o fractura social?" loading="lazy" data-platform-thumb="https://odysee.com/Javier.Perez.Nieto.Hispanidad.Inmigracion:454fd850edfd658693e0d8b58d6d954819d78454"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 15-07-2026</div><h4>Javier Perez Nieto - Inmigracion ┐integracion o fractura social?</h4></a>
-    
-    <a class="card" href="/videos/iceberg-argentino-de-conspiraciones-actualizado-2024-2025-2/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024_2025" loading="lazy" data-platform-thumb="https://odysee.com/ICEBERG-Argentino-de-CONSPIRACIONES---Actualizado-2024_2025:8f5ed7449ead26f35412718bec7ef6b9793b89a9"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 14-07-2026</div><h4>ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024_2025</h4></a>
-    
-    <a class="card" href="/videos/la-muerte-no-es-el-final-marcha-hispana-catolica/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: La Muerte no es el Final (Marcha hispana catolica)" loading="lazy" data-platform-thumb="https://odysee.com/la-muerte-no-es-el-final-(marcha-hispana:1f0e53060e3ecaaeabcc439fe289abae46779e23"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-07-2026</div><h4>La Muerte no es el Final (Marcha hispana catolica)</h4></a>
-    
-    <a class="card" href="/videos/la-verdad-sobre-milei-y-la-nueva-derecha/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: La verdad sobre MILEI y &quot;LA NUEVA DERECHA&quot;" loading="lazy" data-platform-thumb="https://odysee.com/-la-verdad-sobre-milei-y-la-nueva:b44d0ca04fab33d046a5507fa6ba517f37cf8067"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 11-07-2026</div><h4>La verdad sobre MILEI y &quot;LA NUEVA DERECHA&quot;</h4></a>
-    
-    <a class="card" href="/videos/francia-racismo-y-leyenda-negra-anti-hispanica/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: Francia, Racismo y Leyenda Negra Anti-Hispanica" loading="lazy" data-platform-thumb="https://odysee.com/francia,-racismo-y-leyenda-negra-anti:2634313480cf106add14a5b61dd9ca1a9b0f464e"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 09-07-2026</div><h4>Francia, Racismo y Leyenda Negra Anti-Hispanica</h4></a>
-    
-    <a class="card" href="/videos/hollywood-influencindote-para-recibir-al-anticristo-y-adorar/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: Hollywood influencißndote para recibir al ANTICRISTO y adorar a LUCIFER" loading="lazy" data-platform-thumb="https://odysee.com/hollywood-influencißndote-para-recibir:d87a279d2cd1d18a4a5bee5bce777bb2456d148e"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 08-07-2026</div><h4>Hollywood influencißndote para recibir al ANTICRISTO y adorar a LUCIFER</h4></a>
-    
-    <a class="card" href="/videos/massa-el-titere-preferido-de-la-elite-globalista/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: MASSA el TITERE preferido de la ELITE GLOBALISTA" loading="lazy" data-platform-thumb="https://odysee.com/massa-el-titere-preferido-de-la-elite:b41ff4ed940777dd8ebce1d18b8ee68d36af5209"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 07-07-2026</div><h4>MASSA el TITERE preferido de la ELITE GLOBALISTA</h4></a>
-    
-    <a class="card" href="/videos/el-gran-complot-masonico-para-independizar-america-la-verdad/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: El GRAN COMPLOT MASONICO para &quot;Independizar&quot; America- La VERDAD sobre el CIPAYO San Martin" loading="lazy" data-platform-thumb="https://odysee.com/el-gran-complot-masonico-para:ae08aa28b9e73017fafc9e3be0f3b95708f0a947"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 06-07-2026</div><h4>El GRAN COMPLOT MASONICO para &quot;Independizar&quot; America- La VERDAD sobre el CIPAYO San Martin</h4></a>
-    
-    <a class="card" href="/videos/la-confiable-wikipedia/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: La confiable Wikipedia" loading="lazy" data-platform-thumb="https://odysee.com/la-confiable-wikipedia-:46c948791c1424860a0c3767495c50cf7c4f33f2"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 05-07-2026</div><h4>La confiable Wikipedia</h4></a>
-    
-    <a class="card" href="/videos/la-mentira-de-javier-milei/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: La MENTIRA de Javier Milei" loading="lazy" data-platform-thumb="https://odysee.com/la-mentira-de-javier-milei:05142ed296f9bedd08dd41bfa1a6d830187bb7d7"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 04-07-2026</div><h4>La MENTIRA de Javier Milei</h4></a>
-    
-    <a class="card" href="/videos/el-trasfondo-real-de-la-guerra-entre-rusia-y-ucrania/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: El Trasfondo REAL de la Guerra entre Rusia y Ucrania" loading="lazy" data-platform-thumb="https://odysee.com/el-trasfondo-real-de-la-guerra-entre:9b0a67cc7a0f52de79436b4aeca38847f090129e"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 03-07-2026</div><h4>El Trasfondo REAL de la Guerra entre Rusia y Ucrania</h4></a>
-    
-    <a class="card" href="/videos/a-10-aos-de-la-muerte-de-bin-laden/"><div class="card-cover"><img src="https://thumbnails.lbry.com/lPscwC7qj4o" alt="Miniatura: A 10 años de la Muerte de BIN LADEN" loading="lazy" data-platform-thumb="https://odysee.com/a-10-años-de-la-muerte-de-bin-laden:556a8bf2d8ec1e85201dd8b5d3f575dfdcac2367"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 19-06-2026</div><h4>A 10 años de la Muerte de BIN LADEN</h4></a>
     
     <a class="card" href="/videos/el-peligro-del-gnosticismo-with-javier-perez-nieto/"><div class="card-cover"><img src="https://i.ytimg.com/vi/QOLnLYNVyVQ/hqdefault.jpg" alt="Miniatura: El peligro del GNOSTICISMO - Con Javier Perez Nieto" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-06-2026</div><h4>El peligro del GNOSTICISMO - Con Javier Perez Nieto</h4></a>
     
     <a class="card" href="/videos/respuesta-a-lucas-carena/"><div class="card-cover"><img src="https://i.ytimg.com/vi/ZbkGCH4WCvA/hqdefault.jpg" alt="Miniatura: Respuesta a Lucas Carena" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 07-06-2026</div><h4>Respuesta a Lucas Carena</h4></a>
-    
-    <a class="card" href="/videos/cara-al-sol/"><div class="card-cover"><img src="https://thumbnails.lbry.com/7PhHzn8JTvc" alt="Miniatura: Cara al Sol" loading="lazy" data-platform-thumb="https://odysee.com/cara-al-sol-:6ddfb6f6d66ac25f4fec601c08bfa870f425470a"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 03-06-2026</div><h4>Cara al Sol</h4></a>
     
     <a class="card" href="/videos/desclasificacion-ovni-javier-perez-nieto/"><div class="card-cover"><img src="https://i.ytimg.com/vi/PVTuM9Kn6x0/hqdefault.jpg" alt="Miniatura: Desclasificacion OVNI - Javier Perez Nieto" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 26-05-2026</div><h4>Desclasificacion OVNI - Javier Perez Nieto</h4></a>
     
@@ -1761,17 +2018,107 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     
     <a class="card" href="/videos/masones-celebran-300-anos-de-conspiraciones/"><div class="card-cover"><img src="https://i.ytimg.com/vi/PygoK-tStjk/hqdefault.jpg" alt="Miniatura: Masones celebran 300 años de conspiraciones" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 22-02-2026</div><h4>Masones celebran 300 años de conspiraciones</h4></a>
     
+    <a class="card" href="/videos/quien-incendia-la-patagonia-cada-ano/"><div class="card-cover"><img src="https://i.ytimg.com/vi/zzmiz9SZRsw/hqdefault.jpg" alt="Miniatura: Quien incendia la patagonia cada año?" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 09-01-2026</div><h4>Quien incendia la patagonia cada año?</h4></a>
+    
+    <a class="card" href="/videos/el-plan-tecnato-americano/"><div class="card-cover"><img src="https://i.ytimg.com/vi/go0Z4mCkhJQ/hqdefault.jpg" alt="Miniatura: El plan Tecnato Americano" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 06-01-2026</div><h4>El plan Tecnato Americano</h4></a>
+    
+    <a class="card" href="/videos/la-nueva-derecha-dividida-por-milei/"><div class="card-cover"><img src="https://i.ytimg.com/vi/jK-WW3TnLmA/hqdefault.jpg" alt="Miniatura: La &quot;nueva derecha&quot; dividida por Milei" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 03-12-2025</div><h4>La &quot;nueva derecha&quot; dividida por Milei</h4></a>
+    
+    <a class="card" href="/videos/peron-fue-mason/"><div class="card-cover"><img src="https://i.ytimg.com/vi/X5qzs3PXtiM/hqdefault.jpg" alt="Miniatura: Peron fue mason" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 19-11-2025</div><h4>Peron fue mason</h4></a>
+    
+    <a class="card" href="/videos/circo-democratico-el-peronismo-murio/"><div class="card-cover"><img src="https://i.ytimg.com/vi/Q8cEQOW4tS8/hqdefault.jpg" alt="Miniatura: Circo democratico - EL PERONISMO MURIO" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 27-10-2025</div><h4>Circo democratico - EL PERONISMO MURIO</h4></a>
+    
+    <a class="card" href="/videos/ritual-cabalistico-de-milei-por-el-dia-666-de-su-gobierno/"><div class="card-cover"><img src="https://thumbs.odycdn.com/4d95821f929fad75c561c702ff545cba.webp" alt="Miniatura: Ritual Cabalistico de Milei por el dia 666 de su gobierno" loading="lazy" data-platform-thumb="https://odysee.com/milei-ritual-satanico-666:9fc468eae7309fd19222b94458643b9751f2f4ae"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-10-2025</div><h4>Ritual Cabalistico de Milei por el dia 666 de su gobierno</h4></a>
+    
+    <a class="card" href="/videos/respuesta-a-liberal-fan-de-san-martin/"><div class="card-cover"><img src="https://i.ytimg.com/vi/xERWpKiIYDo/hqdefault.jpg" alt="Miniatura: Respuesta a liberal fan de san martin" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-08-2025</div><h4>Respuesta a liberal fan de san martin</h4></a>
+    
+    <a class="card" href="/videos/san-martin-era-judio/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: San Martin ERA JUDIO" loading="lazy" data-platform-thumb="https://odysee.com/San-martin-era-juden-3108645EA452_video:66a1745c36b35226a862cae197f1429c7e2c595b"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 06-08-2025</div><h4>San Martin ERA JUDIO</h4></a>
+    
+    <a class="card" href="/videos/pensar-en-ingles-colonialismo-mental-anglosajon-y-liberalism/"><div class="card-cover"><img src="https://i.ytimg.com/vi/9eZhS4R_b0Q/hqdefault.jpg" alt="Miniatura: Pensar en ingles - COLONIALISMO mental anglosajon y LIBERALISMO | Con Javier Perez Nieto" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 17-04-2025</div><h4>Pensar en ingles - COLONIALISMO mental anglosajon y LIBERALISMO | Con Javier Perez Nieto</h4></a>
+    
+    <a class="card" href="/videos/san-martin-libertraidor/"><div class="card-cover"><img src="https://i.ytimg.com/vi/VjEbpJlYZl4/hqdefault.jpg" alt="Miniatura: &#39;San&#39; Martin LiberTraidor" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 06-04-2025</div><h4>&#39;San&#39; Martin LiberTraidor</h4></a>
+    
+    <a class="card" href="/videos/immigracion-del-malthusianismo-al-gnosticismo-with-javier-pe/"><div class="card-cover"><img src="https://i.ytimg.com/vi/1-cKbfZyocg/hqdefault.jpg" alt="Miniatura: Immigracion: Del Malthusianismo al gnosticismo (with Javier Perez Nieto)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 30-03-2025</div><h4>Immigracion: Del Malthusianismo al gnosticismo (with Javier Perez Nieto)</h4></a>
+    
+    <a class="card" href="/videos/la-batalla-cultural-frente-a-la-causa-palestina/"><div class="card-cover"><img src="https://i.ytimg.com/vi/UL0RKmhIBJ0/hqdefault.jpg" alt="Miniatura: La &quot;batalla cultural&quot; frente a la causa Palestina" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 27-03-2025</div><h4>La &quot;batalla cultural&quot; frente a la causa Palestina</h4></a>
+    
     <a class="card" href="/videos/mile-sionista-cancion/"><div class="card-cover"><img src="https://i.ytimg.com/vi/9EYqKp2xIW4/hqdefault.jpg" alt="Miniatura: Milei peon del Sionismo - cancion ia" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-03-2025</div><h4>Milei peon del Sionismo - cancion ia</h4></a>
+    
+    <a class="card" href="/videos/san-martin-era-mason-aunque-manipuladores-intenten-negarlo/"><div class="card-cover"><img src="https://i.ytimg.com/vi/YDw64KutWiA/hqdefault.jpg" alt="Miniatura: San Martin ERA MASON  Aunque MANIPULADORES intenten negarlo" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 10-03-2025</div><h4>San Martin ERA MASON  Aunque MANIPULADORES intenten negarlo</h4></a>
+    
+    <a class="card" href="/videos/los-hilos-de-las-logias-cancion-ia/"><div class="card-cover"><img src="https://i.ytimg.com/vi/gptB62yzVmA/hqdefault.jpg" alt="Miniatura: Los hilos de las Logias - Cancion (IA)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-02-2025</div><h4>Los hilos de las Logias - Cancion (IA)</h4></a>
+    
+    <a class="card" href="/videos/javier-milei-y-la-estafa-crypto-de-libra/"><div class="card-cover"><img src="https://i.ytimg.com/vi/gZmBMRZVXFA/hqdefault.jpg" alt="Miniatura: Javier Milei y la estafa crypto de Libra" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 15-02-2025</div><h4>Javier Milei y la estafa crypto de Libra</h4></a>
+    
+    <a class="card" href="/videos/javier-perez-nieto-inmigracion-integracion-o-fractura-social/"><div class="card-cover"><img src="https://thumbs.odycdn.com/dc586fa02cb0ada27034fa635058ecac.webp" alt="Miniatura: Javier Perez Nieto - Inmigracion ┐integracion o fractura social?" loading="lazy" data-platform-thumb="https://odysee.com/Javier.Perez.Nieto.Hispanidad.Inmigracion:454fd850edfd658693e0d8b58d6d954819d78454"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 10-02-2025</div><h4>Javier Perez Nieto - Inmigracion ┐integracion o fractura social?</h4></a>
+    
+    <a class="card" href="/videos/libertarios-profundamente-ignorantes/"><div class="card-cover"><img src="https://i.ytimg.com/vi/LoupEjkLOVE/hqdefault.jpg" alt="Miniatura: Libertarios profundamente ignorantes" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 30-01-2025</div><h4>Libertarios profundamente ignorantes</h4></a>
+    
+    <a class="card" href="/videos/iceberg-argentino-de-conspiraciones-actualizado-2024-2025-2/"><div class="card-cover"><img src="https://thumbs.odycdn.com/b387710824c5f2375f2f89b94036085a.webp" alt="Miniatura: ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024_2025" loading="lazy" data-platform-thumb="https://odysee.com/ICEBERG-Argentino-de-CONSPIRACIONES---Actualizado-2024_2025:8f5ed7449ead26f35412718bec7ef6b9793b89a9"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 04-12-2024</div><h4>ICEBERG Argentino de CONSPIRACIONES - Actualizado 2024_2025</h4></a>
+    
+    <a class="card" href="/videos/esoterismo-y-artes-marciales-infiltracion-espiritual-new-age/"><div class="card-cover"><img src="https://i.ytimg.com/vi/DdZSRvueZRk/hqdefault.jpg" alt="Miniatura: Esoterismo y Artes Marciales - Infiltracion espiritual New age Anti-Cristiana" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 24-11-2024</div><h4>Esoterismo y Artes Marciales - Infiltracion espiritual New age Anti-Cristiana</h4></a>
+    
+    <a class="card" href="/videos/peron-y-la-hispanidad-discurso-epico/"><div class="card-cover"><img src="https://i.ytimg.com/vi/RPe6aXBbznA/hqdefault.jpg" alt="Miniatura: Peron y la hispanidad - discurso epico" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-11-2024</div><h4>Peron y la hispanidad - discurso epico</h4></a>
+    
+    <a class="card" href="/videos/doctrina-social-de-la-iglesia-explicada-para-libertarios-y-z/"><div class="card-cover"><img src="https://i.ytimg.com/vi/EQu2p3eRTto/hqdefault.jpg" alt="Miniatura: Doctrina Social de la Iglesia explicada para libertarios y zoocialistas" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 24-09-2024</div><h4>Doctrina Social de la Iglesia explicada para libertarios y zoocialistas</h4></a>
+    
+    <a class="card" href="/videos/el-judio-que-financio-a-san-martin/"><div class="card-cover"><img src="https://i.ytimg.com/vi/0krIoI5ITTE/hqdefault.jpg" alt="Miniatura: El JUDIO que financio a SAN MARTIN" loading="lazy" data-platform-thumb="https://odysee.com/@SoFirMolo:87/San.Martin.Judio:c"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-09-2024</div><h4>El JUDIO que financio a SAN MARTIN</h4></a>
+    
+    <a class="card" href="/videos/el-cura-ravasi-y-su-defensa-fanatica-de-criminales-y-la-dere/"><div class="card-cover"><img src="https://i.ytimg.com/vi/lxjc2l2uHdc/hqdefault.jpg" alt="Miniatura: El cura Ravasi y su defensa fanatica de criminales y La Derecha" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 26-08-2024</div><h4>El cura Ravasi y su defensa fanatica de criminales y La Derecha</h4></a>
+    
+    <a class="card" href="/videos/el-nacionalismo-argentino-esta-mal/"><div class="card-cover"><img src="https://i.ytimg.com/vi/gF1aoCmDhZU/hqdefault.jpg" alt="Miniatura: El Nacionalismo argentino ESTA MAL" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-06-2024</div><h4>El Nacionalismo argentino ESTA MAL</h4></a>
+    
+    <a class="card" href="/videos/respuesta-a-zurdos-anti-hispanismo-del-canal-posdata-ar/"><div class="card-cover"><img src="https://i.ytimg.com/vi/Q_lJgQmC0JU/hqdefault.jpg" alt="Miniatura: Respuesta a Zurdos anti-hispanismo del canal @Posdata_ar" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 11-02-2024</div><h4>Respuesta a Zurdos anti-hispanismo del canal @Posdata_ar</h4></a>
+    
+    <a class="card" href="/videos/milei-entrega-la-antartida-a-la-agenda-10-10-10/"><div class="card-cover"><img src="https://i.ytimg.com/vi/XLMOVKp4vZM/hqdefault.jpg" alt="Miniatura: Milei ENTREGA LA ANTARTIDA a la Agenda 10+10+10" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 07-01-2024</div><h4>Milei ENTREGA LA ANTARTIDA a la Agenda 10+10+10</h4></a>
+    
+    <a class="card" href="/videos/milei-y-kirchner-la-gran-estafa-al-pueblo-argentino/"><div class="card-cover"><img src="https://i.ytimg.com/vi/2pgiuNuthE4/hqdefault.jpg" alt="Miniatura: Milei y Kirchner - La gran estafa al pueblo argentino" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 27-12-2023</div><h4>Milei y Kirchner - La gran estafa al pueblo argentino</h4></a>
+    
+    <a class="card" href="/videos/el-himno-nacional-argentino-es-obra-de-la-masoneria/"><div class="card-cover"><img src="https://i.ytimg.com/vi/yx7uOOi4T98/hqdefault.jpg" alt="Miniatura: El himno nacional argentino es obra de la masoneria" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-12-2023</div><h4>El himno nacional argentino es obra de la masoneria</h4></a>
+    
+    <a class="card" href="/videos/estoicismo-en-profundidad-con-javier-perez-nieto/"><div class="card-cover"><img src="https://i.ytimg.com/vi/hWwx3uiUevM/hqdefault.jpg" alt="Miniatura: ESTOICISMO en Profundidad (Con Javier Perez Nieto)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-12-2023</div><h4>ESTOICISMO en Profundidad (Con Javier Perez Nieto)</h4></a>
+    
+    <a class="card" href="/videos/gnosticismo-espiritualidad-falsa-trampa-satanica/"><div class="card-cover"><img src="https://i.ytimg.com/vi/nvU6oA5rgLk/hqdefault.jpg" alt="Miniatura: GNOSTICISMO - Espiritualidad falsa - TRAMPA SATANICA" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-12-2023</div><h4>GNOSTICISMO - Espiritualidad falsa - TRAMPA SATANICA</h4></a>
     
     <a class="card" href="/videos/asumio-el-nuevo-titere-de-la-elite/"><div class="card-cover"><img src="https://thumbnails.lbry.com/3-GqOBOs_aY" alt="Miniatura: Asumio el nuevo titere de la Elite" loading="lazy" data-platform-thumb="https://odysee.com/asumio-el-nuevo-titere-de-la-elite:37cfe16f98954e7041cb7a1f0b22db6e22b62794"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 11-12-2023</div><h4>Asumio el nuevo titere de la Elite</h4></a>
     
+    <a class="card" href="/videos/el-psicopata-creador-de-la-ideologia-libertaria-maximo-refer/"><div class="card-cover"><img src="https://i.ytimg.com/vi/BkRz6xZYlok/hqdefault.jpg" alt="Miniatura: El PSICOPATA creador de la ideologia Libertaria - Maximo referente de Milei" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 23-09-2023</div><h4>El PSICOPATA creador de la ideologia Libertaria - Maximo referente de Milei</h4></a>
+    
     <a class="card" href="/videos/catolicismo-vs-liberalismo-milei-domado-por-una-adolescente/"><div class="card-cover"><img src="https://thumbnails.lbry.com/BoDfJO8Ubdo" alt="Miniatura: Catolicismo vs Liberalismo - Milei DOMADO por una adolescente" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-08-2023</div><h4>Catolicismo vs Liberalismo - Milei DOMADO por una adolescente</h4></a>
+    
+    <a class="card" href="/videos/el-peligro-libertario/"><div class="card-cover"><img src="https://i.ytimg.com/vi/ymfn33lu6AE/hqdefault.jpg" alt="Miniatura: El Peligro Libertario" loading="lazy" data-platform-thumb="https://odysee.com/@SoFirMolo:87/triunfo-de-milei-el-peligro-de-la:5"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-08-2023</div><h4>El Peligro Libertario</h4></a>
+    
+    <a class="card" href="/videos/la-muerte-no-es-el-final-marcha-hispana-catolica/"><div class="card-cover"><img src="https://thumbnails.lbry.com/a47LzziFnms" alt="Miniatura: La Muerte no es el Final (Marcha hispana catolica)" loading="lazy" data-platform-thumb="https://odysee.com/la-muerte-no-es-el-final-(marcha-hispana:1f0e53060e3ecaaeabcc439fe289abae46779e23"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 08-08-2023</div><h4>La Muerte no es el Final (Marcha hispana catolica)</h4></a>
+    
+    <a class="card" href="/videos/hollywood-ataca-la-hispanidad-catolica/"><div class="card-cover"><img src="https://i.ytimg.com/vi/JpYR-NnEuvs/hqdefault.jpg" alt="Miniatura: HOLLYWOOD ataca la hispanidad catolica" loading="lazy" data-platform-thumb="https://odysee.com/@SoFirMolo:87/hollywood-ataca-a-la-hispanidad-catolica:b"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 09-07-2023</div><h4>HOLLYWOOD ataca la hispanidad catolica</h4></a>
     
     <a class="card" href="/videos/afroamericanos-enfrentan-a-judios/"><div class="card-cover"><img src="https://thumbs.odycdn.com/6de433e3778b64b4206c0b628b44ef54.webp" alt="Miniatura: Negros doman a Judios racistas" loading="lazy" data-platform-thumb="https://odysee.com/negrosdomanjudio:6a427241b21667d24cf95dbe38df55f3c36fdd87"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 19-05-2023</div><h4>Negros doman a Judios racistas</h4></a>
     
+    <a class="card" href="/videos/la-verdad-sobre-milei-y-la-nueva-derecha/"><div class="card-cover"><img src="https://thumbnails.lbry.com/jUHhgWxqI98" alt="Miniatura: La verdad sobre MILEI y &quot;LA NUEVA DERECHA&quot;" loading="lazy" data-platform-thumb="https://odysee.com/-la-verdad-sobre-milei-y-la-nueva:b44d0ca04fab33d046a5507fa6ba517f37cf8067"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 29-04-2023</div><h4>La verdad sobre MILEI y &quot;LA NUEVA DERECHA&quot;</h4></a>
+    
     <a class="card" href="/videos/analisis-de-el-elegido-novela-masonica/"><div class="card-cover"><img src="https://thumbs.odycdn.com/3ab59668f14bec9c12712ab50382944b.webp" alt="Miniatura: Analisis de EL ELEGIDO novela Masonica" loading="lazy" data-platform-thumb="https://odysee.com/Analisis-de-EL-ELEGIDO-novela-Masonica:020cf14f463f61dbfca01f47a46660e43b6001b8"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 04-03-2023</div><h4>Analisis de EL ELEGIDO novela Masonica</h4></a>
     
+    <a class="card" href="/videos/francia-racismo-y-leyenda-negra-anti-hispanica/"><div class="card-cover"><img src="https://thumbnails.lbry.com/XR_x85Udqy4" alt="Miniatura: Francia, Racismo y Leyenda Negra Anti-Hispanica" loading="lazy" data-platform-thumb="https://odysee.com/francia,-racismo-y-leyenda-negra-anti:2634313480cf106add14a5b61dd9ca1a9b0f464e"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 28-12-2022</div><h4>Francia, Racismo y Leyenda Negra Anti-Hispanica</h4></a>
+    
+    <a class="card" href="/videos/hollywood-influencindote-para-recibir-al-anticristo-y-adorar/"><div class="card-cover"><img src="https://thumbnails.lbry.com/IZWzBIK4y5E" alt="Miniatura: Hollywood influenciandote para recibir al ANTICRISTO y adorar a LUCIFER" loading="lazy" data-platform-thumb="https://odysee.com/hollywood-influencißndote-para-recibir:d87a279d2cd1d18a4a5bee5bce777bb2456d148e"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-10-2022</div><h4>Hollywood influenciandote para recibir al ANTICRISTO y adorar a LUCIFER</h4></a>
+    
     <a class="card" href="/videos/budismo-filosofia-de-paz-con-javier-perez-nieto/"><div class="card-cover"><img src="https://i9.ytimg.com/vi_webp/_JBK_jbD4DA/maxresdefault.webp?v=657cde12&amp;sqp=COCsmNUG&amp;rs=AOn4CLBI1J5ZE9VY1KSb3adngxZVtopq2g" alt="Miniatura: Budismo ¿Filosofia de paz? (con Javier Perez Nieto)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-09-2022</div><h4>Budismo ¿Filosofia de paz? (con Javier Perez Nieto)</h4></a>
+    
+    <a class="card" href="/videos/massa-el-titere-preferido-de-la-elite-globalista/"><div class="card-cover"><img src="/assets/thumbs/odysee.svg" alt="Miniatura: MASSA el TITERE preferido de la ELITE GLOBALISTA" loading="lazy" data-platform-thumb="https://odysee.com/massa-el-titere-preferido-de-la-elite:b41ff4ed940777dd8ebce1d18b8ee68d36af5209"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 12-08-2022</div><h4>MASSA el TITERE preferido de la ELITE GLOBALISTA</h4></a>
+    
+    <a class="card" href="/videos/patricio-lons-aconseja-a-la-juventud/"><div class="card-cover"><img src="https://i.ytimg.com/vi/9-RwmwNA_Mo/hqdefault.jpg" alt="Miniatura: Patricio Lons aconseja a la juventud" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 19-06-2022</div><h4>Patricio Lons aconseja a la juventud</h4></a>
+    
+    <a class="card" href="/videos/el-gran-complot-masonico-para-independizar-america-la-verdad/"><div class="card-cover"><img src="https://i.ytimg.com/vi/VPw0vvQSGR8/hqdefault.jpg" alt="Miniatura: El GRAN COMPLOT MASONICO para &quot;Independizar&quot; America- La VERDAD sobre el CIPAYO San Martin" loading="lazy" data-platform-thumb="https://odysee.com/el-gran-complot-masonico-para:ae08aa28b9e73017fafc9e3be0f3b95708f0a947"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 03-06-2022</div><h4>El GRAN COMPLOT MASONICO para &quot;Independizar&quot; America- La VERDAD sobre el CIPAYO San Martin</h4></a>
+    
+    <a class="card" href="/videos/economia-hispanica-de-la-escuela-de-la-salamanca-vs-el-siste/"><div class="card-cover"><img src="https://i.ytimg.com/vi/7jalUilgtcc/hqdefault.jpg" alt="Miniatura: Economia hispanica de la escuela de la Salamanca vs El sistema usurero" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-05-2022</div><h4>Economia hispanica de la escuela de la Salamanca vs El sistema usurero</h4></a>
+    
+    <a class="card" href="/videos/la-mentira-del-milagro-economico-aleman-nacional-socialista/"><div class="card-cover"><img src="https://i.ytimg.com/vi/jOAy1lK3Th4/hqdefault.jpg" alt="Miniatura: La MENTIRA del &quot;milagro economico&quot; aleman Nacional-Socialista (por Javier Perez Nieto)" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 18-05-2022</div><h4>La MENTIRA del &quot;milagro economico&quot; aleman Nacional-Socialista (por Javier Perez Nieto)</h4></a>
+    
+    <a class="card" href="/videos/la-confiable-wikipedia/"><div class="card-cover"><img src="https://thumbnails.lbry.com/VnmyCD0ZMq8" alt="Miniatura: La confiable Wikipedia" loading="lazy" data-platform-thumb="https://odysee.com/la-confiable-wikipedia-:46c948791c1424860a0c3767495c50cf7c4f33f2"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 02-05-2022</div><h4>La confiable Wikipedia</h4></a>
+    
+    <a class="card" href="/videos/la-mentira-de-javier-milei/"><div class="card-cover"><img src="https://thumbnails.lbry.com/Isi5RECQ2iE" alt="Miniatura: La MENTIRA de Javier Milei" loading="lazy" data-platform-thumb="https://odysee.com/la-mentira-de-javier-milei:05142ed296f9bedd08dd41bfa1a6d830187bb7d7"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 18-04-2022</div><h4>La MENTIRA de Javier Milei</h4></a>
+    
+    <a class="card" href="/videos/el-trasfondo-real-de-la-guerra-entre-rusia-y-ucrania/"><div class="card-cover"><img src="https://thumbnails.lbry.com/qc_IMDjbraA" alt="Miniatura: El Trasfondo REAL de la Guerra entre Rusia y Ucrania" loading="lazy" data-platform-thumb="https://odysee.com/el-trasfondo-real-de-la-guerra-entre:9b0a67cc7a0f52de79436b4aeca38847f090129e"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 27-02-2022</div><h4>El Trasfondo REAL de la Guerra entre Rusia y Ucrania</h4></a>
     
     <a class="card" href="/videos/charla-con-chinda-brandolino-sobre-malthusianismo-eugenesia/"><div class="card-cover"><img src="https://thumbnails.lbry.com/BWO68Aiy4g4" alt="Miniatura: Charla con CHINDA BRANDOLINO sobre Malthusianismo, eugenesia, control demografico" loading="lazy" data-platform-thumb="https://odysee.com/charla-con-chinda-brandolino-sobre:08b4c67d403e976e6027ec05d888a5bb88573e18"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 08-02-2022</div><h4>Charla con CHINDA BRANDOLINO sobre Malthusianismo, eugenesia, control demografico</h4></a>
     
@@ -1793,9 +2140,13 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     
     <a class="card" href="/videos/progresismo-en-6-minutos-video-censurado/"><div class="card-cover"><img src="https://thumbnails.lbry.com/IkOXbB3q2Yo" alt="Miniatura: PROGRESISMO en 6 Minutos (Video censurado )" loading="lazy" data-platform-thumb="https://odysee.com/progresismo-en-6-minutos-(video:d0f0736377143512c6f31f0f02b4aa6b70ae13b7"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 19-08-2021</div><h4>PROGRESISMO en 6 Minutos (Video censurado )</h4></a>
     
+    <a class="card" href="/videos/hispanidad-masoneria-protestantismo-y-leyenda-negra-etc-con/"><div class="card-cover"><img src="https://i.ytimg.com/vi/NhUce5h2_M0/hqdefault.jpg" alt="Miniatura: Hispanidad, Masoneria, protestantismo y Leyenda negra, etc, con Javier Perez Nieto" loading="lazy"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 24-07-2021</div><h4>Hispanidad, Masoneria, protestantismo y Leyenda negra, etc, con Javier Perez Nieto</h4></a>
+    
     <a class="card" href="/videos/feminismo-satanico/"><div class="card-cover"><img src="https://thumbnails.lbry.com/c7jF2Nyo2kY" alt="Miniatura: Feminismo Satanico" loading="lazy" data-platform-thumb="https://odysee.com/feminismo-satanico:d6294849ad7f8e24b8c9945d6d68de21dc4749dc"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 25-06-2021</div><h4>Feminismo Satanico</h4></a>
     
     <a class="card" href="/videos/la-historia-de-la-opresion-en-palestina-lord-rothschild-da-l/"><div class="card-cover"><img src="https://thumbnails.lbry.com/O-Fb1yErwuM" alt="Miniatura: La historia de la opreSION en Palestina + Lord Rothschild da la cara" loading="lazy" data-platform-thumb="https://odysee.com/la-historia-de-la-opresion-en-palestina:89d9a0b6377c3c616d691e6f7d1437fa75cec587"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 21-05-2021</div><h4>La historia de la opreSION en Palestina + Lord Rothschild da la cara</h4></a>
+    
+    <a class="card" href="/videos/a-10-aos-de-la-muerte-de-bin-laden/"><div class="card-cover"><img src="https://thumbnails.lbry.com/lPscwC7qj4o" alt="Miniatura: A 10 años de la Muerte de BIN LADEN" loading="lazy" data-platform-thumb="https://odysee.com/a-10-años-de-la-muerte-de-bin-laden:556a8bf2d8ec1e85201dd8b5d3f575dfdcac2367"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 10-05-2021</div><h4>A 10 años de la Muerte de BIN LADEN</h4></a>
     
     <a class="card" href="/videos/isabel-i-de-castilla-la-sublime-reina-de-la-hispanidad/"><div class="card-cover"><img src="https://thumbnails.lbry.com/BVof-Yj5uGg" alt="Miniatura: Isabel I de Castilla, la SUBLIME Reina de la Hispanidad" loading="lazy" data-platform-thumb="https://odysee.com/isabel-i-de-castilla,-la-sublime-reina:aa8cb92ca6858678cd7d31c88c1790c5fe6f63f2"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 04-05-2021</div><h4>Isabel I de Castilla, la SUBLIME Reina de la Hispanidad</h4></a>
     
@@ -1831,6 +2182,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     
     <a class="card" href="/videos/la-gran-conspiracion-anti-cristiana-gnosticismo-luciferiano/"><div class="card-cover"><img src="https://thumbnails.lbry.com/TJ231sEKL4k" alt="Miniatura: La Gran Conspiracion Anti-Cristiana - Gnosticismo Luciferiano Hiperboreo" loading="lazy" data-platform-thumb="https://odysee.com/la-gran-conspiracion-anti-cristiana:62520ac08f9bc1de9ed22cabc3fd8a6e517c60ac"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 29-07-2020</div><h4>La Gran Conspiracion Anti-Cristiana - Gnosticismo Luciferiano Hiperboreo</h4></a>
     
+    <a class="card" href="/videos/cara-al-sol/"><div class="card-cover"><img src="https://thumbnails.lbry.com/7PhHzn8JTvc" alt="Miniatura: Cara al Sol" loading="lazy" data-platform-thumb="https://odysee.com/cara-al-sol-:6ddfb6f6d66ac25f4fec601c08bfa870f425470a"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 26-07-2020</div><h4>Cara al Sol</h4></a>
+    
     <a class="card" href="/videos/respuesta-a-liberales-vendepatria-pro-masoneria/"><div class="card-cover"><img src="https://thumbnails.lbry.com/1FDRGKmIDHs" alt="Miniatura: Respuesta a Liberales vendepatria Pro-Masoneria" loading="lazy" data-platform-thumb="https://odysee.com/respuesta-a-liberales-vendepatria-pro:02b0b840c506961863e81301e709736f26f240b5"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-06-2020</div><h4>Respuesta a Liberales vendepatria Pro-Masoneria</h4></a>
     
     <a class="card" href="/videos/historia-gauchos-judios/"><div class="card-cover"><img src="https://static-3.bitchute.com/live/cover_images/0zjjPw4b2uyK/O6SorG5cGXbM_640x360.jpg" alt="Miniatura: Historia de los gauchos judios" loading="lazy" data-platform-thumb="https://odysee.com/judios:d6f26c3ae1e97e05e21a5b92921cbdac6de39137"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 30-05-2020</div><h4>Historia de los gauchos judios</h4></a>
@@ -1861,7 +2214,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     
     <a class="card" href="/videos/victimizacion-judia-argentina/"><div class="card-cover"><img src="https://spee.ch/c/54207aac4a224f89.jpg" alt="Miniatura: Victimizacion de JUDIOS en la television argentina" loading="lazy" data-platform-thumb="https://odysee.com/Judios-en-la-tv-argentina:1e8f5d2e2bd2cf8b3e343b9ff44a4f0b713c3db2"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 16-08-2017</div><h4>Victimizacion de JUDIOS en la television argentina</h4></a>
     
-    <a class="card" href="/videos/elite-y-sociedades-secretas-en-argentina-2/"><div class="card-cover"><img src="https://thumbnails.lbry.com/irJFlbNjCeA" alt="Miniatura: ELITE Y SOCIEDADES SECRETAS en Argentina" loading="lazy" data-platform-thumb="https://odysee.com/elite-y-sociedades-secretas-en-argentina:0cb2658d67ced100c5be3f4241e1105a9b7e0877"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 27-12-2016</div><h4>ELITE Y SOCIEDADES SECRETAS en Argentina</h4></a>
+    <a class="card" href="/videos/elite-y-sociedades-secretas-en-argentina-2/"><div class="card-cover"><img src="https://thumbnails.lbry.com/irJFlbNjCeA" alt="Miniatura: ELITE Y SOCIEDADES SECRETAS en Argentina" loading="lazy" data-platform-thumb="https://odysee.com/elite-y-sociedades-secretas-en-argentina:0cb2658d67ced100c5be3f4241e1105a9b7e0877"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 27-01-2016</div><h4>ELITE Y SOCIEDADES SECRETAS en Argentina</h4></a>
     
     <a class="card" href="/videos/macri-titere-sionista/"><div class="card-cover"><img src="https://static-3.bitchute.com/live/cover_images/0zjjPw4b2uyK/kC2ee2hHJqjt1zAXE8m9ts7C_1280x720.jpg" alt="Miniatura: Macri titere sionista" loading="lazy" data-platform-thumb="https://www.bitchute.com/video/p2F3wXWcyWMF"><span class="thumb-shade"></span><span class="ctr-play-btn ctr-play-btn-sm"></span></div><div class="meta">ARCHIVO AUDIOVISUAL · 20-06-2015</div><h4>Macri titere sionista</h4></a>
     
@@ -1956,6 +2309,49 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
 <script>
 (() => {
+
+  /* =========================================================
+     LAYOUT MÓVIL — PORTADA PRIMERO
+     En <=700px mueve el bloque de navegación/mapa justo
+     debajo de la portada. Al volver a escritorio lo devuelve
+     a su lugar original, sin duplicar elementos ni IDs.
+     ========================================================= */
+  (() => {
+    const rail = document.querySelector('.left-rail');
+    const windowBox = document.querySelector('.window-container');
+    const hero = windowBox?.querySelector('.hero-cover');
+
+    if (!rail || !windowBox || !hero) return;
+
+    const originalParent = rail.parentNode;
+    const originalMarker = document.createComment('sofirmolo-left-rail-origin');
+    originalParent.insertBefore(originalMarker, rail);
+
+    const mobileQuery = window.matchMedia('(max-width: 700px)');
+
+    const applyMobileLayout = () => {
+      if (mobileQuery.matches) {
+        if (hero.nextElementSibling !== rail) {
+          hero.insertAdjacentElement('afterend', rail);
+        }
+        document.body.classList.add('sf-mobile-layout');
+      } else {
+        if (rail.parentNode !== originalParent || originalMarker.nextSibling !== rail) {
+          originalParent.insertBefore(rail, originalMarker.nextSibling);
+        }
+        document.body.classList.remove('sf-mobile-layout');
+      }
+    };
+
+    applyMobileLayout();
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', applyMobileLayout);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(applyMobileLayout);
+    }
+  })();
+
   // Buscador del sitio
   (function () {
     const openBtn = document.getElementById('openSearchBtn');
@@ -2478,27 +2874,90 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     requestAnimationFrame(draw);
   }
 
-  // LOFI Cassette Player
+  // LOFI Cassette Player — playlist publica administrada desde Sveltia.
+  // El visitante puede reproducir, pausar, avanzar, retroceder y silenciar,
+  // pero NO puede cargar archivos desde el navegador.
   const audio = document.getElementById('lofiAudio');
   const play = document.getElementById('lofiPlay');
   const stop = document.getElementById('lofiStop');
   const mute = document.getElementById('lofiMute');
-  const file = document.getElementById('lofiFile');
+  const prev = document.getElementById('lofiPrev');
+  const next = document.getElementById('lofiNext');
   const seekTrack = document.getElementById('lofiProgressTrack');
   const seekFill = document.getElementById('lofiProgressFill');
   const seekHandle = document.getElementById('lofiProgressHandle');
-  let isSeeking = false;
   const status = document.getElementById('lofiStatus');
   const time = document.getElementById('lofiTime');
+  const pos = document.getElementById('lofiTrackPos');
   const player = document.querySelector('.lofi-player');
+  const playlistNode = document.getElementById('lofiPlaylist');
+  let isSeeking = false;
+  let currentTrack = 0;
+  const repeatPlaylist = true;
+  let playlist = [];
+
+  try {
+    const rawPlaylist = JSON.parse(playlistNode?.textContent || '[]');
+    playlist = (Array.isArray(rawPlaylist) ? rawPlaylist : [])
+      .map((track, index) => ({
+        title: String(track?.titulo || track?.title || `PISTA ${index + 1}`),
+        src: String(track?.archivo || track?.file || ''),
+        enabled: track?.activo !== false && track?.enabled !== false
+      }))
+      .filter(track => track.enabled && track.src);
+  } catch (_) {
+    playlist = [];
+  }
 
   if (audio && play) {
+    function setSeekVisual(pct) {
+      const safe = Math.max(0, Math.min(100, Number(pct) || 0));
+      seekFill.style.width = safe + '%';
+      seekHandle.style.left = safe + '%';
+    }
+
+    function updateTrackPosition() {
+      if (pos) pos.textContent = playlist.length ? `${currentTrack + 1}/${playlist.length}` : '0/0';
+    }
+
+    function loadTrack(index, autoplay = false) {
+      if (!playlist.length) {
+        audio.removeAttribute('src');
+        status.textContent = 'SIN PISTAS PUBLICADAS';
+        time.textContent = '00:00';
+        updateTrackPosition();
+        setSeekVisual(0);
+        return;
+      }
+      currentTrack = ((index % playlist.length) + playlist.length) % playlist.length;
+      const track = playlist[currentTrack];
+      audio.src = track.src;
+      audio.load();
+      status.textContent = track.title.toUpperCase();
+      time.textContent = '00:00';
+      setSeekVisual(0);
+      updateTrackPosition();
+      play.textContent = '▶';
+      player.classList.remove('playing');
+      if (autoplay) {
+        audio.play().then(() => {
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        }).catch(() => {
+          play.textContent = '▶';
+        });
+      }
+    }
+
     play.addEventListener('click', async () => {
-      if (!audio.src) return file?.click();
+      if (!playlist.length) return;
+      if (!audio.src) loadTrack(currentTrack, false);
       if (audio.paused) {
-        await audio.play();
-        player.classList.add('playing');
-        play.textContent = 'Ⅱ';
+        try {
+          await audio.play();
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        } catch (_) {}
       } else {
         audio.pause();
         player.classList.remove('playing');
@@ -2507,23 +2966,35 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
 
     stop.addEventListener('click', () => {
-      audio.pause(); audio.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
       player.classList.remove('playing');
       play.textContent = '▶';
+      setSeekVisual(0);
+      time.textContent = '00:00';
     });
+
+    prev.addEventListener('click', () => loadTrack(currentTrack - 1, !audio.paused));
+    next.addEventListener('click', () => loadTrack(currentTrack + 1, !audio.paused));
 
     mute.addEventListener('click', () => {
       audio.muted = !audio.muted;
       mute.textContent = audio.muted ? 'MUTE' : 'VOL';
     });
 
-    file.addEventListener('change', e => {
-      const f = e.target.files?.[0];
-      if (!f) return;
-      if (audio.src) URL.revokeObjectURL(audio.src);
-      audio.src = URL.createObjectURL(f);
-      audio.load();
-      status.textContent = f.name.toUpperCase();
+    audio.addEventListener('ended', () => {
+      if (!playlist.length) return;
+      if (currentTrack < playlist.length - 1) loadTrack(currentTrack + 1, true);
+      else if (repeatPlaylist) loadTrack(0, true);
+      else {
+        player.classList.remove('playing');
+        play.textContent = '▶';
+      }
+    });
+
+    audio.addEventListener('error', () => {
+      status.textContent = 'AUDIO NO DISPONIBLE';
+      player.classList.remove('playing');
       play.textContent = '▶';
     });
 
@@ -2532,22 +3003,18 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         const m = Math.floor(audio.currentTime / 60).toString().padStart(2, '0');
         const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
         time.textContent = `${m}:${s}`;
-        if (!isSeeking) setSeekVisual((audio.currentTime / audio.duration) * 100);
+        if (!isSeeking && audio.duration) setSeekVisual((audio.currentTime / audio.duration) * 100);
       }
     });
 
-    function setSeekVisual(pct) {
-      seekFill.style.width = pct + '%';
-      seekHandle.style.left = pct + '%';
-    }
-
     function seekFromEvent(e) {
+      if (!audio.duration) return;
       const rect = seekTrack.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       let pct = ((clientX - rect.left) / rect.width) * 100;
       pct = Math.max(0, Math.min(100, pct));
       setSeekVisual(pct);
-      if (audio.duration) audio.currentTime = (pct / 100) * audio.duration;
+      audio.currentTime = (pct / 100) * audio.duration;
     }
 
     seekTrack.addEventListener('pointerdown', e => {
@@ -2556,6 +3023,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
     addEventListener('pointermove', e => { if (isSeeking) seekFromEvent(e); });
     addEventListener('pointerup', () => { isSeeking = false; });
+
+    loadTrack(0, false);
   }
 })();
 </script>

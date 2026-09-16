@@ -630,6 +630,243 @@ a:hover {
   padding-left: 16px;
 }
 
+
+/* =========================================================
+   ACCESO DESTACADO — MAPA DEL CONOCIMIENTO
+   Tarjeta CRT/neón debajo del índice. No usa imágenes externas.
+   ========================================================= */
+.knowledge-map-promo {
+  position: relative;
+  width: 250px;
+  min-height: 286px;
+  display: block;
+  overflow: hidden;
+  padding: 12px 10px 11px;
+  border: 1px solid var(--red-main);
+  background:
+    radial-gradient(circle at 50% 43%, rgba(18, 102, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 50% 58%, rgba(255, 18, 43, 0.09), transparent 50%),
+    repeating-linear-gradient(0deg, rgba(124, 179, 255, 0.025) 0 1px, transparent 1px 4px),
+    rgba(1, 2, 8, 0.97);
+  box-shadow:
+    0 0 13px rgba(255, 18, 43, 0.30),
+    0 0 24px rgba(18, 102, 255, 0.22),
+    inset 0 0 24px rgba(0, 0, 0, 0.95);
+  color: var(--blue-light);
+  text-align: center;
+  isolation: isolate;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo::before,
+.knowledge-map-promo::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.knowledge-map-promo::before {
+  inset: 5px;
+  border: 1px solid rgba(18, 102, 255, 0.35);
+  clip-path: polygon(0 0, 23% 0, 23% 1px, 1px 1px, 1px 25%, 0 25%, 0 0,
+                     100% 0, 77% 0, 77% 1px, calc(100% - 1px) 1px, calc(100% - 1px) 25%, 100% 25%, 100% 0,
+                     100% 100%, 77% 100%, 77% calc(100% - 1px), calc(100% - 1px) calc(100% - 1px), calc(100% - 1px) 75%, 100% 75%, 100% 100%,
+                     0 100%, 23% 100%, 23% calc(100% - 1px), 1px calc(100% - 1px), 1px 75%, 0 75%, 0 100%);
+  box-shadow: inset 0 0 10px rgba(18, 102, 255, .35);
+}
+
+.knowledge-map-promo::after {
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(124, 179, 255, 0.045) 4px
+  );
+  mix-blend-mode: screen;
+  opacity: .7;
+}
+
+.knowledge-map-promo:hover {
+  transform: translateY(-2px);
+  border-color: var(--red-glow);
+  box-shadow:
+    0 0 18px rgba(255, 18, 43, 0.52),
+    0 0 34px rgba(18, 102, 255, 0.42),
+    inset 0 0 28px rgba(0, 0, 0, 0.96);
+}
+
+.km-kicker {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--blue-light);
+  font: bold 8px/1.3 "Courier New", monospace;
+  letter-spacing: 1.4px;
+  opacity: .82;
+}
+
+.km-title {
+  position: relative;
+  z-index: 6;
+  display: block;
+  color: #e6f1ff;
+  font: 10px/1.35 "Press Start 2P", "Courier New", monospace;
+  letter-spacing: .5px;
+  text-shadow: 0 0 8px rgba(18, 102, 255, .85);
+}
+
+.km-title strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--red-glow);
+  font-size: 18px;
+  line-height: 1.28;
+  text-shadow: 0 0 8px rgba(255, 18, 43, .9), 0 0 13px rgba(18, 102, 255, .35);
+}
+
+.km-tagline {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-top: 5px;
+  color: var(--blue-light);
+  font: bold 9px/1.25 "Courier New", monospace;
+  letter-spacing: .85px;
+}
+
+.km-visual {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: 100%;
+  height: 153px;
+  margin: 7px 0 7px;
+  overflow: visible;
+}
+
+.km-network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 4px rgba(18, 102, 255, .28));
+}
+
+.km-network .km-link {
+  fill: none;
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5;
+  opacity: .78;
+  animation: kmDataFlow 4.8s linear infinite;
+}
+
+.km-network .km-link.red { stroke: #ff334a; }
+.km-network .km-link.blue { stroke: #2d85ff; }
+.km-network .km-link.soft { opacity: .38; stroke-width: .8; }
+
+.km-network .km-node {
+  fill: #020714;
+  stroke-width: 1.25;
+}
+
+.km-network .km-node.blue {
+  stroke: #53a0ff;
+  filter: drop-shadow(0 0 3px #1266ff);
+}
+
+.km-network .km-node.red {
+  stroke: #ff5265;
+  filter: drop-shadow(0 0 3px #ff122b);
+}
+
+.km-network .km-core-ring {
+  fill: rgba(0, 5, 20, .88);
+  stroke: #1266ff;
+  stroke-width: 1.1;
+  filter: drop-shadow(0 0 5px rgba(18, 102, 255, .8));
+}
+
+.km-network .km-brain {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.15;
+}
+
+.km-network .km-brain.blue { stroke: #63b4ff; }
+.km-network .km-brain.red { stroke: #ff5367; }
+
+.km-network .km-pulse {
+  transform-origin: center;
+  animation: kmPulse 2.2s ease-in-out infinite;
+}
+
+.km-topic {
+  position: absolute;
+  z-index: 7;
+  padding: 2px 4px;
+  background: rgba(0, 3, 12, .88);
+  border: 1px solid rgba(18, 102, 255, .65);
+  color: #91c5ff;
+  font: bold 7px/1.2 "Courier New", monospace;
+  letter-spacing: .25px;
+  white-space: nowrap;
+  box-shadow: 0 0 6px rgba(18, 102, 255, .14);
+}
+
+.km-topic.red {
+  border-color: rgba(255, 18, 43, .72);
+  color: #ff8b98;
+  box-shadow: 0 0 6px rgba(255, 18, 43, .14);
+}
+
+.km-t1 { left: 2px; top: 12px; }
+.km-t2 { right: 2px; top: 15px; }
+.km-t3 { left: 0; top: 66px; }
+.km-t4 { right: 0; top: 68px; }
+.km-t5 { left: 12px; bottom: 12px; }
+.km-t6 { right: 3px; bottom: 12px; }
+.km-t7 { left: 50%; top: 3px; transform: translateX(-50%); }
+
+.km-cta {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 29px;
+  border: 1px solid var(--red-main);
+  background: linear-gradient(90deg, rgba(58, 0, 6, .78), rgba(4, 14, 41, .62));
+  color: #fff;
+  font: 9px/1 "Press Start 2P", "Courier New", monospace;
+  text-shadow: 0 0 7px var(--red-glow);
+  box-shadow: inset 0 0 9px rgba(255, 18, 43, .16);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo:hover .km-cta {
+  background: linear-gradient(90deg, rgba(95, 0, 10, .9), rgba(5, 29, 82, .82));
+  box-shadow: 0 0 11px rgba(255, 18, 43, .25), inset 0 0 10px rgba(18, 102, 255, .18);
+}
+
+.knowledge-map-promo:hover .km-network .km-link {
+  opacity: 1;
+}
+
+@keyframes kmDataFlow {
+  to { stroke-dashoffset: -36; }
+}
+
+@keyframes kmPulse {
+  0%, 100% { opacity: .72; transform: scale(.96); }
+  50% { opacity: 1; transform: scale(1.055); }
+}
+
 /* CONTENEDOR DERECHO: agrupa LOFI + bitácora, se acomoda solo según el alto disponible */
 .right-rail {
   position: fixed;
@@ -757,8 +994,8 @@ a:hover {
 
 .lofi-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
   margin-top: 8px;
 }
 
@@ -767,7 +1004,7 @@ a:hover {
   border: 1px solid var(--blue-main);
   background: var(--blue-dark);
   color: #fff;
-  font: bold 13px "Courier New", monospace; /* +20% */
+  font: bold 11px "Courier New", monospace; /* compacto: 5 controles */
   transition: background 0.15s;
 }
 
@@ -811,22 +1048,23 @@ a:hover {
   pointer-events: none;
 }
 
-.lofi-load {
-  display: block;
+.lofi-library-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   margin-top: 8px;
-  padding: 5px;
+  padding: 5px 6px;
   border: 1px dotted var(--blue-dark);
   color: var(--blue-light);
-  font-size: 11px; /* +20% */
-  text-align: center;
+  font-size: 9px;
+  line-height: 1.35;
+  text-align: left;
 }
 
-.lofi-load input {
-  display: block;
-  width: 100%;
-  margin-top: 4px;
-  color: var(--blue-light);
-  font-size: 10px;
+.lofi-library-note span:first-child {
+  color: var(--red-light);
+  white-space: nowrap;
 }
 
 .lofi-player audio { display: none; }
@@ -1405,6 +1643,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   .quick-tools-btn{ font-size:11px; }
   .window-container{ margin-top:0; }
   .side-nav a{ font-size:10px; }
+  .knowledge-map-promo{ width:100%; max-width:none; min-height:278px; }
+  .km-visual{ max-width:320px; margin-left:auto; margin-right:auto; }
   .section{ padding:28px 14px 10px; }
 }
 
@@ -1493,6 +1733,87 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .carousel-track { scroll-behavior: auto; }
+  .km-network .km-link, .km-network .km-pulse { animation: none !important; }
+}
+
+
+/* =========================================================
+   MOBILE — PORTADA PRIMERO + HUB DE NAVEGACIÓN
+   Solo afecta pantallas de hasta 700px.
+   La barra lateral se reubica por JS justo después de la portada.
+   En escritorio no cambia absolutamente nada.
+   ========================================================= */
+@media (max-width: 700px) {
+  body.sf-mobile-layout .window-container {
+    width: 100%;
+  }
+
+  body.sf-mobile-layout .hero-cover {
+    min-height: 42vh;
+    margin-bottom: 0;
+  }
+
+  body.sf-mobile-layout .left-rail {
+    width: 100%;
+    gap: 8px;
+    padding: 8px;
+    margin: 0;
+    background:
+      linear-gradient(180deg, rgba(18,102,255,.045), rgba(255,18,43,.035));
+    border-bottom: 1px solid rgba(18,102,255,.38);
+  }
+
+  body.sf-mobile-layout .side-nav {
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.sf-mobile-layout .side-nav .side-label {
+    grid-column: 1 / -1;
+    padding: 9px 8px;
+  }
+
+  body.sf-mobile-layout .side-nav > a {
+    min-width: 0;
+    padding: 10px 4px;
+    font-size: 12px;
+    border-right: 1px dotted var(--blue-dark);
+  }
+
+  /* INICIO ocupa el ancho completo; las demás secciones van en parejas. */
+  body.sf-mobile-layout .side-nav > a:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  body.sf-mobile-layout .knowledge-map-promo {
+    width: 100%;
+    max-width: none;
+    min-height: 278px;
+    margin: 0;
+  }
+
+  body.sf-mobile-layout .km-visual {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.sf-mobile-layout .quick-tools {
+    width: 100%;
+    gap: 8px;
+  }
+
+  body.sf-mobile-layout .quick-tools-btn {
+    min-height: 38px;
+    font-size: 11px;
+  }
+
+  /* Después del hub móvil continúa el sitio normalmente. */
+  body.sf-mobile-layout .marquee {
+    margin-top: 0;
+  }
 }
 
 </style>
@@ -1531,6 +1852,47 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         <a href="/articulos/">ARTICULOS</a>
         <a href="/recursos/">RECURSOS</a>
       </nav>
+
+      <a class="knowledge-map-promo" href="/mapa/" aria-label="Abrir Mapa del conocimiento">
+        <span class="km-kicker">ARCHIVO // RED DE IDEAS</span>
+        <span class="km-title">MAPA DEL <strong>CONOCIMIENTO</strong></span>
+        <span class="km-tagline">TODO TIENE QUE VER CON TODO</span>
+
+        <span class="km-visual" aria-hidden="true">
+          <svg class="km-network" viewBox="0 0 230 153" role="img">
+            <path class="km-link blue" d="M114 79 L40 25 M114 79 L191 27 M114 79 L32 78 M114 79 L199 80 M114 79 L44 132 M114 79 L185 132 M114 79 L114 19"/>
+            <path class="km-link red" d="M40 25 L114 19 L191 27 M32 78 L44 132 L114 79 L185 132 L199 80"/>
+            <path class="km-link blue soft" d="M40 25 L199 80 M191 27 L44 132 M32 78 L185 132 M114 19 L185 132"/>
+            <path class="km-link red soft" d="M32 78 L191 27 M40 25 L185 132 M114 19 L44 132"/>
+
+            <circle class="km-node blue" cx="40" cy="25" r="3.5"/>
+            <circle class="km-node red" cx="191" cy="27" r="3.5"/>
+            <circle class="km-node red" cx="32" cy="78" r="3.5"/>
+            <circle class="km-node blue" cx="199" cy="80" r="3.5"/>
+            <circle class="km-node blue" cx="44" cy="132" r="3.5"/>
+            <circle class="km-node red" cx="185" cy="132" r="3.5"/>
+            <circle class="km-node blue" cx="114" cy="19" r="3.5"/>
+
+            <g class="km-pulse">
+              <circle class="km-core-ring" cx="114" cy="79" r="28"/>
+              <path class="km-brain blue" d="M110 58 C100 55 94 61 96 69 C89 71 88 83 96 87 C92 95 99 101 108 98 C111 96 112 92 112 87 L112 64 C112 61 111 59 110 58 Z"/>
+              <path class="km-brain red" d="M118 58 C128 55 134 61 132 69 C139 71 140 83 132 87 C136 95 129 101 120 98 C117 96 116 92 116 87 L116 64 C116 61 117 59 118 58 Z"/>
+              <path class="km-brain blue" d="M99 70 C104 70 108 73 110 77 M98 87 C104 87 108 84 111 81 M104 61 C106 65 106 69 104 72"/>
+              <path class="km-brain red" d="M129 70 C124 70 120 73 118 77 M130 87 C124 87 120 84 117 81 M124 61 C122 65 122 69 124 72"/>
+            </g>
+          </svg>
+
+          <span class="km-topic km-t1">ESOTERISMO</span>
+          <span class="km-topic red km-t2">OCULTISMO</span>
+          <span class="km-topic red km-t3">HISPANIDAD</span>
+          <span class="km-topic km-t4">CIENTIFICISMO</span>
+          <span class="km-topic km-t5">FILOSOFIA</span>
+          <span class="km-topic red km-t6">ESPIRITUALIDAD</span>
+          <span class="km-topic km-t7">GNOSTICISMO</span>
+        </span>
+
+        <span class="km-cta">EXPLORAR MAPA <b>→</b></span>
+      </a>
 
       <div class="quick-tools" aria-label="Buscar y navegar por tags">
         <button type="button" class="quick-tools-btn" id="openSearchBtn">🔍 BUSCAR</button>
@@ -1574,12 +1936,14 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
           <div class="tape-line"></div>
         </div>
         <div class="lofi-now">
-          <span class="lofi-status" id="lofiStatus">SISTEMA LISTO</span>
+          <span class="lofi-status" id="lofiStatus">CARGANDO PLAYLIST...</span>
           <span id="lofiTime">00:00</span>
         </div>
         <div class="lofi-controls">
-          <button type="button" id="lofiPlay" aria-label="Reproducir">▶</button>
+          <button type="button" id="lofiPrev" aria-label="Pista anterior">⏮</button>
+          <button type="button" id="lofiPlay" aria-label="Reproducir o pausar">▶</button>
           <button type="button" id="lofiStop" aria-label="Detener">■</button>
+          <button type="button" id="lofiNext" aria-label="Pista siguiente">⏭</button>
           <button type="button" id="lofiMute" aria-label="Silenciar">VOL</button>
         </div>
         <div class="lofi-progress">
@@ -1588,11 +1952,12 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
             <div class="lofi-progress-handle" id="lofiProgressHandle"></div>
           </div>
         </div>
-        <label class="lofi-load">
-          CARGAR AUDIO
-          <input id="lofiFile" type="file" accept="audio/*">
-        </label>
+        <div class="lofi-library-note">
+          <span id="lofiTrackPos">0/0</span>
+          <span>SELECCIÓN SOFIRMOLO</span>
+        </div>
         <audio id="lofiAudio" preload="metadata"></audio>
+        <script type="application/json" id="lofiPlaylist">[]</script>
       </aside>
 
       <div class="system-log" id="systemLog" aria-hidden="true"></div>
@@ -1973,14 +2338,14 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
           <a
             class="card"
-            href="/videos/presidentes-sionistas-argentina/"
+            href="/videos/massa-el-titere-preferido-de-la-elite-globalista/"
           >
 
             <div class="card-cover">
 
               <img
-                src="https://i.ytimg.com/vi/GkcJEVyXXtQ/hqdefault.jpg"
-                alt="Miniatura: TOP 5 Presidentes mas SIONISTAS de Argentina"
+                src="https://thumbnails.odycdn.com/optimize/s:640:360/quality:85/plain/https://thumbnails.lbry.com/bIYNtw4tXrY"
+                alt="Miniatura: MASSA el TITERE preferido de la ELITE GLOBALISTA"
                 loading="lazy"
               >
 
@@ -1995,17 +2360,17 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
             <div class="meta">
 
               
-                17-05-2026
+                12-08-2022
               
 
             </div>
 
             <h4>
-              TOP 5 Presidentes mas SIONISTAS de Argentina
+              MASSA el TITERE preferido de la ELITE GLOBALISTA
             </h4>
 
             <p>
-              Repaso historico breve sobre los titeres-presidentes argentinos
+              Nadie llega al poder, si no es aprobado por la elite global que maneja a su antojo a los titeres que ellos controlan en este sistema plutocratico. .
             </p>
 
           </a>
@@ -2204,27 +2569,46 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
         
 
-      
+          
 
-        
+          <a
+            class="card"
+            href="/videos/presidentes-sionistas-argentina/"
+          >
 
-      
+            <div class="card-cover">
 
-        
+              <img
+                src="https://i.ytimg.com/vi/GkcJEVyXXtQ/hqdefault.jpg"
+                alt="Miniatura: TOP 5 Presidentes mas SIONISTAS de Argentina"
+                loading="lazy"
+              >
 
-      
+              <span class="thumb-shade"></span>
 
-        
+              <span
+                class="ctr-play-btn ctr-play-btn-sm"
+              ></span>
 
-      
+            </div>
 
-        
+            <div class="meta">
 
-      
+              
+                17-05-2026
+              
 
-        
+            </div>
 
-      
+            <h4>
+              TOP 5 Presidentes mas SIONISTAS de Argentina
+            </h4>
+
+            <p>
+              Repaso historico breve sobre los titeres-presidentes argentinos
+            </p>
+
+          </a>
 
         
 
@@ -2395,6 +2779,49 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
 <script>
 (() => {
+
+  /* =========================================================
+     LAYOUT MÓVIL — PORTADA PRIMERO
+     En <=700px mueve el bloque de navegación/mapa justo
+     debajo de la portada. Al volver a escritorio lo devuelve
+     a su lugar original, sin duplicar elementos ni IDs.
+     ========================================================= */
+  (() => {
+    const rail = document.querySelector('.left-rail');
+    const windowBox = document.querySelector('.window-container');
+    const hero = windowBox?.querySelector('.hero-cover');
+
+    if (!rail || !windowBox || !hero) return;
+
+    const originalParent = rail.parentNode;
+    const originalMarker = document.createComment('sofirmolo-left-rail-origin');
+    originalParent.insertBefore(originalMarker, rail);
+
+    const mobileQuery = window.matchMedia('(max-width: 700px)');
+
+    const applyMobileLayout = () => {
+      if (mobileQuery.matches) {
+        if (hero.nextElementSibling !== rail) {
+          hero.insertAdjacentElement('afterend', rail);
+        }
+        document.body.classList.add('sf-mobile-layout');
+      } else {
+        if (rail.parentNode !== originalParent || originalMarker.nextSibling !== rail) {
+          originalParent.insertBefore(rail, originalMarker.nextSibling);
+        }
+        document.body.classList.remove('sf-mobile-layout');
+      }
+    };
+
+    applyMobileLayout();
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', applyMobileLayout);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(applyMobileLayout);
+    }
+  })();
+
   // Buscador del sitio
   (function () {
     const openBtn = document.getElementById('openSearchBtn');
@@ -2917,27 +3344,90 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     requestAnimationFrame(draw);
   }
 
-  // LOFI Cassette Player
+  // LOFI Cassette Player — playlist publica administrada desde Sveltia.
+  // El visitante puede reproducir, pausar, avanzar, retroceder y silenciar,
+  // pero NO puede cargar archivos desde el navegador.
   const audio = document.getElementById('lofiAudio');
   const play = document.getElementById('lofiPlay');
   const stop = document.getElementById('lofiStop');
   const mute = document.getElementById('lofiMute');
-  const file = document.getElementById('lofiFile');
+  const prev = document.getElementById('lofiPrev');
+  const next = document.getElementById('lofiNext');
   const seekTrack = document.getElementById('lofiProgressTrack');
   const seekFill = document.getElementById('lofiProgressFill');
   const seekHandle = document.getElementById('lofiProgressHandle');
-  let isSeeking = false;
   const status = document.getElementById('lofiStatus');
   const time = document.getElementById('lofiTime');
+  const pos = document.getElementById('lofiTrackPos');
   const player = document.querySelector('.lofi-player');
+  const playlistNode = document.getElementById('lofiPlaylist');
+  let isSeeking = false;
+  let currentTrack = 0;
+  const repeatPlaylist = true;
+  let playlist = [];
+
+  try {
+    const rawPlaylist = JSON.parse(playlistNode?.textContent || '[]');
+    playlist = (Array.isArray(rawPlaylist) ? rawPlaylist : [])
+      .map((track, index) => ({
+        title: String(track?.titulo || track?.title || `PISTA ${index + 1}`),
+        src: String(track?.archivo || track?.file || ''),
+        enabled: track?.activo !== false && track?.enabled !== false
+      }))
+      .filter(track => track.enabled && track.src);
+  } catch (_) {
+    playlist = [];
+  }
 
   if (audio && play) {
+    function setSeekVisual(pct) {
+      const safe = Math.max(0, Math.min(100, Number(pct) || 0));
+      seekFill.style.width = safe + '%';
+      seekHandle.style.left = safe + '%';
+    }
+
+    function updateTrackPosition() {
+      if (pos) pos.textContent = playlist.length ? `${currentTrack + 1}/${playlist.length}` : '0/0';
+    }
+
+    function loadTrack(index, autoplay = false) {
+      if (!playlist.length) {
+        audio.removeAttribute('src');
+        status.textContent = 'SIN PISTAS PUBLICADAS';
+        time.textContent = '00:00';
+        updateTrackPosition();
+        setSeekVisual(0);
+        return;
+      }
+      currentTrack = ((index % playlist.length) + playlist.length) % playlist.length;
+      const track = playlist[currentTrack];
+      audio.src = track.src;
+      audio.load();
+      status.textContent = track.title.toUpperCase();
+      time.textContent = '00:00';
+      setSeekVisual(0);
+      updateTrackPosition();
+      play.textContent = '▶';
+      player.classList.remove('playing');
+      if (autoplay) {
+        audio.play().then(() => {
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        }).catch(() => {
+          play.textContent = '▶';
+        });
+      }
+    }
+
     play.addEventListener('click', async () => {
-      if (!audio.src) return file?.click();
+      if (!playlist.length) return;
+      if (!audio.src) loadTrack(currentTrack, false);
       if (audio.paused) {
-        await audio.play();
-        player.classList.add('playing');
-        play.textContent = 'Ⅱ';
+        try {
+          await audio.play();
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        } catch (_) {}
       } else {
         audio.pause();
         player.classList.remove('playing');
@@ -2946,23 +3436,35 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
 
     stop.addEventListener('click', () => {
-      audio.pause(); audio.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
       player.classList.remove('playing');
       play.textContent = '▶';
+      setSeekVisual(0);
+      time.textContent = '00:00';
     });
+
+    prev.addEventListener('click', () => loadTrack(currentTrack - 1, !audio.paused));
+    next.addEventListener('click', () => loadTrack(currentTrack + 1, !audio.paused));
 
     mute.addEventListener('click', () => {
       audio.muted = !audio.muted;
       mute.textContent = audio.muted ? 'MUTE' : 'VOL';
     });
 
-    file.addEventListener('change', e => {
-      const f = e.target.files?.[0];
-      if (!f) return;
-      if (audio.src) URL.revokeObjectURL(audio.src);
-      audio.src = URL.createObjectURL(f);
-      audio.load();
-      status.textContent = f.name.toUpperCase();
+    audio.addEventListener('ended', () => {
+      if (!playlist.length) return;
+      if (currentTrack < playlist.length - 1) loadTrack(currentTrack + 1, true);
+      else if (repeatPlaylist) loadTrack(0, true);
+      else {
+        player.classList.remove('playing');
+        play.textContent = '▶';
+      }
+    });
+
+    audio.addEventListener('error', () => {
+      status.textContent = 'AUDIO NO DISPONIBLE';
+      player.classList.remove('playing');
       play.textContent = '▶';
     });
 
@@ -2971,22 +3473,18 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         const m = Math.floor(audio.currentTime / 60).toString().padStart(2, '0');
         const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
         time.textContent = `${m}:${s}`;
-        if (!isSeeking) setSeekVisual((audio.currentTime / audio.duration) * 100);
+        if (!isSeeking && audio.duration) setSeekVisual((audio.currentTime / audio.duration) * 100);
       }
     });
 
-    function setSeekVisual(pct) {
-      seekFill.style.width = pct + '%';
-      seekHandle.style.left = pct + '%';
-    }
-
     function seekFromEvent(e) {
+      if (!audio.duration) return;
       const rect = seekTrack.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       let pct = ((clientX - rect.left) / rect.width) * 100;
       pct = Math.max(0, Math.min(100, pct));
       setSeekVisual(pct);
-      if (audio.duration) audio.currentTime = (pct / 100) * audio.duration;
+      audio.currentTime = (pct / 100) * audio.duration;
     }
 
     seekTrack.addEventListener('pointerdown', e => {
@@ -2995,6 +3493,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
     addEventListener('pointermove', e => { if (isSeeking) seekFromEvent(e); });
     addEventListener('pointerup', () => { isSeeking = false; });
+
+    loadTrack(0, false);
   }
 })();
 </script>

@@ -191,3 +191,25 @@ collections:
             fields:
               - {label: "Nodo A / tag", name: "from", widget: "string"}
               - {label: "Nodo B / tag", name: "to", widget: "string"}
+
+  - name: "lofi_radio"
+    label: "LOFI // Radio"
+    files:
+      - name: "lofi"
+        label: "Playlist pública"
+        file: "_data/lofi.json"
+        fields:
+          - {label: "Texto principal del cassette", name: "station_title", widget: "string", default: "SOFIRMOLO"}
+          - {label: "Subtítulo del cassette", name: "station_subtitle", widget: "string", default: "LO-FI SESSION"}
+          - {label: "Repetir playlist al terminar", name: "repeat_playlist", widget: "boolean", default: true}
+          - label: "Pistas"
+            name: "tracks"
+            widget: "list"
+            required: false
+            summary: "{{fields.titulo}}"
+            hint: "Subí MP3 propios. El orden de esta lista es el orden de reproducción pública."
+            fields:
+              - {label: "Título visible", name: "titulo", widget: "string"}
+              - {label: "Archivo MP3", name: "archivo", widget: "file", hint: "Elegí o subí el MP3. Se guardará usando la biblioteca de medios del sitio."}
+              - {label: "Activa", name: "activo", widget: "boolean", default: true, hint: "Desactivala para ocultar temporalmente la pista sin borrarla."}
+

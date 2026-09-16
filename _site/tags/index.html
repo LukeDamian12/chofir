@@ -630,6 +630,243 @@ a:hover {
   padding-left: 16px;
 }
 
+
+/* =========================================================
+   ACCESO DESTACADO — MAPA DEL CONOCIMIENTO
+   Tarjeta CRT/neón debajo del índice. No usa imágenes externas.
+   ========================================================= */
+.knowledge-map-promo {
+  position: relative;
+  width: 250px;
+  min-height: 286px;
+  display: block;
+  overflow: hidden;
+  padding: 12px 10px 11px;
+  border: 1px solid var(--red-main);
+  background:
+    radial-gradient(circle at 50% 43%, rgba(18, 102, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 50% 58%, rgba(255, 18, 43, 0.09), transparent 50%),
+    repeating-linear-gradient(0deg, rgba(124, 179, 255, 0.025) 0 1px, transparent 1px 4px),
+    rgba(1, 2, 8, 0.97);
+  box-shadow:
+    0 0 13px rgba(255, 18, 43, 0.30),
+    0 0 24px rgba(18, 102, 255, 0.22),
+    inset 0 0 24px rgba(0, 0, 0, 0.95);
+  color: var(--blue-light);
+  text-align: center;
+  isolation: isolate;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo::before,
+.knowledge-map-promo::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.knowledge-map-promo::before {
+  inset: 5px;
+  border: 1px solid rgba(18, 102, 255, 0.35);
+  clip-path: polygon(0 0, 23% 0, 23% 1px, 1px 1px, 1px 25%, 0 25%, 0 0,
+                     100% 0, 77% 0, 77% 1px, calc(100% - 1px) 1px, calc(100% - 1px) 25%, 100% 25%, 100% 0,
+                     100% 100%, 77% 100%, 77% calc(100% - 1px), calc(100% - 1px) calc(100% - 1px), calc(100% - 1px) 75%, 100% 75%, 100% 100%,
+                     0 100%, 23% 100%, 23% calc(100% - 1px), 1px calc(100% - 1px), 1px 75%, 0 75%, 0 100%);
+  box-shadow: inset 0 0 10px rgba(18, 102, 255, .35);
+}
+
+.knowledge-map-promo::after {
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(124, 179, 255, 0.045) 4px
+  );
+  mix-blend-mode: screen;
+  opacity: .7;
+}
+
+.knowledge-map-promo:hover {
+  transform: translateY(-2px);
+  border-color: var(--red-glow);
+  box-shadow:
+    0 0 18px rgba(255, 18, 43, 0.52),
+    0 0 34px rgba(18, 102, 255, 0.42),
+    inset 0 0 28px rgba(0, 0, 0, 0.96);
+}
+
+.km-kicker {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--blue-light);
+  font: bold 8px/1.3 "Courier New", monospace;
+  letter-spacing: 1.4px;
+  opacity: .82;
+}
+
+.km-title {
+  position: relative;
+  z-index: 6;
+  display: block;
+  color: #e6f1ff;
+  font: 10px/1.35 "Press Start 2P", "Courier New", monospace;
+  letter-spacing: .5px;
+  text-shadow: 0 0 8px rgba(18, 102, 255, .85);
+}
+
+.km-title strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--red-glow);
+  font-size: 18px;
+  line-height: 1.28;
+  text-shadow: 0 0 8px rgba(255, 18, 43, .9), 0 0 13px rgba(18, 102, 255, .35);
+}
+
+.km-tagline {
+  position: relative;
+  z-index: 6;
+  display: block;
+  margin-top: 5px;
+  color: var(--blue-light);
+  font: bold 9px/1.25 "Courier New", monospace;
+  letter-spacing: .85px;
+}
+
+.km-visual {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: 100%;
+  height: 153px;
+  margin: 7px 0 7px;
+  overflow: visible;
+}
+
+.km-network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 4px rgba(18, 102, 255, .28));
+}
+
+.km-network .km-link {
+  fill: none;
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5;
+  opacity: .78;
+  animation: kmDataFlow 4.8s linear infinite;
+}
+
+.km-network .km-link.red { stroke: #ff334a; }
+.km-network .km-link.blue { stroke: #2d85ff; }
+.km-network .km-link.soft { opacity: .38; stroke-width: .8; }
+
+.km-network .km-node {
+  fill: #020714;
+  stroke-width: 1.25;
+}
+
+.km-network .km-node.blue {
+  stroke: #53a0ff;
+  filter: drop-shadow(0 0 3px #1266ff);
+}
+
+.km-network .km-node.red {
+  stroke: #ff5265;
+  filter: drop-shadow(0 0 3px #ff122b);
+}
+
+.km-network .km-core-ring {
+  fill: rgba(0, 5, 20, .88);
+  stroke: #1266ff;
+  stroke-width: 1.1;
+  filter: drop-shadow(0 0 5px rgba(18, 102, 255, .8));
+}
+
+.km-network .km-brain {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.15;
+}
+
+.km-network .km-brain.blue { stroke: #63b4ff; }
+.km-network .km-brain.red { stroke: #ff5367; }
+
+.km-network .km-pulse {
+  transform-origin: center;
+  animation: kmPulse 2.2s ease-in-out infinite;
+}
+
+.km-topic {
+  position: absolute;
+  z-index: 7;
+  padding: 2px 4px;
+  background: rgba(0, 3, 12, .88);
+  border: 1px solid rgba(18, 102, 255, .65);
+  color: #91c5ff;
+  font: bold 7px/1.2 "Courier New", monospace;
+  letter-spacing: .25px;
+  white-space: nowrap;
+  box-shadow: 0 0 6px rgba(18, 102, 255, .14);
+}
+
+.km-topic.red {
+  border-color: rgba(255, 18, 43, .72);
+  color: #ff8b98;
+  box-shadow: 0 0 6px rgba(255, 18, 43, .14);
+}
+
+.km-t1 { left: 2px; top: 12px; }
+.km-t2 { right: 2px; top: 15px; }
+.km-t3 { left: 0; top: 66px; }
+.km-t4 { right: 0; top: 68px; }
+.km-t5 { left: 12px; bottom: 12px; }
+.km-t6 { right: 3px; bottom: 12px; }
+.km-t7 { left: 50%; top: 3px; transform: translateX(-50%); }
+
+.km-cta {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 29px;
+  border: 1px solid var(--red-main);
+  background: linear-gradient(90deg, rgba(58, 0, 6, .78), rgba(4, 14, 41, .62));
+  color: #fff;
+  font: 9px/1 "Press Start 2P", "Courier New", monospace;
+  text-shadow: 0 0 7px var(--red-glow);
+  box-shadow: inset 0 0 9px rgba(255, 18, 43, .16);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.knowledge-map-promo:hover .km-cta {
+  background: linear-gradient(90deg, rgba(95, 0, 10, .9), rgba(5, 29, 82, .82));
+  box-shadow: 0 0 11px rgba(255, 18, 43, .25), inset 0 0 10px rgba(18, 102, 255, .18);
+}
+
+.knowledge-map-promo:hover .km-network .km-link {
+  opacity: 1;
+}
+
+@keyframes kmDataFlow {
+  to { stroke-dashoffset: -36; }
+}
+
+@keyframes kmPulse {
+  0%, 100% { opacity: .72; transform: scale(.96); }
+  50% { opacity: 1; transform: scale(1.055); }
+}
+
 /* CONTENEDOR DERECHO: agrupa LOFI + bitácora, se acomoda solo según el alto disponible */
 .right-rail {
   position: fixed;
@@ -757,8 +994,8 @@ a:hover {
 
 .lofi-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
   margin-top: 8px;
 }
 
@@ -767,7 +1004,7 @@ a:hover {
   border: 1px solid var(--blue-main);
   background: var(--blue-dark);
   color: #fff;
-  font: bold 13px "Courier New", monospace; /* +20% */
+  font: bold 11px "Courier New", monospace; /* compacto: 5 controles */
   transition: background 0.15s;
 }
 
@@ -811,22 +1048,23 @@ a:hover {
   pointer-events: none;
 }
 
-.lofi-load {
-  display: block;
+.lofi-library-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   margin-top: 8px;
-  padding: 5px;
+  padding: 5px 6px;
   border: 1px dotted var(--blue-dark);
   color: var(--blue-light);
-  font-size: 11px; /* +20% */
-  text-align: center;
+  font-size: 9px;
+  line-height: 1.35;
+  text-align: left;
 }
 
-.lofi-load input {
-  display: block;
-  width: 100%;
-  margin-top: 4px;
-  color: var(--blue-light);
-  font-size: 10px;
+.lofi-library-note span:first-child {
+  color: var(--red-light);
+  white-space: nowrap;
 }
 
 .lofi-player audio { display: none; }
@@ -1405,6 +1643,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   .quick-tools-btn{ font-size:11px; }
   .window-container{ margin-top:0; }
   .side-nav a{ font-size:10px; }
+  .knowledge-map-promo{ width:100%; max-width:none; min-height:278px; }
+  .km-visual{ max-width:320px; margin-left:auto; margin-right:auto; }
   .section{ padding:28px 14px 10px; }
 }
 
@@ -1493,6 +1733,87 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .carousel-track { scroll-behavior: auto; }
+  .km-network .km-link, .km-network .km-pulse { animation: none !important; }
+}
+
+
+/* =========================================================
+   MOBILE — PORTADA PRIMERO + HUB DE NAVEGACIÓN
+   Solo afecta pantallas de hasta 700px.
+   La barra lateral se reubica por JS justo después de la portada.
+   En escritorio no cambia absolutamente nada.
+   ========================================================= */
+@media (max-width: 700px) {
+  body.sf-mobile-layout .window-container {
+    width: 100%;
+  }
+
+  body.sf-mobile-layout .hero-cover {
+    min-height: 42vh;
+    margin-bottom: 0;
+  }
+
+  body.sf-mobile-layout .left-rail {
+    width: 100%;
+    gap: 8px;
+    padding: 8px;
+    margin: 0;
+    background:
+      linear-gradient(180deg, rgba(18,102,255,.045), rgba(255,18,43,.035));
+    border-bottom: 1px solid rgba(18,102,255,.38);
+  }
+
+  body.sf-mobile-layout .side-nav {
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.sf-mobile-layout .side-nav .side-label {
+    grid-column: 1 / -1;
+    padding: 9px 8px;
+  }
+
+  body.sf-mobile-layout .side-nav > a {
+    min-width: 0;
+    padding: 10px 4px;
+    font-size: 12px;
+    border-right: 1px dotted var(--blue-dark);
+  }
+
+  /* INICIO ocupa el ancho completo; las demás secciones van en parejas. */
+  body.sf-mobile-layout .side-nav > a:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  body.sf-mobile-layout .knowledge-map-promo {
+    width: 100%;
+    max-width: none;
+    min-height: 278px;
+    margin: 0;
+  }
+
+  body.sf-mobile-layout .km-visual {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.sf-mobile-layout .quick-tools {
+    width: 100%;
+    gap: 8px;
+  }
+
+  body.sf-mobile-layout .quick-tools-btn {
+    min-height: 38px;
+    font-size: 11px;
+  }
+
+  /* Después del hub móvil continúa el sitio normalmente. */
+  body.sf-mobile-layout .marquee {
+    margin-top: 0;
+  }
 }
 
 </style>
@@ -1531,6 +1852,47 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         <a href="/articulos/">ARTICULOS</a>
         <a href="/recursos/">RECURSOS</a>
       </nav>
+
+      <a class="knowledge-map-promo" href="/mapa/" aria-label="Abrir Mapa del conocimiento">
+        <span class="km-kicker">ARCHIVO // RED DE IDEAS</span>
+        <span class="km-title">MAPA DEL <strong>CONOCIMIENTO</strong></span>
+        <span class="km-tagline">TODO TIENE QUE VER CON TODO</span>
+
+        <span class="km-visual" aria-hidden="true">
+          <svg class="km-network" viewBox="0 0 230 153" role="img">
+            <path class="km-link blue" d="M114 79 L40 25 M114 79 L191 27 M114 79 L32 78 M114 79 L199 80 M114 79 L44 132 M114 79 L185 132 M114 79 L114 19"/>
+            <path class="km-link red" d="M40 25 L114 19 L191 27 M32 78 L44 132 L114 79 L185 132 L199 80"/>
+            <path class="km-link blue soft" d="M40 25 L199 80 M191 27 L44 132 M32 78 L185 132 M114 19 L185 132"/>
+            <path class="km-link red soft" d="M32 78 L191 27 M40 25 L185 132 M114 19 L44 132"/>
+
+            <circle class="km-node blue" cx="40" cy="25" r="3.5"/>
+            <circle class="km-node red" cx="191" cy="27" r="3.5"/>
+            <circle class="km-node red" cx="32" cy="78" r="3.5"/>
+            <circle class="km-node blue" cx="199" cy="80" r="3.5"/>
+            <circle class="km-node blue" cx="44" cy="132" r="3.5"/>
+            <circle class="km-node red" cx="185" cy="132" r="3.5"/>
+            <circle class="km-node blue" cx="114" cy="19" r="3.5"/>
+
+            <g class="km-pulse">
+              <circle class="km-core-ring" cx="114" cy="79" r="28"/>
+              <path class="km-brain blue" d="M110 58 C100 55 94 61 96 69 C89 71 88 83 96 87 C92 95 99 101 108 98 C111 96 112 92 112 87 L112 64 C112 61 111 59 110 58 Z"/>
+              <path class="km-brain red" d="M118 58 C128 55 134 61 132 69 C139 71 140 83 132 87 C136 95 129 101 120 98 C117 96 116 92 116 87 L116 64 C116 61 117 59 118 58 Z"/>
+              <path class="km-brain blue" d="M99 70 C104 70 108 73 110 77 M98 87 C104 87 108 84 111 81 M104 61 C106 65 106 69 104 72"/>
+              <path class="km-brain red" d="M129 70 C124 70 120 73 118 77 M130 87 C124 87 120 84 117 81 M124 61 C122 65 122 69 124 72"/>
+            </g>
+          </svg>
+
+          <span class="km-topic km-t1">ESOTERISMO</span>
+          <span class="km-topic red km-t2">OCULTISMO</span>
+          <span class="km-topic red km-t3">HISPANIDAD</span>
+          <span class="km-topic km-t4">CIENTIFICISMO</span>
+          <span class="km-topic km-t5">FILOSOFIA</span>
+          <span class="km-topic red km-t6">ESPIRITUALIDAD</span>
+          <span class="km-topic km-t7">GNOSTICISMO</span>
+        </span>
+
+        <span class="km-cta">EXPLORAR MAPA <b>→</b></span>
+      </a>
 
       <div class="quick-tools" aria-label="Buscar y navegar por tags">
         <button type="button" class="quick-tools-btn" id="openSearchBtn">🔍 BUSCAR</button>
@@ -1574,12 +1936,14 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
           <div class="tape-line"></div>
         </div>
         <div class="lofi-now">
-          <span class="lofi-status" id="lofiStatus">SISTEMA LISTO</span>
+          <span class="lofi-status" id="lofiStatus">CARGANDO PLAYLIST...</span>
           <span id="lofiTime">00:00</span>
         </div>
         <div class="lofi-controls">
-          <button type="button" id="lofiPlay" aria-label="Reproducir">▶</button>
+          <button type="button" id="lofiPrev" aria-label="Pista anterior">⏮</button>
+          <button type="button" id="lofiPlay" aria-label="Reproducir o pausar">▶</button>
           <button type="button" id="lofiStop" aria-label="Detener">■</button>
+          <button type="button" id="lofiNext" aria-label="Pista siguiente">⏭</button>
           <button type="button" id="lofiMute" aria-label="Silenciar">VOL</button>
         </div>
         <div class="lofi-progress">
@@ -1588,11 +1952,12 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
             <div class="lofi-progress-handle" id="lofiProgressHandle"></div>
           </div>
         </div>
-        <label class="lofi-load">
-          CARGAR AUDIO
-          <input id="lofiFile" type="file" accept="audio/*">
-        </label>
+        <div class="lofi-library-note">
+          <span id="lofiTrackPos">0/0</span>
+          <span>SELECCIÓN SOFIRMOLO</span>
+        </div>
         <audio id="lofiAudio" preload="metadata"></audio>
+        <script type="application/json" id="lofiPlaylist">[]</script>
       </aside>
 
       <div class="system-log" id="systemLog" aria-hidden="true"></div>
@@ -1623,27 +1988,49 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/aborto/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#aborto</a>
               
+              <a href="/tags/agenda-2030/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Agenda 2030</a>
+              
               <a href="/tags/agente-ingles/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Agente ingles</a>
               
+              <a href="/tags/agentes-ingleses/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Agentes ingleses</a>
+              
+              <a href="/tags/agentes-masones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#agentes masones</a>
+              
               <a href="/tags/aleister-crowley/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Aleister Crowley</a>
+              
+              <a href="/tags/american-dream/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#American Dream</a>
+              
+              <a href="/tags/anarcocapitalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Anarcocapitalismo</a>
+              
+              <a href="/tags/anaro-capitalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Anaro capitalismo</a>
+              
+              <a href="/tags/anarquismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Anarquismo</a>
               
               <a href="/tags/angloesfera/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#angloesfera</a>
               
               <a href="/tags/angloesfera-vs-hispanidad/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Angloesfera vs Hispanidad</a>
               
+              <a href="/tags/anglosajon/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Anglosajon</a>
+              
               <a href="/tags/anglosajones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Anglosajones</a>
               
               <a href="/tags/anti-natalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#anti-natalismo</a>
+              
+              <a href="/tags/anticristo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Anticristo</a>
               
               <a href="/tags/argentina/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Argentina</a>
               
               <a href="/tags/ariosofia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#ariosofia</a>
               
+              <a href="/tags/aristoteles/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#aristoteles</a>
+              
               <a href="/tags/arriba-la-hispanidad/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Arriba la hispanidad</a>
               
               <a href="/tags/ataque-al-cristianismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#ataque al cristianismo</a>
               
-              <a href="/tags/banca-judia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#banca judia</a>
+              <a href="/tags/balcanizacion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Balcanizacion</a>
+              
+              <a href="/tags/banca-judia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Banca judia</a>
               
               <a href="/tags/banca-rosthchild/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#banca rosthchild</a>
               
@@ -1651,13 +2038,23 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/baron-de-hirsch/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Baron de Hirsch</a>
               
+              <a href="/tags/batman/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Batman</a>
+              
+              <a href="/tags/benjamin-parravicini/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Benjamin Parravicini</a>
+              
               <a href="/tags/biblia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Biblia</a>
               
               <a href="/tags/bill-gates/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Bill gates</a>
               
+              <a href="/tags/biondini/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Biondini</a>
+              
+              <a href="/tags/bitcoin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Bitcoin</a>
+              
               <a href="/tags/black-rock/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#black rock</a>
               
               <a href="/tags/blue-beam-proyect/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Blue beam proyect</a>
+              
+              <a href="/tags/bolcheviques/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Bolcheviques</a>
               
               <a href="/tags/borregos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#borregos</a>
               
@@ -1671,19 +2068,31 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/calentamiento-global/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#calentamiento global</a>
               
-              <a href="/tags/calvinismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#calvinismo</a>
+              <a href="/tags/calvinismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Calvinismo</a>
               
               <a href="/tags/cambio-climatico/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cambio climatico</a>
               
               <a href="/tags/cancion-anti-illuminati-sionista/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#cancion anti illuminati sionista</a>
               
+              <a href="/tags/capitalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Capitalismo</a>
+              
+              <a href="/tags/capitalismo-real/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Capitalismo real</a>
+              
               <a href="/tags/catolicismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Catolicismo</a>
+              
+              <a href="/tags/cavalo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cavalo</a>
+              
+              <a href="/tags/censura/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Censura</a>
               
               <a href="/tags/chile/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#chile</a>
               
               <a href="/tags/chinda-brandolino/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Chinda brandolino</a>
               
+              <a href="/tags/cientificismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cientificismo</a>
+              
               <a href="/tags/cipayo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cipayo</a>
+              
+              <a href="/tags/cipayos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cipayos</a>
               
               <a href="/tags/club-de-roma/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#club de Roma</a>
               
@@ -1693,25 +2102,47 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/colonizacion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#colonizacion</a>
               
+              <a href="/tags/colonizacion-mental/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Colonizacion mental</a>
+              
               <a href="/tags/comunismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Comunismo</a>
+              
+              <a href="/tags/conflicto-social/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Conflicto social</a>
+              
+              <a href="/tags/conflictos-belicos-orquestados/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Conflictos belicos orquestados</a>
+              
+              <a href="/tags/consejo-amoroso/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Consejo amoroso</a>
+              
+              <a href="/tags/conspiraciones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Conspiraciones</a>
+              
+              <a href="/tags/control-de-la-informacion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Control de la informacion</a>
               
               <a href="/tags/control-de-masas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#control de masas</a>
               
               <a href="/tags/control-mental/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#control mental</a>
               
+              <a href="/tags/control-social/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Control social</a>
+              
               <a href="/tags/control-social-masivo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#control social masivo</a>
+              
+              <a href="/tags/conversos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Conversos</a>
               
               <a href="/tags/corporaciones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Corporaciones</a>
               
-              <a href="/tags/corralito/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#corralito</a>
+              <a href="/tags/corralito/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Corralito</a>
+              
+              <a href="/tags/corrupcion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Corrupcion</a>
               
               <a href="/tags/council-of-americas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#council of americas</a>
               
+              <a href="/tags/criptomonedas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Criptomonedas</a>
+              
               <a href="/tags/crisis-2001/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#crisis 2001</a>
+              
+              <a href="/tags/crisis-economica/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Crisis economica</a>
               
               <a href="/tags/cristeros/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cristeros</a>
               
-              <a href="/tags/cristianismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#cristianismo</a>
+              <a href="/tags/cristianismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cristianismo</a>
               
               <a href="/tags/cristina-kirchner/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#cristina kirchner</a>
               
@@ -1725,9 +2156,17 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/cultos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cultos</a>
               
+              <a href="/tags/cura-catolico/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Cura catolico</a>
+              
+              <a href="/tags/danann/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Danann</a>
+              
+              <a href="/tags/darwin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Darwin</a>
+              
               <a href="/tags/darwinismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#darwinismo</a>
               
               <a href="/tags/david-ricardo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#David Ricardo</a>
+              
+              <a href="/tags/dc-comics/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#DC Comics</a>
               
               <a href="/tags/de-la-rua/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#de la rua</a>
               
@@ -1749,17 +2188,37 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/dialectica-materialista/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#dialectica materialista</a>
               
+              <a href="/tags/dictadura/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Dictadura</a>
+              
+              <a href="/tags/dictadura-argentina-del-76/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Dictadura argentina del 76</a>
+              
               <a href="/tags/disidencia-controlada/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Disidencia controlada</a>
+              
+              <a href="/tags/distopia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Distopia</a>
               
               <a href="/tags/doctrina-del-shock/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#doctrina del shock</a>
               
               <a href="/tags/doctrina-social-de-la-iglesia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Doctrina social de la Iglesia</a>
               
+              <a href="/tags/dolar/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Dolar</a>
+              
               <a href="/tags/domadas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#domadas</a>
+              
+              <a href="/tags/donald-trump/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Donald Trump</a>
+              
+              <a href="/tags/dualismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#dualismo</a>
               
               <a href="/tags/duke-de-kent/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Duke de Kent</a>
               
               <a href="/tags/ecologismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Ecologismo</a>
+              
+              <a href="/tags/economia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Economia</a>
+              
+              <a href="/tags/economia-hispanica/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#economia hispanica</a>
+              
+              <a href="/tags/ee.uu/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#EE.UU</a>
+              
+              <a href="/tags/el-presto/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#El presto</a>
               
               <a href="/tags/elecciones-2021/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Elecciones 2021</a>
               
@@ -1767,11 +2226,19 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/elite/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Elite</a>
               
+              <a href="/tags/elites/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Elites</a>
+              
               <a href="/tags/elohim/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Elohim</a>
+              
+              <a href="/tags/elon-musk/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Elon Musk</a>
+              
+              <a href="/tags/elzstain/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Elzstain</a>
               
               <a href="/tags/entrega-territorial/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Entrega territorial</a>
               
               <a href="/tags/entrevistas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Entrevistas</a>
+              
+              <a href="/tags/escuela-de-la-salamanca/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Escuela de la salamanca</a>
               
               <a href="/tags/esoterismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Esoterismo</a>
               
@@ -1781,11 +2248,19 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/esquema-piramidal-ponzi/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#esquema piramidal ponzi</a>
               
+              <a href="/tags/estafa/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Estafa</a>
+              
+              <a href="/tags/estatismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Estatismo</a>
+              
+              <a href="/tags/estoicismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#estoicismo</a>
+              
               <a href="/tags/eugenesia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Eugenesia</a>
               
               <a href="/tags/evita-peron/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Evita Peron</a>
               
               <a href="/tags/extraterrestres/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Extraterrestres</a>
+              
+              <a href="/tags/falsa-disidencia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Falsa disidencia</a>
               
               <a href="/tags/falsa-independencia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#falsa independencia</a>
               
@@ -1793,7 +2268,15 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/falso-procer/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Falso procer</a>
               
+              <a href="/tags/falsos-proceres/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Falsos proceres</a>
+              
               <a href="/tags/familia-real/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Familia real</a>
+              
+              <a href="/tags/fanatismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#fanatismo</a>
+              
+              <a href="/tags/fascismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Fascismo</a>
+              
+              <a href="/tags/federico-rivanera-carles/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Federico Rivanera Carles</a>
               
               <a href="/tags/femibolches/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Femibolches</a>
               
@@ -1805,11 +2288,17 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/fondos-buitre/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Fondos buitre</a>
               
+              <a href="/tags/francia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Francia</a>
+              
+              <a href="/tags/francis-bacon/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Francis Bacon</a>
+              
               <a href="/tags/francisco-franco/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Francisco Franco</a>
               
               <a href="/tags/franquismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Franquismo</a>
               
               <a href="/tags/fraternidades-universitarias/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Fraternidades universitarias</a>
+              
+              <a href="/tags/frenologia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Frenologia</a>
               
               <a href="/tags/gauchos-judios/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Gauchos judios</a>
               
@@ -1819,31 +2308,51 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/george-soros/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#George Soros</a>
               
+              <a href="/tags/gnosis/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#gnosis</a>
+              
               <a href="/tags/gnosis-hiperborea/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Gnosis hiperborea</a>
               
               <a href="/tags/gnosticismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Gnosticismo</a>
               
               <a href="/tags/gnosticismo-hiperboreo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Gnosticismo hiperboreo</a>
               
+              <a href="/tags/gordo-dan/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Gordo Dan</a>
+              
               <a href="/tags/gran-logia-de-londres/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Gran logia de Londres</a>
               
               <a href="/tags/grupo-clarin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Grupo Clarin</a>
               
+              <a href="/tags/guerra/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Guerra</a>
+              
+              <a href="/tags/guerra-civil/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Guerra civil</a>
+              
               <a href="/tags/guerra-cristera/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Guerra cristera</a>
+              
+              <a href="/tags/guillermo-moreno/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Guillermo Moreno</a>
               
               <a href="/tags/gurues/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#gurues</a>
               
               <a href="/tags/helena-blavastky/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#helena blavastky</a>
               
+              <a href="/tags/herejias/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#herejias</a>
+              
+              <a href="/tags/himno-argentino/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Himno Argentino</a>
+              
               <a href="/tags/hiperboreos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Hiperboreos</a>
               
               <a href="/tags/hippies/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Hippies</a>
               
-              <a href="/tags/hispanidad/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#hispanidad</a>
+              <a href="/tags/hispania/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Hispania</a>
+              
+              <a href="/tags/hispanidad/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Hispanidad</a>
               
               <a href="/tags/hispanismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#hispanismo</a>
               
+              <a href="/tags/historia-argentina/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Historia Argentina</a>
+              
               <a href="/tags/historia-de-cristianismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Historia de Cristianismo</a>
+              
+              <a href="/tags/historia-de-espana/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Historia de España</a>
               
               <a href="/tags/historia-de-las-religiones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#historia de las religiones</a>
               
@@ -1857,23 +2366,47 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/ia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#IA</a>
               
+              <a href="/tags/iceberg-de-conspiraciones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Iceberg de conspiraciones</a>
+              
               <a href="/tags/ida-craddock/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#ida craddock</a>
               
               <a href="/tags/ideologias/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Ideologias</a>
               
+              <a href="/tags/idolatria-estatal/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Idolatria estatal</a>
+              
+              <a href="/tags/iglesia-catolica/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Iglesia catolica</a>
+              
               <a href="/tags/illuminatis/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#illuminatis</a>
               
-              <a href="/tags/imperio-espanol/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Imperio Español</a>
+              <a href="/tags/imperialismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Imperialismo</a>
+              
+              <a href="/tags/imperialismo-anglosajon/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Imperialismo anglosajon</a>
+              
+              <a href="/tags/imperialismo-frances/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Imperialismo Frances</a>
+              
+              <a href="/tags/imperio-espanol/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Imperio español</a>
               
               <a href="/tags/incendios/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Incendios</a>
+              
+              <a href="/tags/independencia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Independencia</a>
+              
+              <a href="/tags/independencias/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Independencias</a>
               
               <a href="/tags/influencers/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Influencers</a>
               
               <a href="/tags/inglaterra/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Inglaterra</a>
               
+              <a href="/tags/inmigracion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Inmigracion</a>
+              
               <a href="/tags/instituto-tavistok/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Instituto tavistok</a>
               
+              <a href="/tags/invasion-mora/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Invasion mora</a>
+              
+              <a href="/tags/invasion-musulmana/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Invasion musulmana</a>
+              
               <a href="/tags/isabel-i-de-castilla/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Isabel I de castilla</a>
+              
+              <a href="/tags/islam/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Islam</a>
               
               <a href="/tags/islas-malvinas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Islas Malvinas</a>
               
@@ -1888,6 +2421,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               <a href="/tags/jesucristo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Jesucristo</a>
               
               <a href="/tags/jewish-colonization-association/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Jewish Colonization Association</a>
+              
+              <a href="/tags/joe-lewis/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Joe Lewis</a>
               
               <a href="/tags/jokey-club/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Jokey club</a>
               
@@ -1905,9 +2440,21 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/julius-pope/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Julius Pope</a>
               
+              <a href="/tags/justicialismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#justicialismo</a>
+              
+              <a href="/tags/karina-milei/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Karina Milei</a>
+              
               <a href="/tags/kirchner/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Kirchner</a>
               
               <a href="/tags/kirchnerismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Kirchnerismo</a>
+              
+              <a href="/tags/lavado-cerebral/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Lavado cerebral</a>
+              
+              <a href="/tags/lengua-espanola/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Lengua española</a>
+              
+              <a href="/tags/lenguaje/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Lenguaje</a>
+              
+              <a href="/tags/lenin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Lenin</a>
               
               <a href="/tags/leyenda-negra/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#leyenda negra</a>
               
@@ -1915,11 +2462,21 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/liberal/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#liberal</a>
               
+              <a href="/tags/liberales/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Liberales</a>
+              
               <a href="/tags/liberalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Liberalismo</a>
               
               <a href="/tags/liberalismo-cultural/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#liberalismo cultural</a>
               
+              <a href="/tags/libertarianismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Libertarianismo</a>
+              
+              <a href="/tags/libertarios/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Libertarios</a>
+              
               <a href="/tags/linajes/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Linajes</a>
+              
+              <a href="/tags/literatura-hispana/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Literatura hispana</a>
+              
+              <a href="/tags/lombrosianos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Lombrosianos</a>
               
               <a href="/tags/lucas-carena/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Lucas Carena</a>
               
@@ -1929,9 +2486,11 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/luciferianismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Luciferianismo</a>
               
-              <a href="/tags/luciferianos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#luciferianos</a>
+              <a href="/tags/luciferianos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Luciferianos</a>
               
               <a href="/tags/macri/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Macri</a>
+              
+              <a href="/tags/macumba/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Macumba</a>
               
               <a href="/tags/malthusianismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Malthusianismo</a>
               
@@ -1939,17 +2498,39 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/manipulacion-genetica-en-alimentos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Manipulacion genetica en alimentos</a>
               
+              <a href="/tags/marcha-espanola/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Marcha española</a>
+              
+              <a href="/tags/marcionismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#marcionismo</a>
+              
+              <a href="/tags/marco-aurelio/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Marco Aurelio</a>
+              
               <a href="/tags/margareth-sanger/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Margareth Sanger</a>
               
               <a href="/tags/maria-stopes/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Maria Stopes</a>
               
               <a href="/tags/mark-zukerberg/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Mark Zukerberg</a>
               
+              <a href="/tags/marranos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Marranos</a>
+              
+              <a href="/tags/martin-ayerbe/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Martin Ayerbe</a>
+              
+              <a href="/tags/martinez-de-hoz/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Martinez de hoz</a>
+              
+              <a href="/tags/marvel/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Marvel</a>
+              
               <a href="/tags/marxismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Marxismo</a>
               
               <a href="/tags/marxismo-cultural/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#marxismo cultural</a>
               
+              <a href="/tags/marxista/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#marxista</a>
+              
+              <a href="/tags/maslaton/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Maslaton</a>
+              
               <a href="/tags/masoneria/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Masoneria</a>
+              
+              <a href="/tags/masoneria-argentina/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Masoneria argentina</a>
+              
+              <a href="/tags/masones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#masones</a>
               
               <a href="/tags/mass-media/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Mass media</a>
               
@@ -1957,11 +2538,13 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/matanza-de-salem/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#matanza de salem</a>
               
-              <a href="/tags/materialismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#materialismo</a>
+              <a href="/tags/materialismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Materialismo</a>
               
               <a href="/tags/matrix/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#matrix</a>
               
               <a href="/tags/mauricio-macri/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Mauricio Macri</a>
+              
+              <a href="/tags/menem/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Menem</a>
               
               <a href="/tags/mensajes-subliminales/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Mensajes subliminales</a>
               
@@ -1969,9 +2552,15 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/mexico/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#mexico</a>
               
+              <a href="/tags/milagro-economico-aleman/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Milagro economico aleman</a>
+              
+              <a href="/tags/mochileros-israelies/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Mochileros israelies</a>
+              
               <a href="/tags/monarquia-inglesa/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Monarquia inglesa</a>
               
               <a href="/tags/monsanto/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Monsanto</a>
+              
+              <a href="/tags/moros/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Moros</a>
               
               <a href="/tags/mossad/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Mossad</a>
               
@@ -1979,9 +2568,15 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/musica-basada/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Musica basada</a>
               
+              <a href="/tags/musica-influenciada-por-la-masoneria/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Musica influenciada por la masoneria</a>
+              
               <a href="/tags/musica-satanica/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Musica satanica</a>
               
-              <a href="/tags/nacionalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nacionalismo</a>
+              <a href="/tags/musulmanes/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Musulmanes</a>
+              
+              <a href="/tags/nacional-socialismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nacional socialismo</a>
+              
+              <a href="/tags/nacionalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#nacionalismo</a>
               
               <a href="/tags/nacionalismo-argentino/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nacionalismo argentino</a>
               
@@ -1989,13 +2584,23 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/nazis/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nazis</a>
               
+              <a href="/tags/nazismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#nazismo</a>
+              
               <a href="/tags/nenazis/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#nenazis</a>
+              
+              <a href="/tags/nenazos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nenazos</a>
+              
+              <a href="/tags/neoliberalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Neoliberalismo</a>
               
               <a href="/tags/nestor-kirchner/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#nestor kirchner</a>
               
               <a href="/tags/new-age/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#New age</a>
               
               <a href="/tags/normies/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#normies</a>
+              
+              <a href="/tags/nueva-atlantida/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nueva atlantida</a>
+              
+              <a href="/tags/nueva-derecha/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nueva derecha</a>
               
               <a href="/tags/nuevo-orden-mundial/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Nuevo orden mundial</a>
               
@@ -2011,11 +2616,23 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/orientalismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Orientalismo</a>
               
-              <a href="/tags/ovnis/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Ovnis</a>
+              <a href="/tags/otan/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#OTAN</a>
+              
+              <a href="/tags/ovnis/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#OVNIS</a>
+              
+              <a href="/tags/padre-ravasi/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Padre Ravasi</a>
               
               <a href="/tags/palestina/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Palestina</a>
               
+              <a href="/tags/palestina-libre/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Palestina libre</a>
+              
+              <a href="/tags/partidocracia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Partidocracia</a>
+              
               <a href="/tags/patagonia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Patagonia</a>
+              
+              <a href="/tags/patria-grande/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Patria Grande</a>
+              
+              <a href="/tags/patricio-lons/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Patricio Lons</a>
               
               <a href="/tags/peliculas-y-series/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#peliculas y series</a>
               
@@ -2023,19 +2640,33 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/periodismo-titere/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#periodismo titere</a>
               
-              <a href="/tags/peron/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#peron</a>
+              <a href="/tags/peron/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Peron</a>
+              
+              <a href="/tags/peron-y-la-masoneria/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Peron y la masoneria</a>
               
               <a href="/tags/peronismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Peronismo</a>
+              
+              <a href="/tags/peter-thiel/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Peter Thiel</a>
               
               <a href="/tags/phi-beta-kappa/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#phi beta kappa</a>
               
               <a href="/tags/plan-andinia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Plan andinia</a>
               
+              <a href="/tags/plan-kalergi/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Plan Kalergi</a>
+              
               <a href="/tags/plandemia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#plandemia</a>
               
               <a href="/tags/planned-parenthood/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Planned parenthood</a>
               
+              <a href="/tags/platon/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Platon</a>
+              
+              <a href="/tags/platonismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#platonismo</a>
+              
+              <a href="/tags/plutocracia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Plutocracia</a>
+              
               <a href="/tags/politicos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Politicos</a>
+              
+              <a href="/tags/politicos-masones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#politicos masones</a>
               
               <a href="/tags/politicos-titeres/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Politicos titeres</a>
               
@@ -2047,6 +2678,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/promiscuidad/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#promiscuidad</a>
               
+              <a href="/tags/propaganda/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Propaganda</a>
+              
               <a href="/tags/protestantismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#protestantismo</a>
               
               <a href="/tags/protocolos-sabios-de-sion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Protocolos sabios de Sion</a>
@@ -2057,11 +2690,15 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/racismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#racismo</a>
               
+              <a href="/tags/racismo-cientifico/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Racismo cientifico</a>
+              
               <a href="/tags/ravi-shankar/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#ravi shankar</a>
               
               <a href="/tags/realeza/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Realeza</a>
               
               <a href="/tags/religion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Religion</a>
+              
+              <a href="/tags/religion-estatal/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#religion estatal</a>
               
               <a href="/tags/religiones/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#religiones</a>
               
@@ -2069,9 +2706,13 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/rene-guenon/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Rene guenon</a>
               
+              <a href="/tags/revolucion-francesa/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Revolucion francesa</a>
+              
               <a href="/tags/reyes-catolicos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Reyes catolicos</a>
               
               <a href="/tags/ritual/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#ritual</a>
+              
+              <a href="/tags/rituales/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Rituales</a>
               
               <a href="/tags/rituales-satanicos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Rituales satanicos</a>
               
@@ -2089,11 +2730,27 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/rotary-club/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Rotary Club</a>
               
+              <a href="/tags/rothbard/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Rothbard</a>
+              
+              <a href="/tags/rothschild-familia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Rothschild familia</a>
+              
+              <a href="/tags/rusia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Rusia</a>
+              
               <a href="/tags/salem/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#salem</a>
               
               <a href="/tags/san-agustin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#San Agustin</a>
               
               <a href="/tags/san-martin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#San Martin</a>
+              
+              <a href="/tags/san-martin-agente-ingles/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#San Martin agente ingles</a>
+              
+              <a href="/tags/san-martin-agente-ingles-y-mason/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#San Martin agente ingles y mason</a>
+              
+              <a href="/tags/santiaco-cuneo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Santiaco Cuneo</a>
+              
+              <a href="/tags/santiago-cuneo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Santiago Cuneo</a>
+              
+              <a href="/tags/santo-tomas-de-aquino/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Santo Tomas de Aquino</a>
               
               <a href="/tags/santoro/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Santoro</a>
               
@@ -2101,13 +2758,25 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/satanismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#satanismo</a>
               
+              <a href="/tags/secesion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Secesion</a>
+              
               <a href="/tags/sectas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Sectas</a>
               
+              <a href="/tags/seineldin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Seineldin</a>
+              
               <a href="/tags/selknam/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Selknam</a>
+              
+              <a href="/tags/seneca/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#seneca</a>
+              
+              <a href="/tags/separatismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Separatismo</a>
               
               <a href="/tags/sigmun-schlomo-freud/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Sigmun Schlomo Freud</a>
               
               <a href="/tags/simbologia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#simbologia</a>
+              
+              <a href="/tags/simbolos-patrios-masonicos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Simbolos patrios masonicos</a>
+              
+              <a href="/tags/simon-el-mago/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#simon el mago</a>
               
               <a href="/tags/simone-de-beauvoir/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Simone de Beauvoir</a>
               
@@ -2123,6 +2792,14 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/sociedades-secretas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#sociedades secretas</a>
               
+              <a href="/tags/stalin/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Stalin</a>
+              
+              <a href="/tags/star-wars/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Star Wars</a>
+              
+              <a href="/tags/superheroes/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Superheroes</a>
+              
+              <a href="/tags/superman/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Superman</a>
+              
               <a href="/tags/supremacismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Supremacismo</a>
               
               <a href="/tags/supremacismo-ario/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#supremacismo ario</a>
@@ -2133,13 +2810,23 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/susan-segal/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Susan Segal</a>
               
+              <a href="/tags/tecnato-americano/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Tecnato americano</a>
+              
+              <a href="/tags/tecnocracia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Tecnocracia</a>
+              
               <a href="/tags/television/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Television</a>
               
               <a href="/tags/television-argentina/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Television argentina</a>
               
               <a href="/tags/teologia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#teologia</a>
               
+              <a href="/tags/teorias-conspirativas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#teorias conspirativas</a>
+              
               <a href="/tags/teosofia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Teosofia</a>
+              
+              <a href="/tags/tercera-posicion/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#tercera posicion</a>
+              
+              <a href="/tags/think-thanks/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Think Thanks</a>
               
               <a href="/tags/thomas-malthus/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Thomas Malthus</a>
               
@@ -2151,7 +2838,15 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/titeres-del-sionismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Titeres del sionismo</a>
               
+              <a href="/tags/traicion-de-riego/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Traicion de Riego</a>
+              
+              <a href="/tags/transhumanismo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Transhumanismo</a>
+              
+              <a href="/tags/tratado-antartico/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Tratado antartico</a>
+              
               <a href="/tags/uaps/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#UAPs</a>
+              
+              <a href="/tags/ucrania/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Ucrania</a>
               
               <a href="/tags/ufo/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#UFO</a>
               
@@ -2159,11 +2854,19 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
               
               <a href="/tags/usa/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#USA</a>
               
-              <a href="/tags/usura/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#usura</a>
+              <a href="/tags/usura/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Usura</a>
               
               <a href="/tags/vacunas/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Vacunas</a>
               
+              <a href="/tags/videla/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Videla</a>
+              
+              <a href="/tags/vril/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Vril</a>
+              
               <a href="/tags/wicca/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#wicca</a>
+              
+              <a href="/tags/wikipedia/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Wikipedia</a>
+              
+              <a href="/tags/ypf/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#YPF</a>
               
               <a href="/tags/zurdos/" class="ctr-link" style="border:1px solid var(--blue-main); padding:8px 12px;">#Zurdos</a>
               
@@ -2184,6 +2887,49 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
 <script>
 (() => {
+
+  /* =========================================================
+     LAYOUT MÓVIL — PORTADA PRIMERO
+     En <=700px mueve el bloque de navegación/mapa justo
+     debajo de la portada. Al volver a escritorio lo devuelve
+     a su lugar original, sin duplicar elementos ni IDs.
+     ========================================================= */
+  (() => {
+    const rail = document.querySelector('.left-rail');
+    const windowBox = document.querySelector('.window-container');
+    const hero = windowBox?.querySelector('.hero-cover');
+
+    if (!rail || !windowBox || !hero) return;
+
+    const originalParent = rail.parentNode;
+    const originalMarker = document.createComment('sofirmolo-left-rail-origin');
+    originalParent.insertBefore(originalMarker, rail);
+
+    const mobileQuery = window.matchMedia('(max-width: 700px)');
+
+    const applyMobileLayout = () => {
+      if (mobileQuery.matches) {
+        if (hero.nextElementSibling !== rail) {
+          hero.insertAdjacentElement('afterend', rail);
+        }
+        document.body.classList.add('sf-mobile-layout');
+      } else {
+        if (rail.parentNode !== originalParent || originalMarker.nextSibling !== rail) {
+          originalParent.insertBefore(rail, originalMarker.nextSibling);
+        }
+        document.body.classList.remove('sf-mobile-layout');
+      }
+    };
+
+    applyMobileLayout();
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', applyMobileLayout);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(applyMobileLayout);
+    }
+  })();
+
   // Buscador del sitio
   (function () {
     const openBtn = document.getElementById('openSearchBtn');
@@ -2706,27 +3452,90 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     requestAnimationFrame(draw);
   }
 
-  // LOFI Cassette Player
+  // LOFI Cassette Player — playlist publica administrada desde Sveltia.
+  // El visitante puede reproducir, pausar, avanzar, retroceder y silenciar,
+  // pero NO puede cargar archivos desde el navegador.
   const audio = document.getElementById('lofiAudio');
   const play = document.getElementById('lofiPlay');
   const stop = document.getElementById('lofiStop');
   const mute = document.getElementById('lofiMute');
-  const file = document.getElementById('lofiFile');
+  const prev = document.getElementById('lofiPrev');
+  const next = document.getElementById('lofiNext');
   const seekTrack = document.getElementById('lofiProgressTrack');
   const seekFill = document.getElementById('lofiProgressFill');
   const seekHandle = document.getElementById('lofiProgressHandle');
-  let isSeeking = false;
   const status = document.getElementById('lofiStatus');
   const time = document.getElementById('lofiTime');
+  const pos = document.getElementById('lofiTrackPos');
   const player = document.querySelector('.lofi-player');
+  const playlistNode = document.getElementById('lofiPlaylist');
+  let isSeeking = false;
+  let currentTrack = 0;
+  const repeatPlaylist = true;
+  let playlist = [];
+
+  try {
+    const rawPlaylist = JSON.parse(playlistNode?.textContent || '[]');
+    playlist = (Array.isArray(rawPlaylist) ? rawPlaylist : [])
+      .map((track, index) => ({
+        title: String(track?.titulo || track?.title || `PISTA ${index + 1}`),
+        src: String(track?.archivo || track?.file || ''),
+        enabled: track?.activo !== false && track?.enabled !== false
+      }))
+      .filter(track => track.enabled && track.src);
+  } catch (_) {
+    playlist = [];
+  }
 
   if (audio && play) {
+    function setSeekVisual(pct) {
+      const safe = Math.max(0, Math.min(100, Number(pct) || 0));
+      seekFill.style.width = safe + '%';
+      seekHandle.style.left = safe + '%';
+    }
+
+    function updateTrackPosition() {
+      if (pos) pos.textContent = playlist.length ? `${currentTrack + 1}/${playlist.length}` : '0/0';
+    }
+
+    function loadTrack(index, autoplay = false) {
+      if (!playlist.length) {
+        audio.removeAttribute('src');
+        status.textContent = 'SIN PISTAS PUBLICADAS';
+        time.textContent = '00:00';
+        updateTrackPosition();
+        setSeekVisual(0);
+        return;
+      }
+      currentTrack = ((index % playlist.length) + playlist.length) % playlist.length;
+      const track = playlist[currentTrack];
+      audio.src = track.src;
+      audio.load();
+      status.textContent = track.title.toUpperCase();
+      time.textContent = '00:00';
+      setSeekVisual(0);
+      updateTrackPosition();
+      play.textContent = '▶';
+      player.classList.remove('playing');
+      if (autoplay) {
+        audio.play().then(() => {
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        }).catch(() => {
+          play.textContent = '▶';
+        });
+      }
+    }
+
     play.addEventListener('click', async () => {
-      if (!audio.src) return file?.click();
+      if (!playlist.length) return;
+      if (!audio.src) loadTrack(currentTrack, false);
       if (audio.paused) {
-        await audio.play();
-        player.classList.add('playing');
-        play.textContent = 'Ⅱ';
+        try {
+          await audio.play();
+          player.classList.add('playing');
+          play.textContent = 'Ⅱ';
+        } catch (_) {}
       } else {
         audio.pause();
         player.classList.remove('playing');
@@ -2735,23 +3544,35 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
 
     stop.addEventListener('click', () => {
-      audio.pause(); audio.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
       player.classList.remove('playing');
       play.textContent = '▶';
+      setSeekVisual(0);
+      time.textContent = '00:00';
     });
+
+    prev.addEventListener('click', () => loadTrack(currentTrack - 1, !audio.paused));
+    next.addEventListener('click', () => loadTrack(currentTrack + 1, !audio.paused));
 
     mute.addEventListener('click', () => {
       audio.muted = !audio.muted;
       mute.textContent = audio.muted ? 'MUTE' : 'VOL';
     });
 
-    file.addEventListener('change', e => {
-      const f = e.target.files?.[0];
-      if (!f) return;
-      if (audio.src) URL.revokeObjectURL(audio.src);
-      audio.src = URL.createObjectURL(f);
-      audio.load();
-      status.textContent = f.name.toUpperCase();
+    audio.addEventListener('ended', () => {
+      if (!playlist.length) return;
+      if (currentTrack < playlist.length - 1) loadTrack(currentTrack + 1, true);
+      else if (repeatPlaylist) loadTrack(0, true);
+      else {
+        player.classList.remove('playing');
+        play.textContent = '▶';
+      }
+    });
+
+    audio.addEventListener('error', () => {
+      status.textContent = 'AUDIO NO DISPONIBLE';
+      player.classList.remove('playing');
       play.textContent = '▶';
     });
 
@@ -2760,22 +3581,18 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         const m = Math.floor(audio.currentTime / 60).toString().padStart(2, '0');
         const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
         time.textContent = `${m}:${s}`;
-        if (!isSeeking) setSeekVisual((audio.currentTime / audio.duration) * 100);
+        if (!isSeeking && audio.duration) setSeekVisual((audio.currentTime / audio.duration) * 100);
       }
     });
 
-    function setSeekVisual(pct) {
-      seekFill.style.width = pct + '%';
-      seekHandle.style.left = pct + '%';
-    }
-
     function seekFromEvent(e) {
+      if (!audio.duration) return;
       const rect = seekTrack.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       let pct = ((clientX - rect.left) / rect.width) * 100;
       pct = Math.max(0, Math.min(100, pct));
       setSeekVisual(pct);
-      if (audio.duration) audio.currentTime = (pct / 100) * audio.duration;
+      audio.currentTime = (pct / 100) * audio.duration;
     }
 
     seekTrack.addEventListener('pointerdown', e => {
@@ -2784,6 +3601,8 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
     });
     addEventListener('pointermove', e => { if (isSeeking) seekFromEvent(e); });
     addEventListener('pointerup', () => { isSeeking = false; });
+
+    loadTrack(0, false);
   }
 })();
 </script>
