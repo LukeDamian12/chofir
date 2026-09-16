@@ -1763,6 +1763,86 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
   .km-network .km-link, .km-network .km-pulse { animation: none !important; }
 }
 
+
+/* =========================================================
+   MOBILE — PORTADA PRIMERO + HUB DE NAVEGACIÓN
+   Solo afecta pantallas de hasta 700px.
+   La barra lateral se reubica por JS justo después de la portada.
+   En escritorio no cambia absolutamente nada.
+   ========================================================= */
+@media (max-width: 700px) {
+  body.sf-mobile-layout .window-container {
+    width: 100%;
+  }
+
+  body.sf-mobile-layout .hero-cover {
+    min-height: 42vh;
+    margin-bottom: 0;
+  }
+
+  body.sf-mobile-layout .left-rail {
+    width: 100%;
+    gap: 8px;
+    padding: 8px;
+    margin: 0;
+    background:
+      linear-gradient(180deg, rgba(18,102,255,.045), rgba(255,18,43,.035));
+    border-bottom: 1px solid rgba(18,102,255,.38);
+  }
+
+  body.sf-mobile-layout .side-nav {
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.sf-mobile-layout .side-nav .side-label {
+    grid-column: 1 / -1;
+    padding: 9px 8px;
+  }
+
+  body.sf-mobile-layout .side-nav > a {
+    min-width: 0;
+    padding: 10px 4px;
+    font-size: 12px;
+    border-right: 1px dotted var(--blue-dark);
+  }
+
+  /* INICIO ocupa el ancho completo; las demás secciones van en parejas. */
+  body.sf-mobile-layout .side-nav > a:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  body.sf-mobile-layout .knowledge-map-promo {
+    width: 100%;
+    max-width: none;
+    min-height: 278px;
+    margin: 0;
+  }
+
+  body.sf-mobile-layout .km-visual {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.sf-mobile-layout .quick-tools {
+    width: 100%;
+    gap: 8px;
+  }
+
+  body.sf-mobile-layout .quick-tools-btn {
+    min-height: 38px;
+    font-size: 11px;
+  }
+
+  /* Después del hub móvil continúa el sitio normalmente. */
+  body.sf-mobile-layout .marquee {
+    margin-top: 0;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1918,7 +1998,7 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
         </header>
 
         <div class="marquee" aria-label="Investigación libre e independiente">
-            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO SIN CENSURA</span>
+            <span>INVESTIGACION LIBRE E INDEPENDIENTE // CONTENIDO AUTONECTADO Y SIN CENSURA</span>
         </div>
 
         <div class="section-divider"></div>
@@ -1938,6 +2018,49 @@ body.reveal-instant .reveal { transition: none !important; opacity: 1 !important
 
 <script>
 (() => {
+
+  /* =========================================================
+     LAYOUT MÓVIL — PORTADA PRIMERO
+     En <=700px mueve el bloque de navegación/mapa justo
+     debajo de la portada. Al volver a escritorio lo devuelve
+     a su lugar original, sin duplicar elementos ni IDs.
+     ========================================================= */
+  (() => {
+    const rail = document.querySelector('.left-rail');
+    const windowBox = document.querySelector('.window-container');
+    const hero = windowBox?.querySelector('.hero-cover');
+
+    if (!rail || !windowBox || !hero) return;
+
+    const originalParent = rail.parentNode;
+    const originalMarker = document.createComment('sofirmolo-left-rail-origin');
+    originalParent.insertBefore(originalMarker, rail);
+
+    const mobileQuery = window.matchMedia('(max-width: 700px)');
+
+    const applyMobileLayout = () => {
+      if (mobileQuery.matches) {
+        if (hero.nextElementSibling !== rail) {
+          hero.insertAdjacentElement('afterend', rail);
+        }
+        document.body.classList.add('sf-mobile-layout');
+      } else {
+        if (rail.parentNode !== originalParent || originalMarker.nextSibling !== rail) {
+          originalParent.insertBefore(rail, originalMarker.nextSibling);
+        }
+        document.body.classList.remove('sf-mobile-layout');
+      }
+    };
+
+    applyMobileLayout();
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', applyMobileLayout);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(applyMobileLayout);
+    }
+  })();
+
   // Buscador del sitio
   (function () {
     const openBtn = document.getElementById('openSearchBtn');
