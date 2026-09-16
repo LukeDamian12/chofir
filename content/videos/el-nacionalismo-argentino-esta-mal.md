@@ -10,12 +10,7 @@ download: ''
 tags:
   - Nacionalismo
   - Nacionalismo argentino
-  - Biondini
-  - Santiaco Cuneo
-  - Martin Ayerbe
-  - Guillermo Moreno
   - Disidencia controlada
-  - nenazis
   - nazis
   - hiperboreos
 ---
