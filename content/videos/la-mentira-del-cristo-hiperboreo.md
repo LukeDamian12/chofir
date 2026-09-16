@@ -22,13 +22,11 @@ tags:
   - Rene guenon
   - Filosofia perenne
   - religiones comparadas
-  - Lucas Carena
   - nacionalismo argentino
-  - nenazis
   - nazis
   - Houston Chamberlain
   - Racismo
-  - supremacismo ario
+  - raza aria
   - supremacismo blanco
   - judios
   - Jesucristo
