@@ -1,7 +1,7 @@
 ---
 title: Charla en vivo sobre temas que surjan
 description: .
-date: 2022-06-16
+date: 2022-01-16
 thumbnail: ''
 youtube: ''
 bitchute: ''
