@@ -169,28 +169,29 @@ collections:
               - {label: "Posición X opcional", name: "x", widget: "number", required: false, hint: "Dejala vacía para posición automática estable."}
               - {label: "Posición Y opcional", name: "y", widget: "number", required: false, hint: "Dejala vacía para posición automática estable."}
 
-          - label: "Relaciones manuales"
+          - label: "Relaciones entre temas (modo avanzado)"
             name: "relations"
             widget: "list"
             required: false
-            summary: "{{fields.from}} → {{fields.to}}"
+            summary: "{{fields.from}} ↔ {{fields.to}} · {{fields.label}}"
+            hint: "RECOMENDADO: para crear, editar o borrar uniones de forma simple usá /admin/atlas-relaciones.html. Esta lista queda como editor avanzado / respaldo."
             fields:
-              - {label: "Nodo A / tag", name: "from", widget: "string"}
-              - {label: "Nodo B / tag", name: "to", widget: "string"}
-              - {label: "Texto de la relación", name: "label", widget: "string", required: false}
-              - {label: "Fuerza visual (1-5)", name: "strength", widget: "number", value_type: "int", min: 1, max: 5, default: 3}
-              - {label: "Direccional (A → B)", name: "directed", widget: "boolean", default: false}
-              - {label: "Color", name: "accent", widget: "select", options: ["blue", "red"], default: "red"}
+              - {label: "1) Tema A — tag exacto", name: "from", widget: "string", hint: "Ejemplo: Gnosticismo"}
+              - {label: "2) Tema B — tag exacto", name: "to", widget: "string", hint: "Ejemplo: Cristianismo"}
+              - {label: "3) ¿Qué relación tienen?", name: "label", widget: "string", required: false, hint: "Ejemplos: influencia, oposición, contexto histórico, debate doctrinal."}
+              - {label: "4) Importancia visual (1 sutil — 5 muy fuerte)", name: "strength", widget: "number", value_type: "int", min: 1, max: 5, default: 3}
+              - {label: "5) ¿Tiene dirección A → B?", name: "directed", widget: "boolean", default: false, hint: "Dejalo apagado si A y B simplemente están relacionados. Activá solo si la dirección importa."}
+              - {label: "6) Color", name: "accent", widget: "select", options: ["blue", "red"], default: "blue", hint: "Azul = normal. Rojo = destacar visualmente."}
 
-          - label: "Bloquear relaciones automáticas"
+          - label: "Ocultar una unión generada por el sistema (avanzado)"
             name: "blocked_relations"
             widget: "list"
             required: false
             summary: "{{fields.from}} × {{fields.to}}"
-            hint: "Usalo cuando dos tags coinciden en contenidos pero no querés que esa conexión aparezca automáticamente."
+            hint: "RECOMENDADO: hacelo desde /admin/atlas-relaciones.html. Usá esto cuando aparecen unidos dos temas que no querés conectar."
             fields:
-              - {label: "Nodo A / tag", name: "from", widget: "string"}
-              - {label: "Nodo B / tag", name: "to", widget: "string"}
+              - {label: "Tema A — tag exacto", name: "from", widget: "string"}
+              - {label: "Tema B — tag exacto", name: "to", widget: "string"}
 
   - name: "lofi_radio"
     label: "LOFI // Radio"
