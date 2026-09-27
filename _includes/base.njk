@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{%- set paginaTitulo = title if title else "SoFirMoLo 12" %}
+{%- set paginaTitulo = title if title else "SoFirMoLo | Sitio oficial y archivo independiente" %}
 {%- set paginaDescripcion = description if description else site.descripcion %}
 {%- set paginaUrl = site.url + page.url %}
+{%- set paginaTipo = "website" if page.url == "/" else ("video.other" if (youtube or bitchute or odysee) else "article") %}
     <title>{{ paginaTitulo }}{% if title %} · SoFirMoLo{% endif %}</title>
     <meta name="description" content="{{ paginaDescripcion }}">
+    <meta name="author" content="{{ site.autor }}">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
     <link rel="canonical" href="{{ paginaUrl }}">
-    <link rel="icon" type="image/png" href="/assets/favicon-sofirmolo.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/assets/favicon-sofirmolo.png">
 
-    <meta property="og:type" content="{{ 'video.other' if (youtube or bitchute or odysee) else 'article' }}">
+    <meta property="og:type" content="{{ paginaTipo }}">
     <meta property="og:title" content="{{ paginaTitulo }}">
     <meta property="og:description" content="{{ paginaDescripcion }}">
     <meta property="og:url" content="{{ paginaUrl }}">
@@ -22,6 +25,21 @@
     <meta name="twitter:title" content="{{ paginaTitulo }}">
     <meta name="twitter:description" content="{{ paginaDescripcion }}">
 
+    {% if page.url == "/" %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": {{ (site.url + "/#website") | toJson | safe }},
+      "url": {{ (site.url + "/") | toJson | safe }},
+      "name": {{ site.nombre | toJson | safe }},
+      "alternateName": ["SoFirMoLo 12", "sofirmolo.com"],
+      "description": {{ site.descripcion | toJson | safe }},
+      "inLanguage": "es"
+    }
+    </script>
+    {% endif %}
+
     {% if youtube or bitchute or odysee %}
     <script type="application/ld+json">
     {
@@ -30,8 +48,11 @@
       "name": {{ title | toJson | safe }},
       "description": {{ paginaDescripcion | toJson | safe }},
       "uploadDate": {{ date | toJson | safe }},
-      "url": {{ paginaUrl | toJson | safe }}
-      {%- if youtube %},"embedUrl": {{ (youtube | youtubeEmbed) | toJson | safe }}{% endif %}
+      "url": {{ paginaUrl | toJson | safe }},
+      "mainEntityOfPage": {{ paginaUrl | toJson | safe }},
+      "inLanguage": "es"
+      {%- if thumbnail %},"thumbnailUrl": [{{ thumbnail | toJson | safe }}]{% elif youtube %},"thumbnailUrl": [{{ (youtube | youtubeThumbnail) | toJson | safe }}]{% endif %}
+      {%- if youtube %},"embedUrl": {{ (youtube | youtubeEmbed) | toJson | safe }}{% elif bitchute %},"embedUrl": {{ (bitchute | bitchuteEmbed) | toJson | safe }}{% elif odysee %},"embedUrl": {{ (odysee | odyseeEmbed) | toJson | safe }}{% endif %}
     }
     </script>
     {% endif %}
@@ -45,6 +66,8 @@
       "description": {{ paginaDescripcion | toJson | safe }},
       "datePublished": {{ date | toJson | safe }},
       "author": {"@type": "Person", "name": {{ (author if author else site.autor) | toJson | safe }}},
+      "mainEntityOfPage": {"@type": "WebPage", "@id": {{ paginaUrl | toJson | safe }}},
+      "inLanguage": "es",
       "url": {{ paginaUrl | toJson | safe }}
     }
     </script>

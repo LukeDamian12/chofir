@@ -5,6 +5,13 @@ eleventyExcludeFromCollections: true
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{{ site.url }}/</loc></url>
+  <url><loc>{{ site.url }}/videos/</loc></url>
+  <url><loc>{{ site.url }}/directos/</loc></url>
+  <url><loc>{{ site.url }}/articulos/</loc></url>
+  <url><loc>{{ site.url }}/recursos/</loc></url>
+  <url><loc>{{ site.url }}/mapa/</loc></url>
+  <url><loc>{{ site.url }}/dossiers/</loc></url>
+  <url><loc>{{ site.url }}/tags/</loc></url>
 {%- for item in collections.videos %}
   <url><loc>{{ site.url }}{{ item.url }}</loc>{% if item.date %}<lastmod>{{ item.date | toIsoDate }}</lastmod>{% endif %}</url>
 {%- endfor %}
