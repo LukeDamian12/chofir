@@ -1,0 +1,70 @@
+---
+layout: base.njk
+modo_lectura: true
+schemaType: "ProfilePage"
+title: "Sobre SoFirMoLo"
+description: "SoFirMoLo es un investigador independiente y creador de contenido sobre Hispanidad, historia, religión, filosofía, política, gnosticismo y ocultismo."
+permalink: "/sobre-sofirmolo/"
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": {{ (site.url + site.autorUrl + '#profile') | toJson | safe }},
+  "url": {{ (site.url + site.autorUrl) | toJson | safe }},
+  "name": "Sobre SoFirMoLo",
+  "description": {{ site.autorDescripcion | toJson | safe }},
+  "mainEntity": {
+    "@type": "Person",
+    "@id": {{ (site.url + site.autorUrl + '#person') | toJson | safe }},
+    "name": {{ site.autor | toJson | safe }},
+    "alternateName": {{ site.autorAlternateName | toJson | safe }},
+    "url": {{ (site.url + site.autorUrl) | toJson | safe }},
+    "description": {{ site.autorDescripcion | toJson | safe }},
+    "knowsAbout": {{ site.autorTemas | toJson | safe }},
+    "sameAs": {{ site.autorSameAs | toJson | safe }}
+  }
+}
+</script>
+
+<style>
+.sf-about{padding:34px 22px 42px;max-width:980px;margin:0 auto}.sf-about-head{margin-bottom:22px}.sf-about-kicker{font-size:.68rem;letter-spacing:.16em;color:var(--red-light);margin-bottom:8px}.sf-about-title{font-size:clamp(1.5rem,3vw,2.35rem);color:#fff;text-shadow:0 0 18px var(--blue-glow);margin:0}.sf-about-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.75fr);gap:16px}.sf-about-panel{border:1px solid var(--blue-main);background:rgba(0,2,8,.92);box-shadow:inset 0 0 28px rgba(18,102,255,.08);padding:20px}.sf-about-panel p{line-height:1.72;margin:0 0 15px;color:#c5dcff}.sf-about-panel p:last-child{margin-bottom:0}.sf-about-label{font-size:.62rem;letter-spacing:.14em;color:#fff;margin-bottom:12px}.sf-about-topics{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.sf-about-topic{border:1px solid rgba(18,102,255,.72);padding:6px 8px;font-size:.58rem;color:#a9cfff;background:rgba(18,102,255,.05)}.sf-socials{display:grid;gap:9px}.sf-social{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(124,179,255,.32);padding:11px 12px;background:rgba(3,7,16,.72);font-size:.68rem}.sf-social b{color:#fff;letter-spacing:.06em}.sf-social span{color:var(--red-light)}.sf-about-note{margin-top:15px;font-size:.61rem;line-height:1.55;color:#7897bd}.sf-about-back{margin-top:22px}@media(max-width:820px){.sf-about-grid{grid-template-columns:1fr}.sf-about{padding:26px 14px 34px}}
+</style>
+
+<section class="sf-about reveal from-up" id="sobre-sofirmolo">
+  <div class="sf-about-head">
+    <div class="sf-about-kicker">// IDENTIDAD · ARCHIVO · CANALES OFICIALES</div>
+    <h1 class="sf-about-title">SOBRE SOFIRMOLO</h1>
+  </div>
+
+  <div class="sf-about-grid">
+    <article class="sf-about-panel">
+      <div class="sf-about-label">[ SOBRE ESTE PROYECTO ]</div>
+      <p>Este sitio reúne el trabajo de <strong>SoFirMoLo</strong>, creador de contenido e investigador independiente. El archivo aborda temas vinculados con la Hispanidad, la historia, la religión, la filosofía y la política, junto con análisis críticos del gnosticismo y el ocultismo.</p>
+      <p>El proyecto se define como independiente: no funciona como órgano de ningún partido, movimiento u organización y no se presenta bajo una adscripción ideológica fija. Los contenidos reflejan investigaciones, análisis y opiniones desarrolladas a título propio.</p>
+      <p>Esta página tiene un propósito simple: describir el contenido del proyecto y reunir en un mismo lugar los perfiles oficiales desde los que se publica o conserva el material.</p>
+      <div class="sf-about-topics" aria-label="Temas principales">
+        <span class="sf-about-topic">HISPANIDAD</span>
+        <span class="sf-about-topic">HISTORIA</span>
+        <span class="sf-about-topic">RELIGIÓN</span>
+        <span class="sf-about-topic">FILOSOFÍA</span>
+        <span class="sf-about-topic">POLÍTICA</span>
+        <span class="sf-about-topic">GNOSTICISMO</span>
+        <span class="sf-about-topic">OCULTISMO</span>
+      </div>
+    </article>
+
+    <aside class="sf-about-panel" aria-label="Perfiles oficiales de SoFirMoLo">
+      <div class="sf-about-label">[ PERFILES OFICIALES ]</div>
+      <div class="sf-socials">
+        <a class="sf-social" href="https://www.youtube.com/@SoFirMoLo12" target="_blank" rel="me noopener noreferrer"><b>YOUTUBE</b><span>ABRIR →</span></a>
+        <a class="sf-social" href="https://odysee.com/@SoFirMolo:8" target="_blank" rel="me noopener noreferrer"><b>ODYSEE</b><span>ABRIR →</span></a>
+        <a class="sf-social" href="https://www.bitchute.com/channel/sofirmolo/" target="_blank" rel="me noopener noreferrer"><b>BITCHUTE</b><span>ABRIR →</span></a>
+        <a class="sf-social" href="https://www.facebook.com/SoFirMolo12" target="_blank" rel="me noopener noreferrer"><b>FACEBOOK</b><span>ABRIR →</span></a>
+      </div>
+      <p class="sf-about-note">Estos enlaces identifican las cuentas oficiales asociadas al proyecto SoFirMoLo.</p>
+    </aside>
+  </div>
+
+  <p class="sf-about-back"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+</section>

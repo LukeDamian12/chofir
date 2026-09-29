@@ -1,17 +1,52 @@
 ---
 layout: base.njk
 modo_lectura: true
-schemaType: "Article"
+schemaType: "ArticleLinked"
 ---
+{% set articuloAutor = author if author else site.autor %}
+{% set articuloDescripcion = description | default('Publicación escrita de SoFirMoLo.') %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ title | toJson | safe }},
+  "description": {{ articuloDescripcion | toJson | safe }},
+  "datePublished": {{ date | toJson | safe }},
+  "author": {% if articuloAutor == site.autor %}{
+    "@type": "Person",
+    "@id": {{ (site.url + site.autorUrl + '#person') | toJson | safe }},
+    "name": {{ site.autor | toJson | safe }},
+    "alternateName": {{ site.autorAlternateName | toJson | safe }},
+    "url": {{ (site.url + site.autorUrl) | toJson | safe }},
+    "sameAs": {{ site.autorSameAs | toJson | safe }}
+  }{% else %}{
+    "@type": "Person",
+    "name": {{ articuloAutor | toJson | safe }}
+  }{% endif %},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ (site.url + page.url) | toJson | safe }}
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": {{ (site.url + '/#website') | toJson | safe }},
+    "name": {{ site.nombre | toJson | safe }},
+    "url": {{ (site.url + '/') | toJson | safe }}
+  },
+  "inLanguage": "es",
+  "url": {{ (site.url + page.url) | toJson | safe }}
+}
+</script>
 <section class="section reveal from-left" id="articulo-detail">
   <div class="section-head"><h2 class="section-title" data-text="{{ title }}">{{ title }}</h2></div>
   {% set thumb = thumbnail or '/assets/thumbs/article.svg' %}
-  <div class="article-layout"><a class="article-cover" href="{{ thumb }}" target="_blank" rel="noopener"><img src="{{ thumb }}" alt="{{ title }}"><span class="thumb-shade"></span><span class="article-cover-label">ARTÍCULO</span></a><div class="article-body"><div class="meta">PUBLICACION ESCRITA{% if date %} · {{ date | fechaCorta }}{% endif %}{% if author %} · {{ author }}{% endif %}</div><h3>{{ title }}</h3><p>{{ description | default('Publicación escrita de SoFirMoLo.') }}</p></div></div>
+  <div class="article-layout"><a class="article-cover" href="{{ thumb }}" target="_blank" rel="noopener"><img src="{{ thumb }}" alt="{{ title }}"><span class="thumb-shade"></span><span class="article-cover-label">ARTÍCULO</span></a><div class="article-body"><div class="meta">PUBLICACION ESCRITA{% if date %} · {{ date | fechaCorta }}{% endif %} · AUTOR: {% if articuloAutor == site.autor %}<a href="{{ site.autorUrl }}" rel="author">{{ articuloAutor }}</a>{% else %}{{ articuloAutor }}{% endif %}</div><h3>{{ title }}</h3><p>{{ articuloDescripcion }}</p></div></div>
   <div class="article-body" style="margin-top:24px;">{{ content | safe }}</div>
   {% if tags %}
   <p style="margin-top:16px;">
     {% for t in tags %}{% if t not in ["videos","directos","articulos","recursos"] %}<a href="/tags/{{ t | slug }}/" class="ctr-link" style="margin-right:12px;">#{{ t }}</a>{% endif %}{% endfor %}
   </p>
   {% endif %}
-  <p style="margin-top:24px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
+  <p style="margin-top:24px;"><a href="{{ site.autorUrl }}" class="ctr-link" rel="author">SOBRE SOFIRMOLO →</a></p>
+  <p style="margin-top:12px;"><a href="/" class="ctr-link">← VOLVER AL INICIO</a></p>
 </section>

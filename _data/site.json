@@ -1,6 +1,24 @@
 {
   "url": "https://sofirmolo.com",
   "nombre": "SoFirMoLo",
-  "descripcion": "Sitio oficial de SoFirMoLo: archivo independiente de videos, directos, artículos y recursos sobre historia, religión, filosofía, geopolítica y actualidad.",
-  "autor": "SoFirMoLo"
+  "descripcion": "Sitio oficial de SoFirMoLo, investigador independiente y creador de contenido sobre Hispanidad, religión, historia, filosofía, política y gnosticismo.",
+  "autor": "SoFirMoLo",
+  "autorAlternateName": "SoFirMoLo 12",
+  "autorUrl": "/sobre-sofirmolo/",
+  "autorDescripcion": "Investigador independiente y creador de contenido sobre Hispanidad, historia, religión, filosofía, política, gnosticismo y ocultismo.",
+  "autorSameAs": [
+    "https://www.youtube.com/@SoFirMoLo12",
+    "https://odysee.com/@SoFirMolo:8",
+    "https://www.bitchute.com/channel/sofirmolo/",
+    "https://www.facebook.com/SoFirMolo12"
+  ],
+  "autorTemas": [
+    "Hispanidad",
+    "Historia",
+    "Religión",
+    "Filosofía",
+    "Política",
+    "Gnosticismo",
+    "Ocultismo"
+  ]
 }
