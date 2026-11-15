@@ -2,7 +2,7 @@
 title: Paraguay contra los Usureros
 description: |-
   El UENO BANK llevo a cabo una estafa contra el pueblo paraguayo. 
-  El hecho es una muestra de como funciona el putrefacto sistema financiero.
+  El hecho es una muestra de como funciona el putrefacto sistema financiero..
 date: 2026-11-07
 thumbnail: ''
 youtube: https://www.youtube.com/watch?v=AW3rD-8HE2I&t=126s
